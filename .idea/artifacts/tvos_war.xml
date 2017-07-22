@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="tvos:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="tvos.war">
+      <element id="artifact" artifact-name="tvos:war exploded" />
+    </root>
+  </artifact>
+</component>
