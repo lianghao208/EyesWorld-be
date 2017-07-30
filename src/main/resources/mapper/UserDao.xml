@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.tvos.dao.UserDao">
+
+  <!-- 对查询结果赋值给JavaBean（映射） -->
+  <resultMap type="User" id="UserResult">
+    <id column="id" jdbcType="INTEGER" property="id"/><!-- 主键属性 -->
+    <result column="username" jdbcType="VARCHAR" property="username"/><!-- 普通属性 -->
+    <result column="password" jdbcType="VARCHAR" property="password.encrypted"/>
+  </resultMap>
+
+  <select id="findUser" parameterType="long" resultMap="UserResult">
+    SELECT * FROM user WHERE id = #{id:INTEGER}
+  </select>
+
+
+  <delete id="deleteUser" parameterType="User">
+    DELETE FROM user WHERE id = #{id:INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="User" useGeneratedKeys="false">
+    INSERT INTO user
+    ( id,
+    username,
+    password
+    )
+    VALUES
+    ( #{id},
+    #{username,jdbcType=VARCHAR},
+    #{password.encrypted:VARCHAR}
+    )
+  </insert>
+
+  <update id="update" parameterType="User">
+    UPDATE user SET
+    username = #{username,jdbcType=VARCHAR},
+    password = #{password.encrypted,jdbcType=VARCHAR}
+    WHERE
+    id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--   用户名是否重复 -->
+  <select id="isUniqueUsername" parameterType="map" resultType="boolean">
+    SELECT (count(*) = 0)
+    FROM user
+    WHERE ((#{userId,jdbcType=BIGINT} IS NOT NULL AND id != #{userId,jdbcType=BIGINT}) OR #{userId,jdbcType=BIGINT} IS
+    NULL)  <!-- other than me -->
+    AND (username = #{username,jdbcType=VARCHAR})
+  </select>
+</mapper>

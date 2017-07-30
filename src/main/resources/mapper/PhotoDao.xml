@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.tvos.dao.PhotoDao">
+
+    <!-- 对查询结果赋值给JavaBean（映射） -->
+    <resultMap type="Photo" id="PhotoResult">
+        <id column="id" jdbcType="INTEGER" property="photoId"/><!-- 主键属性 -->
+        <result column="photo_name" jdbcType="VARCHAR" property="photoName"/><!-- 普通属性：字段名-字段类型-对象属性名 -->
+        <result column="album_name" jdbcType="VARCHAR" property="albumName"/>
+        <result column="album_id" jdbcType="INTEGER" property="albumId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="like_amount" jdbcType="INTEGER" property="likeAmount"/>
+        <result column="creation_time" jdbcType="INTEGER" property="createTime"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="modification_time" jdbcType="INTEGER" property="modificationTime"/>
+    </resultMap>
+
+    <!-- 景点相片 -->
+    <select id="getPhotoFromSpots" parameterType="java.util.Map" resultMap="PhotoResult">
+        SELECT
+            id,
+            photo_name,
+            album_id,
+            album_name,
+            user_id,
+            like_amount,
+            url,
+            creation_time,
+            modification_time,
+            url
+        FROM photo
+        WHERE album_id IN (
+            SELECT id
+            FROM album
+            WHERE city_id = (
+                SELECT id
+                FROM city
+                WHERE city_name = #{cityName}
+            ) AND province_id = (
+                SELECT id
+                FROM province
+                WHERE province_name = #{provinceName}
+            )AND city_id IS NOT NULL
+        ) AND album_id = #{albumId} AND id = #{photoId}
+    </select>
+
+    <!-- 大学相片 -->
+    <select id="getPhotoFromCollege" parameterType="java.util.Map" resultMap="PhotoResult">
+        SELECT
+            id,
+            photo_name,
+            album_id,
+            album_name,
+            user_id,
+            like_amount,
+            url,
+            creation_time,
+            modification_time,
+            url
+        FROM photo
+        WHERE album_id IN (
+            SELECT id
+            FROM album
+            WHERE province_id = (
+                SELECT id
+                FROM province
+                WHERE province_name = #{provinceName}
+            ) AND city_id IS NULL
+        ) AND album_id = #{albumId} AND id = #{photoId}
+    </select>
+
+    <!-- 用户相片 -->
+    <select id="getPhotoFromUserWork" parameterType="java.util.Map" resultMap="PhotoResult">
+        SELECT
+            id,
+            photo_name,
+            album_id,
+            album_name,
+            user_id,
+            like_amount,
+            url,
+            creation_time,
+            modification_time,
+            url
+        FROM photo
+        WHERE user_id = (
+            SELECT id
+            FROM user
+            WHERE username = #{userName} AND cookie_id = #{cookieId}
+        )
+    </select>
+
+    <!-- 用户收藏点赞照片 -->
+    <select id="getPhotoFromUserFavorite" parameterType="java.util.Map" resultMap="PhotoResult">
+        SELECT
+            id,
+            album_name,
+            city_id,
+            province_id,
+            visit_amount,
+            like_amount,
+            creation_time,
+            modification_time,
+            url
+        FROM album
+        WHERE id =
+              (
+                  SELECT photo_id
+                  FROM
+                      photo_like
+                  WHERE
+                      user_id
+                      =
+                      (
+                          SELECT id
+                          FROM
+                              user
+                          WHERE
+                              username
+                              =
+                              #{userName}
+                              AND cookie_id = #{cookieId}
+                      )
+              )
+    </select>
+</mapper>

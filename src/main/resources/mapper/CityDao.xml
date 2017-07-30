@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.tvos.dao.CityDao">
+
+  <!-- 对查询结果赋值给JavaBean（映射） -->
+  <resultMap type="City" id="CityResult">
+    <id column="id" jdbcType="INTEGER" property="id"/><!-- 主键属性 -->
+    <result column="city_name" jdbcType="VARCHAR" property="cityName"/><!-- 普通属性：字段名-字段类型-对象属性名 -->
+    <result column="province_id" jdbcType="INTEGER" property="provinceId"/>
+    <result column="spot_num" jdbcType="INTEGER" property="spotNum"/>
+    <result column="creation_time" jdbcType="INTEGER" property="createTime"/>
+    <result column="modification_time" jdbcType="INTEGER" property="modificationTime"/>
+  </resultMap>
+
+  <!-- 景点相册城市 -->
+  <select id="getCityList" parameterType="String" resultMap="CityResult">
+    SELECT city_name,spot_num,creation_time,modification_time FROM city WHERE province_id = (
+    SELECT id FROM province WHERE province_name = #{provinceName}
+    )
+  </select>
+
+  <!-- 返回景点相册数 -->
+  <select id="getSpotsNum" parameterType="String" resultType="int">
+    SELECT spot_num FROM city WHERE city_name = #{cityName}
+  </select>
+
+
+  <!-- 景点相册数加1 -->
+  <update id="addSpotsNum">
+    UPDATE city SET spot_num = spot_num+1
+  </update>
+
+  <!-- 景点相册数减1 -->
+  <update id="subSpotsNum">
+    UPDATE city SET spot_num = spot_num-1 WHERE spot_num > 0
+  </update>
+
+</mapper>

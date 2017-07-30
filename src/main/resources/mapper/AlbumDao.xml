@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.tvos.dao.AlbumDao">
+
+  <!-- 对查询结果赋值给JavaBean（映射） -->
+  <resultMap type="Album" id="AlbumResult">
+    <id column="id" jdbcType="INTEGER" property="albumId"/><!-- 主键属性 -->
+    <result column="album_name" jdbcType="VARCHAR" property="albumName"/><!-- 普通属性：字段名-字段类型-对象属性名 -->
+    <result column="city_id" jdbcType="INTEGER" property="cityId"/>
+    <result column="province_id" jdbcType="INTEGER" property="provinceId"/>
+    <result column="visit_amount" jdbcType="INTEGER" property="visitAmount"/>
+    <result column="like_amount" jdbcType="INTEGER" property="likeAmount"/>
+    <result column="creation_time" jdbcType="INTEGER" property="createTime"/>
+    <result column="url" jdbcType="VARCHAR" property="url"/>
+    <result column="modification_time" jdbcType="INTEGER" property="modificationTime"/>
+  </resultMap>
+
+  <!-- 景点相册 -->
+  <select id="getAlbumsFromSpots" parameterType="java.util.Map" resultMap="AlbumResult">
+    SELECT id,album_name,city_id,province_id,visit_amount,like_amount,creation_time,modification_time,url FROM album WHERE province_id = (
+    SELECT id FROM province WHERE province_name = #{provinceName}
+    ) AND city_id = ( SELECT id FROM city WHERE city_name = #{cityName})
+
+  </select>
+
+  <!-- 大学相册 -->
+  <select id="getAlbumsFromCollege" parameterType="String" resultMap="AlbumResult">
+    SELECT id,album_name,city_id,province_id,visit_amount,like_amount,creation_time,modification_time,url FROM album WHERE province_id = (
+    SELECT id FROM province WHERE province_name = #{provinceName}
+    )AND city_id IS NULL
+  </select>
+
+</mapper>
