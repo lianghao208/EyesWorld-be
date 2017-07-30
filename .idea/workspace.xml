@@ -2,85 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="657bda98-5ea9-46b7-bd75-c947c5abff5e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_2_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_1_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_4_2_2_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_4_2_2_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_4_2_2_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/api.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/constant/PageCodeEnum.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/controller/api/ApiController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dao/AlbumDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dao/CityDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dao/PhotoDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dao/ProvinceDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dao/UserDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dto/AlbumDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dto/CityDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dto/CollegeDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dto/CommentListDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dto/PhotoDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dto/ProvinceDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dto/UserDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/dto/UserInfoDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/entity/CommentList.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/AlbumService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/CityService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/CommentService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/PhotoService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/ProvinceService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/UserService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/impl/AlbumServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/impl/CityServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/impl/CommentServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/impl/PhotoServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/impl/ProvinceServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/service/impl/UserServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/mapper/AlbumDao.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/mapper/CityDao.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/mapper/PhotoDao.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/mapper/ProvinceDao.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserDao.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/properties/jdbc.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/properties/service.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/spring/securityConfig.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/org/tvos/dao/AlbumDaoTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/org/tvos/dao/CityDaoTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/org/tvos/dao/PhotoDaoTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/org/tvos/dao/ProvinceDaoTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/org/tvos/service/AlbumServiceTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/org/tvos/service/CityServiceTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/org/tvos/service/PhotoServiceTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/org/tvos/service/ProvinceServiceTest.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/jdbc.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/spring/spring-service.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/tvos_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/tvos_war_exploded.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/tvos/entity/Album.java" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/entity/Album.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/tvos/entity/City.java" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/entity/City.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/tvos/entity/Photo.java" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/entity/Photo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/tvos/entity/Province.java" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/entity/Province.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/tvos/entity/User.java" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/entity/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/tvos/entity/UserInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/tvos/entity/UserInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/spring/spring-web.xml" afterPath="$PROJECT_DIR$/src/main/resources/spring/spring-web.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/sql/init.sql" afterPath="$PROJECT_DIR$/src/main/sql/init.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tvos.iml" afterPath="$PROJECT_DIR$/tvos.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_1_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_2_7_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_1_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_2_7_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_1_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_2_7_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_1_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_2_7_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_1_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_2_7_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_1_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_2_7_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_1_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_2_7_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_1_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_2_7_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_1_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_2_7_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_1_7_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_2_7_RELEASE.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" afterPath="$PROJECT_DIR$/src/main/resources/spring/mybatis-config.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/spring/spring-dao.xml" afterPath="$PROJECT_DIR$/src/main/resources/spring/applicationContext.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -1103,7 +1025,7 @@
       <workItem from="1501203037778" duration="22941000" />
       <workItem from="1501288750755" duration="29453000" />
       <workItem from="1501382725594" duration="3215000" />
-      <workItem from="1501396251349" duration="542000" />
+      <workItem from="1501396251349" duration="734000" />
     </task>
     <task id="LOCAL-00001" summary="commit the original file">
       <created>1500718315297</created>
@@ -1119,7 +1041,14 @@
       <option name="project" value="LOCAL" />
       <updated>1501039026505</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="commit the original file">
+      <created>1501396849663</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1501396849663</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1155,7 +1084,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114029000" />
+    <option name="totallyTimeSpent" value="114221000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-8" width="1319" height="784" extended-state="6" />
@@ -1228,6 +1157,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="284">
           <caret line="168" column="0" lean-forward="false" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1235,6 +1165,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
           <caret line="9" column="37" lean-forward="true" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+          <folding>
+            <element signature="e#206#207#0" expanded="false" />
+            <element signature="e#262#263#0" expanded="false" />
+            <element signature="e#310#311#0" expanded="false" />
+            <element signature="e#341#342#0" expanded="false" />
+            <element signature="e#371#372#0" expanded="false" />
+            <element signature="e#414#415#0" expanded="false" />
+            <element signature="e#452#453#0" expanded="false" />
+            <element signature="e#486#487#0" expanded="false" />
+            <element signature="e#519#520#0" expanded="false" />
+            <element signature="e#568#569#0" expanded="false" />
+            <element signature="e#612#613#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1249,6 +1192,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="56" column="54" lean-forward="true" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="54" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1256,6 +1200,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="51" column="73" lean-forward="true" selection-start-line="51" selection-start-column="73" selection-end-line="51" selection-end-column="73" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#776#789#0" expanded="false" />
+            <element signature="e#1539#1552#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1270,6 +1219,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="87">
           <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <marker date="1501297821362" expanded="true" signature="865:932" ph="SELECT city_... city" />
+            <marker date="1501297821362" expanded="true" signature="865:1026" ph="SELECT city_... city" />
+            <marker date="1501297821362" expanded="true" signature="959:1020" ph="SELECT id FR... province" />
+            <marker date="1501297821362" expanded="true" signature="1131:1186" ph="SELECT spot_... city" />
+            <marker date="1501297821362" expanded="true" signature="1252:1289" ph="UPDATE city " />
+            <marker date="1501297821362" expanded="true" signature="1354:1410" ph="UPDATE city " />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1277,6 +1234,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1284,6 +1244,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="372">
           <caret line="26" column="43" lean-forward="true" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1291,6 +1254,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="12" column="24" lean-forward="true" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+          <folding>
+            <element signature="e#213#214#0" expanded="false" />
+            <element signature="e#244#245#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1305,6 +1272,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="334">
           <caret line="35" column="27" lean-forward="true" selection-start-line="25" selection-start-column="8" selection-end-line="35" selection-end-column="27" />
+          <folding>
+            <element signature="e#631#640#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1340,6 +1310,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-361">
           <caret line="14" column="30" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+          <folding>
+            <element signature="e#297#298#0" expanded="false" />
+            <element signature="e#341#342#0" expanded="false" />
+            <element signature="e#379#380#0" expanded="false" />
+            <element signature="e#415#416#0" expanded="false" />
+            <element signature="e#447#448#0" expanded="false" />
+            <element signature="e#497#498#0" expanded="false" />
+            <element signature="e#539#540#0" expanded="false" />
+            <element signature="e#575#576#0" expanded="false" />
+            <element signature="e#609#610#0" expanded="false" />
+            <element signature="e#661#662#0" expanded="false" />
+            <element signature="e#707#708#0" expanded="false" />
+            <element signature="e#742#743#0" expanded="false" />
+            <element signature="e#775#776#0" expanded="false" />
+            <element signature="e#825#826#0" expanded="false" />
+            <element signature="e#869#870#0" expanded="false" />
+            <element signature="e#899#900#0" expanded="false" />
+            <element signature="e#925#926#0" expanded="false" />
+            <element signature="e#963#964#0" expanded="false" />
+            <element signature="e#993#994#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1361,6 +1352,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="267">
           <caret line="24" column="72" lean-forward="true" selection-start-line="24" selection-start-column="72" selection-end-line="24" selection-end-column="72" />
+          <folding>
+            <marker date="1501308727500" expanded="true" signature="1101:1374" ph="SELECT city_... album" />
+            <marker date="1501308727500" expanded="true" signature="1240:1301" ph="SELECT id FR... province" />
+            <marker date="1501308727500" expanded="true" signature="1324:1373" ph="SELECT id FR... city" />
+            <marker date="1501308727500" expanded="true" signature="1493:1699" ph="SELECT city_... city" />
+            <marker date="1501308727500" expanded="true" signature="1493:1718" ph="SELECT album... album" />
+            <marker date="1501308727500" expanded="true" signature="1632:1693" ph="SELECT id FR... province" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1368,6 +1367,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1375,6 +1375,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="104" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1382,6 +1383,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="893">
           <caret line="47" column="22" lean-forward="true" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1389,6 +1393,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="31" column="39" lean-forward="true" selection-start-line="25" selection-start-column="12" selection-end-line="31" selection-end-column="39" />
+          <folding>
+            <element signature="e#613#623#0" expanded="false" />
+            <element signature="e#1300#1310#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1396,6 +1404,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="49" column="8" lean-forward="true" selection-start-line="49" selection-start-column="8" selection-end-line="50" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1403,6 +1412,43 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="29" column="29" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+          <folding>
+            <element signature="e#668#669#0" expanded="false" />
+            <element signature="e#711#712#0" expanded="false" />
+            <element signature="e#749#750#0" expanded="false" />
+            <element signature="e#784#785#0" expanded="false" />
+            <element signature="e#815#816#0" expanded="false" />
+            <element signature="e#863#864#0" expanded="false" />
+            <element signature="e#903#904#0" expanded="false" />
+            <element signature="e#939#940#0" expanded="false" />
+            <element signature="e#971#972#0" expanded="false" />
+            <element signature="e#1021#1022#0" expanded="false" />
+            <element signature="e#1063#1064#0" expanded="false" />
+            <element signature="e#1106#1107#0" expanded="false" />
+            <element signature="e#1145#1146#0" expanded="false" />
+            <element signature="e#1209#1210#0" expanded="false" />
+            <element signature="e#1265#1266#0" expanded="false" />
+            <element signature="e#1295#1296#0" expanded="false" />
+            <element signature="e#1321#1322#0" expanded="false" />
+            <element signature="e#1359#1360#0" expanded="false" />
+            <element signature="e#1389#1390#0" expanded="false" />
+            <element signature="e#1421#1422#0" expanded="false" />
+            <element signature="e#1448#1449#0" expanded="false" />
+            <element signature="e#1489#1490#0" expanded="false" />
+            <element signature="e#1521#1522#0" expanded="false" />
+            <element signature="e#1555#1556#0" expanded="false" />
+            <element signature="e#1588#1589#0" expanded="false" />
+            <element signature="e#1637#1638#0" expanded="false" />
+            <element signature="e#1681#1682#0" expanded="false" />
+            <element signature="e#1715#1716#0" expanded="false" />
+            <element signature="e#1748#1749#0" expanded="false" />
+            <element signature="e#1797#1798#0" expanded="false" />
+            <element signature="e#1841#1842#0" expanded="false" />
+            <element signature="e#1873#1874#0" expanded="false" />
+            <element signature="e#1900#1901#0" expanded="false" />
+            <element signature="e#1941#1942#0" expanded="false" />
+            <element signature="e#1973#1974#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1410,6 +1456,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="29" column="91" lean-forward="false" selection-start-line="29" selection-start-column="91" selection-end-line="29" selection-end-column="91" />
+          <folding>
+            <marker date="1501291973913" expanded="true" signature="878:965" ph="SELECT provi... province" />
+            <marker date="1501291973913" expanded="true" signature="1070:1099" ph="SELECT COUNT... province" />
+            <marker date="1501291973913" expanded="true" signature="1070:1120" ph="SELECT spot_... province" />
+            <marker date="1501291973913" expanded="true" signature="1070:1137" ph="SELECT spot_... province" />
+            <marker date="1501291973913" expanded="true" signature="1242:1329" ph="SELECT provi... province" />
+            <marker date="1501291973913" expanded="true" signature="1436:1468" ph="SELECT COUNT... province" />
+            <marker date="1501291973913" expanded="true" signature="1436:1506" ph="SELECT colle... province" />
+            <marker date="1501291973913" expanded="true" signature="1571:1612" ph="UPDATE provi... " />
+            <marker date="1501291973913" expanded="true" signature="1577:1586" ph="SELECT * FRO... province" />
+            <marker date="1501291973913" expanded="true" signature="1677:1737" ph="UPDATE provi... " />
+            <marker date="1501291973913" expanded="true" signature="1804:1851" ph="UPDATE provi... " />
+            <marker date="1501291973913" expanded="true" signature="1918:1987" ph="UPDATE provi... " />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1431,6 +1491,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-665">
           <caret line="74" column="84" lean-forward="true" selection-start-line="74" selection-start-column="84" selection-end-line="74" selection-end-column="84" />
+          <folding>
+            <element signature="e#953#954#0" expanded="false" />
+            <element signature="e#1014#1015#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1446,6 +1510,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="6" column="14" lean-forward="true" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1453,6 +1518,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="50" column="91" lean-forward="true" selection-start-line="50" selection-start-column="91" selection-end-line="50" selection-end-column="91" />
+          <folding>
+            <marker date="1501323571149" expanded="true" signature="1148:1834" ph="SELECT id, p... photo" />
+            <marker date="1501323571149" expanded="true" signature="1437:1755" ph="SELECT id FR... album" />
+            <marker date="1501323571149" expanded="true" signature="1437:1766" ph="SELECT id FR... album" />
+            <marker date="1501323571149" expanded="true" signature="1437:1778" ph="SELECT id FR... album" />
+            <marker date="1501323571149" expanded="true" signature="1516:1597" ph="SELECT id FR... city" />
+            <marker date="1501323571149" expanded="true" signature="1648:1741" ph="SELECT id FR... province" />
+            <marker date="1501323571149" expanded="true" signature="1968:2523" ph="SELECT id, p... photo" />
+            <marker date="1501323571149" expanded="true" signature="2257:2467" ph="SELECT id FR... album" />
+            <marker date="1501323571149" expanded="true" signature="2340:2433" ph="SELECT id FR... province" />
+            <marker date="1501323571149" expanded="true" signature="2658:3055" ph="SELECT id, p... photo" />
+            <marker date="1501323571149" expanded="true" signature="2945:3045" ph="SELECT id FR... user" />
+            <marker date="1501323571149" expanded="true" signature="3198:4006" ph="SELECT id, a... album" />
+            <marker date="1501323571149" expanded="true" signature="3488:3990" ph="SELECT photo... photo_like" />
+            <marker date="1501323571149" expanded="true" signature="3688:3966" ph="SELECT id FR... user" />
+          </folding>
         </state>
       </provider>
     </entry>
