@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.tvos.dao.QueryForTokenDao">
+
+    <!-- 对查询结果赋值给JavaBean（映射） -->
+<!--    <resultMap type="Token" id="TokenResult">
+        <id column="id" jdbcType="INTEGER" property="albumId"/>&lt;!&ndash; 主键属性 &ndash;&gt;
+        <result column="marker" jdbcType="VARCHAR" property="marker"/>&lt;!&ndash; 普通属性：字段名-字段类型-对象属性名 &ndash;&gt;
+        <result column="token" jdbcType="VARCHAR" property="token"/>
+        <result column="modification_time" jdbcType="INTEGER" property="modificationTime"/>
+    </resultMap>-->
+
+    <!-- 得到token -->
+    <select id="getToken" parameterType="String" resultType="String">
+        SELECT token
+        FROM token_holder
+        WHERE marker = #{marker}
+
+    </select>
+
+    <!-- 设置token -->
+    <insert id="setToken" parameterType="java.util.Map">
+        INSERT INTO token_holder (marker, token) VALUES (#{marker}, #{token})
+    </insert>
+
+
+    <!-- 删除token -->
+    <delete id="deleteToken" parameterType="String">
+        DELETE FROM token_holder
+        WHERE
+            marker = #{marker}
+
+    </delete>
+
+
+</mapper>

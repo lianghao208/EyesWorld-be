@@ -18,6 +18,8 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class PhotoDaoTest {
 
+
+
     @Autowired
     PhotoDao photoDao;
 
@@ -57,4 +59,70 @@ public class PhotoDaoTest {
         System.out.println(photoList);
     }
 
+    /**
+     * done
+     * @throws Exception
+     */
+    @Test
+    public void addPhotoForSpots() throws Exception {
+        Boolean isAdded = photoDao.addPhotoForSpots("cookie1",
+                "Mike",
+                "GD",
+                "foshan",
+                "家",
+                "电脑图",
+                "这是我的电脑",
+                "www.baidu.com");
+
+        System.out.println(isAdded);
+    }
+
+    /**
+     * done
+     * @throws Exception
+     */
+    @Test
+    public void addPhotoForCollege() throws Exception {
+        Boolean isAdded = photoDao.addPhotoForSpots("cookie1",
+                "Mike",
+                "GD",
+                "foshan",
+                "家",
+                "电脑图",
+                "这是我的电脑",
+                "www.baidu.com");
+
+        System.out.println(isAdded);
+    }
+
+    /**
+     * done
+     * @throws Exception
+     */
+    @Test
+    public void deletePhotoForSpots() throws Exception {
+        Boolean isDeleted = photoDao.deletePhotoForSpots("cookie1",
+                "Mike",
+                "GD",
+                "guangzhou",
+                "my album1",
+                "flower",
+                "");
+        System.out.println(isDeleted);
+    }
+
+    /**
+     * donw
+     * @throws Exception
+     */
+    @Test
+    public void deletePhotoForCollege() throws Exception {
+        Boolean isDeleted = photoDao.deletePhotoForCollege("cookie1",
+                "Mike",
+                "GD",
+                "my album1",
+                "flower",
+                "");
+        System.out.println(isDeleted);
+    }
 }

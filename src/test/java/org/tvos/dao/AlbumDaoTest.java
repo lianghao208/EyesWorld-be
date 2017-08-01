@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class AlbumDaoTest {
 
+
     @Autowired
     AlbumDao albumDao;
 
@@ -44,6 +45,44 @@ public class AlbumDaoTest {
         for(Album album:albumList){
             System.out.println(album);
         }
+    }
+
+    @Test
+    public void getAlbumsFromRecommend() throws Exception {
+    }
+
+    @Test
+    public void addAlbumFromSpots() throws Exception {
+            Boolean isAdded = albumDao.addAlbumFromSpots("GD","guangzhou","我的相册","www.baidu.com");
+            System.out.println(isAdded);
+    }
+
+    @Test
+    public void addAlbumFromCollege() throws Exception {
+        Boolean isAdded = albumDao.addAlbumFromCollege("GD","我的大学相册","www.baidu.com");
+        System.out.println(isAdded);
+    }
+
+    @Test
+    public void updateAlbumFromSpots() throws Exception {
+
+    }
+
+    @Test
+    public void updateAlbumFromCollege() throws Exception {
+    }
+
+    @Test
+    public void deleteAlbumFromSpots() throws Exception {
+
+        Boolean isAdded = albumDao.deleteAlbumFromSpots("GD","guangzhou","我的景点相册","www.baidu.com");
+        System.out.println(isAdded);
+    }
+
+    @Test
+    public void deleteAlbumFromCollege() throws Exception {
+        Boolean isAdded = albumDao.deleteAlbumFromCollege("GD","我的大学相册","www.baidu.com");
+        System.out.println(isAdded);
     }
 
 }

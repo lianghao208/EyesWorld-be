@@ -44,4 +44,29 @@ public interface PhotoService {
      * @return
      */
     List<PhotoDto> getPhotoFromUserFavorite(String cookieId, String userName);
+
+    /**
+     * 添加景点相片
+     * @param username
+     * @param albumName
+     * @param photoName
+     * @param photoDescription
+     * @param provinceName
+     * @param cityName
+     * @return
+     */
+    Boolean addPhotoFromSpots(String username,String albumName,String photoName,String photoDescription,String provinceName,String cityName,String url);
+
+    /**
+     * 添加高校相片
+     * @param username
+     * @param albumName
+     * @param photoName
+     * @param photoDescription
+     * @param provinceName
+     * @return
+     */
+    Boolean addPhotoFromCollege(String username,String albumName,String photoName,String photoDescription,String provinceName,String url);
+
+
 }

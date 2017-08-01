@@ -17,7 +17,7 @@ public class PhotoDto{
      "time":Number
      "isLast": Boolean
      */
-    private int photoId;
+    private Long photoId;
     private String username;
     private String photoName;
     private String photoDescription;
@@ -27,11 +27,11 @@ public class PhotoDto{
     private int createTime;
     private Boolean last;
 
-    public int getPhotoId() {
+    public Long getPhotoId() {
         return photoId;
     }
 
-    public void setPhotoId(int photoId) {
+    public void setPhotoId(Long photoId) {
         this.photoId = photoId;
     }
 

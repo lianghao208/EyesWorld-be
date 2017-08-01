@@ -2,8 +2,13 @@ package org.tvos.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.tvos.dao.AlbumDao;
+import org.tvos.dao.CityDao;
 import org.tvos.dao.PhotoDao;
+import org.tvos.dao.ProvinceDao;
 import org.tvos.dto.PhotoDto;
+import org.tvos.entity.Album;
 import org.tvos.entity.Photo;
 import org.tvos.service.PhotoService;
 
@@ -18,6 +23,14 @@ public class PhotoServiceImpl implements PhotoService {
 
     @Autowired
     PhotoDao photoDao;
+    @Autowired
+    AlbumDao albumDao;
+    @Autowired
+    CityDao cityDao;
+    @Autowired
+    ProvinceDao provinceDao;
+
+
 
     /**
      * "photoId":Number,
@@ -88,7 +101,7 @@ public class PhotoServiceImpl implements PhotoService {
 
     public List<PhotoDto> getPhotoFromUserFavorite(String cookieId, String userName) {
         List<PhotoDto> photoDtoList = new ArrayList<PhotoDto>();
-        List<Photo> photoList = photoDao.getPhotoFromUserWork(cookieId,userName);
+        List<Photo> photoList = photoDao.getPhotoFromUserFavorite(cookieId,userName);
         for(Photo p:photoList){
             PhotoDto photoDto = new PhotoDto();
             photoDto.setPhotoId(p.getPhotoId());
@@ -104,4 +117,54 @@ public class PhotoServiceImpl implements PhotoService {
         }
         return photoDtoList;
     }
+
+    /**
+     * 添加景点相片
+     * TODO 获取图片url地址
+     * @param username
+     * @param albumName
+     * @param photoName
+     * @param photoDescription
+     * @param provinceName
+     * @param cityName
+     * @return
+     */
+    @Transactional
+    public Boolean addPhotoFromSpots(String username,
+                                     String albumName,
+                                     String photoName,
+                                     String photoDescription,
+                                     String provinceName,
+                                     String cityName,
+                                     String url) {
+        Boolean isPhotoAdded = photoDao.addPhotoForSpots("",username,provinceName,cityName,albumName,photoName,photoDescription,url);
+        Boolean isAlbumAdded = albumDao.addAlbumFromSpots(provinceName,cityName,albumName,url);
+        Boolean isCityAdded = cityDao.addSpotsNum();
+        Boolean isProvinceAdded = provinceDao.addSpotsNum();
+        return isPhotoAdded && isAlbumAdded && isCityAdded && isProvinceAdded;
+    }
+
+    /**
+     * 添加高校相片
+     * TODO 获取图片url地址
+     * @param username
+     * @param albumName
+     * @param photoName
+     * @param photoDescription
+     * @param provinceName
+     * @return
+     */
+    @Transactional
+    public Boolean addPhotoFromCollege(String username,
+                                       String albumName,
+                                       String photoName,
+                                       String photoDescription,
+                                       String provinceName,
+                                       String url) {
+        Boolean isPhotoAdded = photoDao.addPhotoForCollege("",username,provinceName,albumName,photoName,photoDescription,url);
+        Boolean isAlbumAdded = albumDao.addAlbumFromCollege(provinceName,albumName,url);
+        Boolean isProvinceAdded = provinceDao.addCollegeNum();
+        return isPhotoAdded && isAlbumAdded && isProvinceAdded;
+    }
+
 }

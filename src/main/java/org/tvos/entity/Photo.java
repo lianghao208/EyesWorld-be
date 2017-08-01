@@ -5,12 +5,12 @@ package org.tvos.entity;
  */
 public class Photo {
 
-    private int albumId;
+    private Long albumId;
     private String albumName;
-    private int userId;
+    private Long userId;
     private int modificationTime;
 
-    private int photoId;
+    private Long photoId;
     private String username;
     private String photoName;
     private String photoDescription;
@@ -20,11 +20,11 @@ public class Photo {
     private int createTime;
     private Boolean last;
 
-    public int getAlbumId() {
+    public Long getAlbumId() {
         return albumId;
     }
 
-    public void setAlbumId(int albumId) {
+    public void setAlbumId(Long albumId) {
         this.albumId = albumId;
     }
 
@@ -36,11 +36,11 @@ public class Photo {
         this.albumName = albumName;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -52,11 +52,11 @@ public class Photo {
         this.modificationTime = modificationTime;
     }
 
-    public int getPhotoId() {
+    public Long getPhotoId() {
         return photoId;
     }
 
-    public void setPhotoId(int photoId) {
+    public void setPhotoId(Long photoId) {
         this.photoId = photoId;
     }
 

@@ -11,6 +11,7 @@
         <result column="photo_name" jdbcType="VARCHAR" property="photoName"/><!-- 普通属性：字段名-字段类型-对象属性名 -->
         <result column="album_name" jdbcType="VARCHAR" property="albumName"/>
         <result column="album_id" jdbcType="INTEGER" property="albumId"/>
+        <result column="photo_description" jdbcType="VARCHAR" property="photoDescription"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="like_amount" jdbcType="INTEGER" property="likeAmount"/>
         <result column="creation_time" jdbcType="INTEGER" property="createTime"/>
@@ -25,6 +26,7 @@
             photo_name,
             album_id,
             album_name,
+            photo_description,
             user_id,
             like_amount,
             url,
@@ -43,7 +45,7 @@
                 SELECT id
                 FROM province
                 WHERE province_name = #{provinceName}
-            )AND city_id IS NOT NULL
+            ) AND city_id IS NOT NULL
         ) AND album_id = #{albumId} AND id = #{photoId}
     </select>
 
@@ -54,6 +56,7 @@
             photo_name,
             album_id,
             album_name,
+            photo_description,
             user_id,
             like_amount,
             url,
@@ -75,55 +78,171 @@
     <!-- 用户相片 -->
     <select id="getPhotoFromUserWork" parameterType="java.util.Map" resultMap="PhotoResult">
         SELECT
-            id,
-            photo_name,
-            album_id,
-            album_name,
-            user_id,
-            like_amount,
-            url,
-            creation_time,
-            modification_time,
-            url
+        id,
+        photo_name,
+        album_id,
+        album_name,
+        photo_description
+        user_id,
+        like_amount,
+        url,
+        creation_time,
+        modification_time,
+        url
         FROM photo
         WHERE user_id = (
-            SELECT id
-            FROM user
-            WHERE username = #{userName} AND cookie_id = #{cookieId}
+        SELECT id
+        FROM user
+        WHERE username = #{userName}
+        <if test="url != null and url != ''">
+            AND cookie_id = #{cookieId}
+        </if>
         )
     </select>
 
     <!-- 用户收藏点赞照片 -->
     <select id="getPhotoFromUserFavorite" parameterType="java.util.Map" resultMap="PhotoResult">
         SELECT
-            id,
-            album_name,
-            city_id,
-            province_id,
-            visit_amount,
-            like_amount,
-            creation_time,
-            modification_time,
-            url
+        id,
+        album_name,
+        photo_description
+        city_id,
+        province_id,
+        visit_amount,
+        like_amount,
+        creation_time,
+        modification_time,
+        url
         FROM album
         WHERE id =
-              (
-                  SELECT photo_id
-                  FROM
-                      photo_like
-                  WHERE
-                      user_id
-                      =
-                      (
-                          SELECT id
-                          FROM
-                              user
-                          WHERE
-                              username
-                              =
-                              #{userName}
-                              AND cookie_id = #{cookieId}
-                      )
-              )
+        (
+        SELECT photo_id
+        FROM
+        photo_like
+        WHERE
+        user_id
+        =
+        (
+        SELECT id
+        FROM
+        user
+        WHERE
+        username
+        =
+        #{userName}
+        <if test="url != null and url != ''">
+            AND cookie_id = #{cookieId}
+        </if>
+        )
+        )
     </select>
+
+    <!-- 添加景点照片 -->
+    <insert id="addPhotoForSpots" parameterType="java.util.Map">
+        INSERT INTO photo (photo_name, photo_description, album_name, album_id, user_id, url) VALUES (
+            #{photoName}, #{photoDescription}, #{albumName},
+            (
+                SELECT id
+                FROM album
+                WHERE album_name = #{albumName}
+                      AND province_id = (
+                    SELECT id
+                    FROM province
+                    WHERE province_name = #{provinceName}
+                )
+                      AND city_id = (
+                    SELECT id
+                    FROM city
+                    WHERE city_name = #{cityName}
+                )
+            ),
+            (
+                SELECT id
+                FROM user
+                WHERE username = #{userName}
+            )
+            , #{url})
+
+    </insert>
+
+    <!-- 添加大学照片 -->
+    <insert id="addPhotoForCollege" parameterType="java.util.Map">
+        INSERT INTO photo (photo_name, photo_description, album_name, album_id, user_id, url) VALUES (
+            #{photoName}, #{photoDescription}, #{albumName},
+            (
+                SELECT id
+                FROM album
+                WHERE album_name = #{albumName}
+                      AND province_id = (
+                    SELECT id
+                    FROM province
+                    WHERE province_name = #{provinceName}
+                )
+            ),
+            (
+                SELECT id
+                FROM user
+                WHERE username = #{userName}
+            )
+            , #{url})
+    </insert>
+
+    <!-- 删除景点照片 -->
+    <delete id="deletePhotoForSpots" parameterType="java.util.Map">
+        DELETE FROM photo
+        WHERE
+        photo_name = #{photoName} AND
+        album_name = #{albumName} AND
+        album_id = (
+        SELECT id
+        FROM album
+        WHERE album_name = #{albumName}
+        AND province_id = (
+        SELECT id
+        FROM province
+        WHERE province_name = #{provinceName}
+        )
+        AND city_id = (
+        SELECT id
+        FROM city
+        WHERE city_name = #{cityName}
+        )
+        ) AND
+        user_id = (
+        SELECT id
+        FROM USER
+        WHERE username = #{userName}
+        )
+        <if test="url != null and url != ''">
+            AND url = #{url}
+        </if>
+    </delete>
+
+    <!-- 删除大学照片 -->
+    <delete id="deletePhotoForCollege" parameterType="java.util.Map">
+        DELETE FROM photo
+        WHERE
+        photo_name = #{photoName} AND
+        album_name = #{albumName} AND
+        album_id = (
+        SELECT id
+        FROM album
+        WHERE album_name = #{albumName}
+        AND province_id = (
+        SELECT id
+        FROM province
+        WHERE province_name = #{provinceName}
+        )
+
+        ) AND
+        user_id = (
+        SELECT id
+        FROM USER
+        WHERE username = #{userName}
+        )
+        <if test="url != null and url != ''">
+            AND url = #{url}
+        </if>
+
+    </delete>
 </mapper>
