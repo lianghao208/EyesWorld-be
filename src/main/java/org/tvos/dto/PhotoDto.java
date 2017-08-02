@@ -98,4 +98,19 @@ public class PhotoDto{
     public void setLast(Boolean last) {
         this.last = last;
     }
+
+    @Override
+    public String toString() {
+        return "PhotoDto{" +
+                "photoId=" + photoId +
+                ", username='" + username + '\'' +
+                ", photoName='" + photoName + '\'' +
+                ", photoDescription='" + photoDescription + '\'' +
+                ", url='" + url + '\'' +
+                ", like=" + like +
+                ", likeAmount=" + likeAmount +
+                ", createTime=" + createTime +
+                ", last=" + last +
+                '}';
+    }
 }

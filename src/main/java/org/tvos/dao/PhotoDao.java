@@ -41,32 +41,32 @@ public interface PhotoDao {
      * 用户照片
      *
      * @param cookieId
-     * @param userName
+     * @param username
      * @return
      */
-    List<Photo> getPhotoFromUserWork(@Param(value = "cookieId") String cookieId, @Param(value = "userName") String userName);
+    List<Photo> getPhotoFromUserWork(@Param(value = "cookieId") String cookieId, @Param(value = "username") String username);
 
     /**
      * 用户收藏点赞的照片
      *
      * @param cookieId
-     * @param userName
+     * @param username
      * @return
      */
-    List<Photo> getPhotoFromUserFavorite(@Param(value = "cookieId") String cookieId, @Param(value = "userName") String userName);
+    List<Photo> getPhotoFromUserFavorite(@Param(value = "cookieId") String cookieId, @Param(value = "username") String username);
 
     /**
      * 添加上传图片
      *
      * @param cookieId
-     * @param userName
+     * @param username
      * @param provinceName
      * @param cityName
      * @param albumName
      * @return
      */
     Boolean addPhotoForSpots(@Param(value = "cookieId") String cookieId,
-                             @Param(value = "userName") String userName,
+                             @Param(value = "username") String username,
                              @Param(value = "provinceName") String provinceName,
                              @Param(value = "cityName") String cityName,
                              @Param(value = "albumName") String albumName,
@@ -75,7 +75,7 @@ public interface PhotoDao {
                              @Param(value = "url") String url);
 
     Boolean addPhotoForCollege(@Param(value = "cookieId") String cookieId,
-                               @Param(value = "userName") String userName,
+                               @Param(value = "username") String username,
                                @Param(value = "provinceName") String provinceName,
                                @Param(value = "albumName") String albumName,
                                @Param(value = "photoName") String photoName,
@@ -85,7 +85,7 @@ public interface PhotoDao {
     /**
      * 用图片url来删除资源
      * @param cookieId
-     * @param userName
+     * @param username
      * @param provinceName
      * @param cityName
      * @param albumName
@@ -94,7 +94,7 @@ public interface PhotoDao {
      * @return
      */
     Boolean deletePhotoForSpots(@Param(value = "cookieId") String cookieId,
-                                @Param(value = "userName") String userName,
+                                @Param(value = "username") String username,
                                 @Param(value = "provinceName") String provinceName,
                                 @Param(value = "cityName") String cityName,
                                 @Param(value = "albumName") String albumName,
@@ -104,7 +104,7 @@ public interface PhotoDao {
     /**
      * 用图片url来删除资源
      * @param cookieId
-     * @param userName
+     * @param username
      * @param provinceName
      * @param albumName
      * @param photoName
@@ -112,7 +112,7 @@ public interface PhotoDao {
      * @return
      */
     Boolean deletePhotoForCollege(@Param(value = "cookieId") String cookieId,
-                                  @Param(value = "userName") String userName,
+                                  @Param(value = "username") String username,
                                   @Param(value = "provinceName") String provinceName,
                                   @Param(value = "albumName") String albumName,
                                   @Param(value = "photoName") String photoName,

@@ -31,11 +31,13 @@
   <!-- 景点相册数加1 -->
   <update id="addSpotsNum">
     UPDATE city SET spot_num = spot_num+1
+    WHERE city_name = #{cityName}
   </update>
 
   <!-- 景点相册数减1 -->
   <update id="subSpotsNum">
     UPDATE city SET spot_num = spot_num-1 WHERE spot_num > 0
+    AND city_name = #{cityName}
   </update>
 
 </mapper>

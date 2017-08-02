@@ -27,8 +27,12 @@ public class PhotoServiceTest {
      */
     @Test
     public void getPhotoFromSpots() throws Exception {
-        PhotoDto photoDto = photoService.getPhotoFromSpots("GD","guangzhou",Long.parseLong(String.valueOf(1)),Long.parseLong(String.valueOf(1)));
-        System.out.println(photoDto);
+        PhotoDto photoDto = photoService.getPhotoFromSpots("广东","潮州",Long.parseLong(String.valueOf(26)),Long.parseLong(String.valueOf(11)));
+        if(photoDto!=null) {
+            System.out.println(photoDto);
+        }else{
+            photoDto = new PhotoDto();
+        }
     }
 
     /**

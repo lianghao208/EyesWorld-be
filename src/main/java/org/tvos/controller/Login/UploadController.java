@@ -47,7 +47,7 @@ public class UploadController {
         //图片的服务器保存路径+文件名
         String path = dir.getPath() + File.separatorChar + photoFileName;
         //图片的url
-        String url = "/upload/"+ provinceName + cityName + userName + path;
+        String url = "/upload/"+ provinceName + "/" + cityName + "/" + userName + "/" + photoFileName;
         //创建图片文件
         File uploadFile = new File(path);
         System.out.println(photoName);

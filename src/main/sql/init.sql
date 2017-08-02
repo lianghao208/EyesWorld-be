@@ -2,6 +2,9 @@
 
 -- 数据库一定要设置好编码！！
 SET NAMES gb2312;
+SET character_set_database = utf8;
+SET character_set_server = utf8;
+
 -- 其它默认utf8
 
 
@@ -29,7 +32,7 @@ CREATE TABLE user(
   `username` VARCHAR(255),
   `password` VARCHAR(255),
   `cookie_id` VARCHAR(255),
-  `creation_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -37,7 +40,7 @@ CREATE TABLE user(
 CREATE TABLE user_info(
   `user_id` BIGINT,
   `gender` VARCHAR(16),
-  `creation_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 添加外键
@@ -51,7 +54,7 @@ CREATE TABLE user_photo(
   `photo_name` VARCHAR(255),
   `album_id` BIGINT,
   `album_name` VARCHAR(255),
-  `creation_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 添加外键
@@ -66,7 +69,7 @@ CREATE TABLE province(
   `province_name` VARCHAR(32),
   `spot_num` TINYINT DEFAULT 0,
   `college_num` TINYINT DEFAULT 0,
-  `creation_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -76,7 +79,7 @@ CREATE TABLE city(
   `city_name` VARCHAR(255),
   `province_id` INT,
   `spot_num` INT DEFAULT 0,
-  `creation_time` TIMESTAMP,
+  `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 添加外键
@@ -87,7 +90,7 @@ CREATE TABLE college(
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `college_name` VARCHAR(255) UNIQUE KEY ,
   `province_id` INT,
-  `creation_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY (college_name,province_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -101,7 +104,7 @@ CREATE TABLE album(
   `visit_amount` INT,
   `like_amount` INT,
   `url` VARCHAR(225),
-  `creation_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    UNIQUE KEY (album_name,city_id,province_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -114,12 +117,14 @@ alter table album add foreign key (`city_id`) references city(`id`) ON DELETE CA
 CREATE TABLE photo(
   `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
   `photo_name` VARCHAR(255),
-  `album_id` INT,
+  `photo_description` VARCHAR(255),
+  `album_id` BIGINT,
   `album_name` VARCHAR(255),
   `user_id` BIGINT,
+  `username` VARCHAR(255),
   `like_amount` INT,
   `url` VARCHAR(255),
-  `creation_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 加外键
@@ -131,7 +136,7 @@ CREATE TABLE photo_like(
   `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
   `photo_id` BIGINT,
   `user_id` BIGINT,
-  `creation_time` TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
+  `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 加外键
@@ -144,7 +149,7 @@ CREATE TABLE photo_comment(
   `photo_id` BIGINT,
   `user_id` BIGINT,
   `content` VARCHAR(255),
-  `creation_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 加外键
@@ -158,3 +163,17 @@ ON DELETE CASCADE;
 -- 数据表要统一编码
 
 alter table album convert to character set utf8;
+
+
+SELECT id FROM photo WHERE
+  album_id = (
+    SELECT id FROM album WHERE
+      province_id = (
+        SELECT id FROM province WHERE
+          province_name = '广东'
+      )
+      AND city_id IS NULL
+    LIMIT 0,1
+
+  )
+LIMIT 0 ,1

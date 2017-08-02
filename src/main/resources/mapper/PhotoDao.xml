@@ -4,11 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.tvos.dao.PhotoDao">
-
+    <!-- TODO 创建图片的绝对索引和相对索引的映射关系 -->
+    <!-- TODO 创建相册的绝对索引和相对索引的映射关系 -->
     <!-- 对查询结果赋值给JavaBean（映射） -->
     <resultMap type="Photo" id="PhotoResult">
         <id column="id" jdbcType="INTEGER" property="photoId"/><!-- 主键属性 -->
         <result column="photo_name" jdbcType="VARCHAR" property="photoName"/><!-- 普通属性：字段名-字段类型-对象属性名 -->
+        <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="album_name" jdbcType="VARCHAR" property="albumName"/>
         <result column="album_id" jdbcType="INTEGER" property="albumId"/>
         <result column="photo_description" jdbcType="VARCHAR" property="photoDescription"/>
@@ -19,40 +21,47 @@
         <result column="modification_time" jdbcType="INTEGER" property="modificationTime"/>
     </resultMap>
 
+    <sql id="CITYID" >
+        SELECT id
+        FROM city
+        WHERE city_name = #{cityName}
+    </sql>
+
     <!-- 景点相片 -->
     <select id="getPhotoFromSpots" parameterType="java.util.Map" resultMap="PhotoResult">
         SELECT
             id,
+            username,
             photo_name,
             album_id,
             album_name,
             photo_description,
             user_id,
             like_amount,
-            url,
             creation_time,
             modification_time,
             url
         FROM photo
-        WHERE album_id IN (
-            SELECT id
-            FROM album
-            WHERE city_id = (
-                SELECT id
-                FROM city
-                WHERE city_name = #{cityName}
-            ) AND province_id = (
-                SELECT id
-                FROM province
-                WHERE province_name = #{provinceName}
-            ) AND city_id IS NOT NULL
-        ) AND album_id = #{albumId} AND id = #{photoId}
+        WHERE
+            id = (
+            SELECT id FROM photo WHERE
+                album_id = (
+                    SELECT id FROM album WHERE
+                    city_id = (
+                        SELECT id FROM city WHERE
+                        city_name = #{cityName}
+                    )
+                    AND city_id IS NOT NULL
+                    LIMIT #{albumId},1
+                )
+         LIMIT #{photoId} ,1)
     </select>
 
     <!-- 大学相片 -->
     <select id="getPhotoFromCollege" parameterType="java.util.Map" resultMap="PhotoResult">
         SELECT
             id,
+            username,
             photo_name,
             album_id,
             album_name,
@@ -64,21 +73,28 @@
             modification_time,
             url
         FROM photo
-        WHERE album_id IN (
-            SELECT id
-            FROM album
-            WHERE province_id = (
-                SELECT id
-                FROM province
-                WHERE province_name = #{provinceName}
-            ) AND city_id IS NULL
-        ) AND album_id = #{albumId} AND id = #{photoId}
+        WHERE
+            id = (
+                SELECT id FROM photo WHERE
+                    album_id = (
+                        SELECT id FROM album WHERE
+                            province_id = (
+                                SELECT id FROM province WHERE
+                                    province_name = #{provinceName}
+                            )
+                            AND city_id IS NULL
+                        LIMIT #{albumId},1
+
+                    )
+                LIMIT #{photoId} ,1)
+
     </select>
 
     <!-- 用户相片 -->
     <select id="getPhotoFromUserWork" parameterType="java.util.Map" resultMap="PhotoResult">
         SELECT
         id,
+        username,
         photo_name,
         album_id,
         album_name,
@@ -93,7 +109,7 @@
         WHERE user_id = (
         SELECT id
         FROM user
-        WHERE username = #{userName}
+        WHERE username = #{username}
         <if test="url != null and url != ''">
             AND cookie_id = #{cookieId}
         </if>
@@ -104,6 +120,7 @@
     <select id="getPhotoFromUserFavorite" parameterType="java.util.Map" resultMap="PhotoResult">
         SELECT
         id,
+        username,
         album_name,
         photo_description
         city_id,
@@ -129,7 +146,7 @@
         WHERE
         username
         =
-        #{userName}
+        #{username}
         <if test="url != null and url != ''">
             AND cookie_id = #{cookieId}
         </if>
@@ -139,7 +156,7 @@
 
     <!-- 添加景点照片 -->
     <insert id="addPhotoForSpots" parameterType="java.util.Map">
-        INSERT INTO photo (photo_name, photo_description, album_name, album_id, user_id, url) VALUES (
+        INSERT INTO photo (photo_name, photo_description, album_name, album_id, user_id,username, url) VALUES (
             #{photoName}, #{photoDescription}, #{albumName},
             (
                 SELECT id
@@ -159,15 +176,16 @@
             (
                 SELECT id
                 FROM user
-                WHERE username = #{userName}
-            )
-            , #{url})
+                WHERE username = #{username}
+            ),
+            #{username},
+            #{url})
 
     </insert>
 
     <!-- 添加大学照片 -->
     <insert id="addPhotoForCollege" parameterType="java.util.Map">
-        INSERT INTO photo (photo_name, photo_description, album_name, album_id, user_id, url) VALUES (
+        INSERT INTO photo (photo_name, photo_description, album_name, album_id, user_id, username, url) VALUES (
             #{photoName}, #{photoDescription}, #{albumName},
             (
                 SELECT id
@@ -182,9 +200,10 @@
             (
                 SELECT id
                 FROM user
-                WHERE username = #{userName}
-            )
-            , #{url})
+                WHERE username = #{username}
+            ),
+            #{username},
+             #{url})
     </insert>
 
     <!-- 删除景点照片 -->
@@ -211,7 +230,7 @@
         user_id = (
         SELECT id
         FROM USER
-        WHERE username = #{userName}
+        WHERE username = #{username}
         )
         <if test="url != null and url != ''">
             AND url = #{url}
@@ -238,7 +257,7 @@
         user_id = (
         SELECT id
         FROM USER
-        WHERE username = #{userName}
+        WHERE username = #{username}
         )
         <if test="url != null and url != ''">
             AND url = #{url}

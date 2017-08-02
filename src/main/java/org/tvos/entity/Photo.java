@@ -123,4 +123,6 @@ public class Photo {
     public void setLast(Boolean last) {
         this.last = last;
     }
+
+
 }

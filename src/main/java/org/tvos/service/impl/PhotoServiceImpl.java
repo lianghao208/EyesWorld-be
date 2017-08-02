@@ -47,6 +47,7 @@ public class PhotoServiceImpl implements PhotoService {
     public PhotoDto getPhotoFromSpots(String provinceName, String cityName, Long albumId, Long photoId) {
         Photo photo = photoDao.getPhotoFromSpots(provinceName,cityName,albumId,photoId);
         PhotoDto photoDto = new PhotoDto();
+        if(photo!=null){
         photoDto.setPhotoId(photo.getPhotoId());
         photoDto.setUsername(photo.getUsername());
         photoDto.setPhotoName(photo.getPhotoName());
@@ -57,6 +58,9 @@ public class PhotoServiceImpl implements PhotoService {
         photoDto.setCreateTime(photo.getCreateTime());
         photoDto.setLast(photo.getLast());
         return photoDto;
+        }else{
+            return photoDto;
+        }
     }
 
     public PhotoDto getPhotoFromCollege(String provinceName, Long albumId, Long photoId) {

@@ -29,7 +29,7 @@ public class PhotoDaoTest {
      */
     @Test
     public void getPhotoFromSpots() throws Exception {
-        Photo photo = photoDao.getPhotoFromSpots("GD","guangzhou",Long.parseLong(String.valueOf(1)),Long.parseLong(String.valueOf(1)));
+        Photo photo = photoDao.getPhotoFromSpots("广东","佛山",Long.parseLong(String.valueOf(0)),Long.parseLong(String.valueOf(0)));
         System.out.println(photo);
     }
 
@@ -39,7 +39,7 @@ public class PhotoDaoTest {
      */
     @Test
     public void getPhotoFromCollege() throws Exception {
-        Photo photo = photoDao.getPhotoFromCollege("GD",Long.parseLong(String.valueOf(1)),Long.parseLong(String.valueOf(1)));
+        Photo photo = photoDao.getPhotoFromCollege("广东",Long.parseLong(String.valueOf(0)),Long.parseLong(String.valueOf(0)));
         System.out.println(photo);
     }
 
@@ -67,8 +67,8 @@ public class PhotoDaoTest {
     public void addPhotoForSpots() throws Exception {
         Boolean isAdded = photoDao.addPhotoForSpots("cookie1",
                 "Mike",
-                "GD",
-                "foshan",
+                "广东",
+                "佛山",
                 "家",
                 "电脑图",
                 "这是我的电脑",
@@ -85,8 +85,8 @@ public class PhotoDaoTest {
     public void addPhotoForCollege() throws Exception {
         Boolean isAdded = photoDao.addPhotoForSpots("cookie1",
                 "Mike",
-                "GD",
-                "foshan",
+                "广东",
+                "佛山",
                 "家",
                 "电脑图",
                 "这是我的电脑",
