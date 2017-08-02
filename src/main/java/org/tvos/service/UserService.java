@@ -10,4 +10,10 @@ public interface UserService {
     UserDto getUserDto(String cookie);
 
     UserInfoDto getUserInfoDto(String cookie, String username);
+
+    Boolean signup(String username,String password);
+
+    Boolean updatePassword(String username,String password);
+
+    Boolean usernameUsed(String username);
 }

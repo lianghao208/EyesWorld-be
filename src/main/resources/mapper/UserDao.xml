@@ -24,34 +24,36 @@
   <delete id="deleteUser" parameterType="User">
     DELETE FROM user WHERE id = #{id:INTEGER}
   </delete>
+  -->
 
-  <insert id="insert" parameterType="User" useGeneratedKeys="false">
+  <insert id="insert" parameterType="java.util.Map">
     INSERT INTO user
-    ( id,
+    (
     username,
     password
     )
     VALUES
-    ( #{id},
-    #{username,jdbcType=VARCHAR},
-    #{password.encrypted:VARCHAR}
+    (
+    #{username},
+    #{password}
     )
+    ON DUPLICATE KEY UPDATE password = #{password}
   </insert>
 
-  <update id="update" parameterType="User">
+  <update id="updatePassword" parameterType="java.util.Map">
     UPDATE user SET
-    username = #{username,jdbcType=VARCHAR},
-    password = #{password.encrypted,jdbcType=VARCHAR}
+    password = #{password}
     WHERE
-    id = #{id,jdbcType=INTEGER}
-  </update>-->
+    username = #{username}
+  </update>
 
-<!--  &lt;!&ndash;   用户名是否重复 &ndash;&gt;
+<!--   用户名是否重复-->
   <select id="uniqueUsername" parameterType="String" resultType="Boolean">
     SELECT (count(*) = 0)
     FROM user
-    WHERE ((#{userId,jdbcType=BIGINT} IS NOT NULL AND id != #{userId,jdbcType=BIGINT}) OR #{userId,jdbcType=BIGINT} IS
+    WHERE username = #{username}
+<!--    ((#{userId,jdbcType=BIGINT} IS NOT NULL AND id != #{userId,jdbcType=BIGINT}) OR #{userId,jdbcType=BIGINT} IS
     NULL)  &lt;!&ndash; other than me &ndash;&gt;
-    AND (username = #{username,jdbcType=VARCHAR})
-  </select>-->
+    AND (username = #{username,jdbcType=VARCHAR})-->
+  </select>
 </mapper>

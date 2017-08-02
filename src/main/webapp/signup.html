@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+    <script type="text/javascript">
+        function signupclicl() {
+            $.ajax({
+                url:"/signup/request",
+                type:"POST",
+                data:{
+                    "userName":$("#username").val(),
+                    "password":$("#password").val()
+                },
+                error:function (xhr, status, error) {
+                    alert("注册失败");
+                },
+                success:function(data,status){
+                    if(data.success==true){
+                        alert("注册成功");
+                    }
+                    else{
+                        alert("注册失败");
+                    }
+                },
+                timeout:50000
+            })
+        }
+        function checkname() {
+            $.ajax({
+                url:"/signup/check/"+$("#username").val(),
+                type:"GET",
+                success:function (data,status) {
+                    if(data.nameUsed==true){
+                        $("#checkname").text("");
+                    }
+                    else{
+                        $("#checkname").text("用户名已被使用");
+                    }
+                }
+            })
+        }
+    </script>
+    <title>Title</title>
+</head>
+<body>
+    <h1>注册</h1>
+    <form>
+        用户名<input type="text" id="username" onblur="checkname()"/><span id="checkname"></span>
+        密码<input type="password" id="password"/>
+        <button onclick="signupclicl()">注册</button>
+    </form>
+
+</body>
+</html>

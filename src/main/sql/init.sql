@@ -29,7 +29,7 @@ CREATE TABLE token_holder(
 -- 用户登录表
 CREATE TABLE user(
   `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
-  `username` VARCHAR(255),
+  `username` VARCHAR(255) UNIQUE ,
   `password` VARCHAR(255),
   `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -164,15 +164,5 @@ ON DELETE CASCADE;
 alter table album convert to character set utf8;
 
 
-SELECT id FROM photo WHERE
-  album_id = (
-    SELECT id FROM album WHERE
-      province_id = (
-        SELECT id FROM province WHERE
-          province_name = '广东'
-      )
-      AND city_id IS NULL
-    LIMIT 0,1
-
-  )
-LIMIT 0 ,1
+-- 插入独立约束时
+INSERT INTO TABLE (a,c) VALUES (1,3),(1,7) ON DUPLICATE KEY UPDATE c=VALUES(c);
