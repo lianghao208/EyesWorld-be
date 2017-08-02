@@ -45,7 +45,7 @@ public class ProvinceDaoTest {
      */
     @Test
     public void addSpotsNum() throws Exception {
-        System.out.println(provinceDao.addSpotsNum());
+        System.out.println(provinceDao.addSpotsNum("广东","珠海"));
     }
 
     /**
@@ -54,7 +54,7 @@ public class ProvinceDaoTest {
      */
     @Test
     public void subSpotsNum() throws Exception {
-        System.out.println(provinceDao.subSpotsNum());
+        System.out.println(provinceDao.subSpotsNum("广东","珠海"));
     }
 
     /**
@@ -63,7 +63,7 @@ public class ProvinceDaoTest {
      */
     @Test
     public void addCollegeNum() throws Exception {
-        System.out.println(provinceDao.addCollegeNum());
+        System.out.println(provinceDao.addCollegeNum("广东"));
     }
 
     /**
@@ -72,7 +72,7 @@ public class ProvinceDaoTest {
      */
     @Test
     public void subCollegeNum() throws Exception {
-        System.out.println(provinceDao.subCollegeNum());
+        System.out.println(provinceDao.subCollegeNum("广东"));
     }
 
 

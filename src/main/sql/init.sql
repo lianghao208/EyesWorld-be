@@ -31,7 +31,6 @@ CREATE TABLE user(
   `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
   `username` VARCHAR(255),
   `password` VARCHAR(255),
-  `cookie_id` VARCHAR(255),
   `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

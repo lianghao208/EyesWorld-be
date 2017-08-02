@@ -9,10 +9,14 @@
   <resultMap type="User" id="UserResult">
     <id column="id" jdbcType="INTEGER" property="id"/><!-- 主键属性 -->
     <result column="username" jdbcType="VARCHAR" property="username"/><!-- 普通属性 -->
-    <result column="password" jdbcType="VARCHAR" property="password.encrypted"/>
+    <result column="password" jdbcType="VARCHAR" property="password"/>
   </resultMap>
 
-  <select id="findUser" parameterType="long" resultMap="UserResult">
+  <select id="getPassword" parameterType="String" resultType="String">
+    SELECT password FROM user WHERE username = #{username}
+  </select>
+
+<!--  <select id="findUser" parameterType="long" resultMap="UserResult">
     SELECT * FROM user WHERE id = #{id:INTEGER}
   </select>
 
@@ -40,14 +44,14 @@
     password = #{password.encrypted,jdbcType=VARCHAR}
     WHERE
     id = #{id,jdbcType=INTEGER}
-  </update>
+  </update>-->
 
-  <!--   用户名是否重复 -->
-  <select id="isUniqueUsername" parameterType="map" resultType="boolean">
+<!--  &lt;!&ndash;   用户名是否重复 &ndash;&gt;
+  <select id="uniqueUsername" parameterType="String" resultType="Boolean">
     SELECT (count(*) = 0)
     FROM user
     WHERE ((#{userId,jdbcType=BIGINT} IS NOT NULL AND id != #{userId,jdbcType=BIGINT}) OR #{userId,jdbcType=BIGINT} IS
-    NULL)  <!-- other than me -->
+    NULL)  &lt;!&ndash; other than me &ndash;&gt;
     AND (username = #{username,jdbcType=VARCHAR})
-  </select>
+  </select>-->
 </mapper>

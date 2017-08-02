@@ -22,7 +22,7 @@ public interface CityDao {
      */
     int getSpotsNum(String cityName);
 
-    Boolean addSpotsNum();
+    Boolean addSpotsNum(String cityName);
 
-    Boolean subSpotsNum();
+    Boolean subSpotsNum(String cityName);
 }

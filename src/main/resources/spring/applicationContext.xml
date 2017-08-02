@@ -96,11 +96,14 @@
 
     </security:http>
     <security:authentication-manager>
-        <security:authentication-provider>
+        <security:authentication-provider user-service-ref="customUserDetailsServiceImpl"/>
+
+        <!--<security:authentication-provider>
             <security:user-service>
+
                 <security:user name="admin" authorities="admin" password="abc"/>
             </security:user-service>
-        </security:authentication-provider>
+        </security:authentication-provider>-->
     </security:authentication-manager>
 
 </beans>

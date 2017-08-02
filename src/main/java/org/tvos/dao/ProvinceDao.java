@@ -1,5 +1,6 @@
 package org.tvos.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.tvos.dto.ProvinceDto;
 import org.tvos.entity.Province;
 
@@ -26,11 +27,11 @@ public interface ProvinceDao {
 
     int getCollegeNum(String provinceName);
 
-    Boolean addSpotsNum();
+    Boolean addSpotsNum(@Param(value="provinceName") String provinceName,@Param(value="cityName") String cityName);
 
-    Boolean subSpotsNum();
+    Boolean subSpotsNum(@Param(value="provinceName") String provinceName,@Param(value="cityName")String cityName);
 
-    Boolean addCollegeNum();
+    Boolean addCollegeNum(@Param(value="provinceName") String provinceName);
 
-    Boolean subCollegeNum();
+    Boolean subCollegeNum(@Param(value="provinceName")String provinceName);
 }

@@ -1,5 +1,6 @@
 package org.tvos.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.tvos.dto.CityDto;
 import org.tvos.dto.ProvinceDto;
 
@@ -17,4 +18,5 @@ public interface ProvinceService {
     List<ProvinceDto> getProvincesForSpots();
 
     List<ProvinceDto> getProvincesForCollege();
+
 }

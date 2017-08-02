@@ -143,8 +143,8 @@ public class PhotoServiceImpl implements PhotoService {
                                      String url) {
         Boolean isPhotoAdded = photoDao.addPhotoForSpots("",username,provinceName,cityName,albumName,photoName,photoDescription,url);
         Boolean isAlbumAdded = albumDao.addAlbumFromSpots(provinceName,cityName,albumName,url);
-        Boolean isCityAdded = cityDao.addSpotsNum();
-        Boolean isProvinceAdded = provinceDao.addSpotsNum();
+        Boolean isCityAdded = cityDao.addSpotsNum(cityName);
+        Boolean isProvinceAdded = provinceDao.addSpotsNum(provinceName,cityName);
         return isPhotoAdded && isAlbumAdded && isCityAdded && isProvinceAdded;
     }
 
@@ -167,7 +167,7 @@ public class PhotoServiceImpl implements PhotoService {
                                        String url) {
         Boolean isPhotoAdded = photoDao.addPhotoForCollege("",username,provinceName,albumName,photoName,photoDescription,url);
         Boolean isAlbumAdded = albumDao.addAlbumFromCollege(provinceName,albumName,url);
-        Boolean isProvinceAdded = provinceDao.addCollegeNum();
+        Boolean isProvinceAdded = provinceDao.addCollegeNum(provinceName);
         return isPhotoAdded && isAlbumAdded && isProvinceAdded;
     }
 

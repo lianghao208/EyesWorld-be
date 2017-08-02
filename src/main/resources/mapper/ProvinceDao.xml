@@ -52,14 +52,14 @@
     </select>
 
     <!-- 景点相册数加1 -->
-    <update id="addSpotsNum">
+    <update id="addSpotsNum" parameterType="java.util.Map">
         UPDATE province
         SET spot_num = spot_num + 1
         WHERE province_name = #{provinceName}
     </update>
 
     <!-- 景点相册数减1 -->
-    <update id="subSpotsNum">
+    <update id="subSpotsNum" parameterType="java.util.Map">
         UPDATE province
         SET spot_num = spot_num - 1
         WHERE spot_num > 0
@@ -67,14 +67,14 @@
     </update>
 
     <!-- 高校相册数加1 -->
-    <update id="addCollegeNum">
+    <update id="addCollegeNum" parameterType="java.util.Map">
         UPDATE province
         SET college_num = college_num + 1
         WHERE province_name = #{provinceName}
     </update>
 
     <!-- 高校相册数减1 -->
-    <update id="subCollegeNum">
+    <update id="subCollegeNum" parameterType="java.util.Map">
         UPDATE province
         SET college_num = college_num - 1
         WHERE college_num > 0

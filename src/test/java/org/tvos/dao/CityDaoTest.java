@@ -51,7 +51,7 @@ public class CityDaoTest {
      */
     @Test
     public void addSpotsNum() throws Exception {
-        System.out.println(cityDao.addSpotsNum());
+        System.out.println(cityDao.addSpotsNum("珠海"));
     }
 
     /**
@@ -60,7 +60,7 @@ public class CityDaoTest {
      */
     @Test
     public void subSpotsNum() throws Exception {
-        System.out.println(cityDao.subSpotsNum());
+        System.out.println(cityDao.subSpotsNum("珠海"));
     }
 
 }

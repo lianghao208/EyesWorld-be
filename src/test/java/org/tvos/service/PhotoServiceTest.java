@@ -18,6 +18,23 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class PhotoServiceTest {
 
+    @Test
+    public void addPhotoFromSpots() throws Exception {
+
+        Boolean isAdded = photoService.addPhotoFromSpots("Mike",
+                "相册",
+                "相片",
+                "678",
+                "广东",
+                "珠海",
+                        "www.123.com");
+        System.out.println(isAdded);
+    }
+
+    @Test
+    public void addPhotoFromCollege() throws Exception {
+    }
+
     @Autowired
     PhotoService photoService;
 
