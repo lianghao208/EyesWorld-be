@@ -103,9 +103,9 @@ public class PhotoServiceImpl implements PhotoService {
         return photoDtoList;
     }
 
-    public List<PhotoDto> getPhotoFromUserFavorite(String cookieId, String userName) {
+    public List<PhotoDto> getPhotoFromUserFavorite(String cookieId, String username) {
         List<PhotoDto> photoDtoList = new ArrayList<PhotoDto>();
-        List<Photo> photoList = photoDao.getPhotoFromUserFavorite(cookieId,userName);
+        List<Photo> photoList = photoDao.getPhotoFromUserFavorite(cookieId,username);
         for(Photo p:photoList){
             PhotoDto photoDto = new PhotoDto();
             photoDto.setPhotoId(p.getPhotoId());

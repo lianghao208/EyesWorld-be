@@ -8,10 +8,10 @@
             $.ajax({
                 url:"/signup/request",
                 type:"POST",
-                data:{
+                data:"userName="+$("#username").val()+"&password="+$("#password").val()/*{
                     "userName":$("#username").val(),
                     "password":$("#password").val()
-                },
+                }*/,
                 error:function (xhr, status, error) {
                     alert("注册失败");
                 },

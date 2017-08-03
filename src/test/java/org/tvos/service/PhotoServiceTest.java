@@ -58,7 +58,7 @@ public class PhotoServiceTest {
      */
     @Test
     public void getPhotoFromCollege() throws Exception {
-        PhotoDto photoDto = photoService.getPhotoFromCollege("GD",Long.parseLong(String.valueOf(1)),Long.parseLong(String.valueOf(1)));
+        PhotoDto photoDto = photoService.getPhotoFromCollege("广东",Long.parseLong(String.valueOf(0)),Long.parseLong(String.valueOf(0)));
         if(photoDto!=null) {
             System.out.println(photoDto);
         }else{
@@ -69,13 +69,13 @@ public class PhotoServiceTest {
 
     @Test
     public void getPhotoFromUserWork() throws Exception {
-        List<PhotoDto> photoDtoList = photoService.getPhotoFromUserWork("cookie1","Mike");
+        List<PhotoDto> photoDtoList = photoService.getPhotoFromUserWork("","Mike");
         System.out.println(photoDtoList);
     }
 
     @Test
     public void getPhotoFromUserFavorite() throws Exception {
-        List<PhotoDto> photoDtoList = photoService.getPhotoFromUserFavorite("cookie1","Mike");
+        List<PhotoDto> photoDtoList = photoService.getPhotoFromUserFavorite("","Mike");
         System.out.println(photoDtoList);
     }
 

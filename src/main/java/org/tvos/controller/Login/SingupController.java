@@ -26,11 +26,15 @@ public class SingupController {
     @RequestMapping(value = "/request",method= RequestMethod.POST)
     public Map<String,Boolean> singup(HttpServletRequest request){
 
+        Map<String,Boolean> signupSuccessMap = new HashMap<String, Boolean>();
         String username = request.getParameter("userName");
         String password = request.getParameter("password");
-        //TODO 将用户名密码插入数据库
+        if(!userService.usernameUsed(username)){//判断用户名密码是否重复
+            signupSuccessMap.put("success",false);
+            return signupSuccessMap;
+        }
+        //将用户名密码插入数据库
         Boolean signupSuccess = userService.signup(username,password);
-        Map<String,Boolean> signupSuccessMap = new HashMap<String, Boolean>();
         signupSuccessMap.put("success",signupSuccess);
         return signupSuccessMap;
     }

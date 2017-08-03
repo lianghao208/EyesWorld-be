@@ -98,21 +98,17 @@
         photo_name,
         album_id,
         album_name,
-        photo_description
+        photo_description,
         user_id,
         like_amount,
         url,
         creation_time,
-        modification_time,
-        url
+        modification_time
         FROM photo
         WHERE user_id = (
         SELECT id
         FROM user
         WHERE username = #{username}
-        <if test="url != null and url != ''">
-            AND cookie_id = #{cookieId}
-        </if>
         )
     </select>
 
@@ -121,16 +117,16 @@
         SELECT
         id,
         username,
+        user_id,
+        photo_name,
+        album_id,
         album_name,
-        photo_description
-        city_id,
-        province_id,
-        visit_amount,
+        photo_description,
         like_amount,
         creation_time,
         modification_time,
         url
-        FROM album
+        FROM photo
         WHERE id =
         (
         SELECT photo_id
@@ -147,9 +143,6 @@
         username
         =
         #{username}
-        <if test="url != null and url != ''">
-            AND cookie_id = #{cookieId}
-        </if>
         )
         )
     </select>

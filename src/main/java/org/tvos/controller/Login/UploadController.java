@@ -1,7 +1,10 @@
 package org.tvos.controller.Login;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +12,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.tvos.service.PhotoService;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/upload")
@@ -81,7 +85,7 @@ public class UploadController {
             dir.mkdir();
         }
         //图片文件名
-        String photoFileName = photoName + "%%" + System.currentTimeMillis();
+        String photoFileName = photoName + "--" + System.currentTimeMillis();
         //图片的服务器保存路径+文件名
         String path = dir.getPath() + File.separatorChar + photoFileName;
         //图片的url
@@ -94,21 +98,22 @@ public class UploadController {
         photoService.addPhotoFromCollege(
                 userName,
                 albumName,
-                photoName,
+                photoFileName,
                 photoDesc,
                 provinceName,
                 url);
         return new ResponseEntity(HttpStatus.OK);
 
     }
-/*
-    @RequestMapping(value = "/downloadtest",method = RequestMethod.GET)
-    public ResponseEntity<?> fileDownload() throws IOException{
-        File dir = new File("C:\\uploadtest\\sad");
+
+    @RequestMapping(value = "/{photoName}",method = RequestMethod.GET)
+    public ResponseEntity<?> fileDownload(
+            @PathVariable(value = "photoName") String photoName) throws IOException {
+        File dir = new File("C:\\upload\\spotsPhoto\\"+photoName);
         HttpHeaders h=new HttpHeaders();
         h.setContentType(MediaType.MULTIPART_FORM_DATA);
         //h.setContentDispositionFormData("attachment",dir.getCanonicalPath());
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(dir),h,HttpStatus.OK);
     }
-*/
+
 }

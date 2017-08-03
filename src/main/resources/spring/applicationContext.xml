@@ -83,7 +83,8 @@
     <security:http>
         <security:intercept-url pattern= "/tvhome.html" access="isAuthenticated()"/>
         <security:intercept-url pattern="/uploadtest.html" access="isAuthenticated()"/>
-        <security:form-login login-page="/login.html" login-processing-url="/p_login"
+        <security:intercept-url pattern="/provinces/cities/**/like" access="isAuthenticated()"/>
+        <security:form-login login-page="/" login-processing-url="/p_login"
                              authentication-success-forward-url="/success.html"
                              authentication-failure-url="/fail.html"/>
         <security:remember-me key="qwer" remember-me-parameter="remember-me" remember-me-cookie="sfnfncfs"/>
