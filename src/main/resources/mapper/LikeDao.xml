@@ -6,9 +6,9 @@
 <mapper namespace="org.tvos.dao.LikeDao">
 
     <!-- 对查询结果赋值给JavaBean（映射） -->
-
+    <!-- TODO 区分景点图片点赞和评论图片点赞 -->
     <!-- 判断是否点赞:是false 否true -->
-    <select id="liked" parameterType="java.util.Map" resultType="Boolean">
+    <select id="spotsLiked" parameterType="java.util.Map" resultType="Boolean">
         SELECT (count(*) = 0)
         FROM photo_like
         WHERE photo_id = (
@@ -36,8 +36,36 @@
 
     </select>
 
+    <select id="collegeLiked" parameterType="java.util.Map" resultType="Boolean">
+        SELECT (count(*) = 0)
+        FROM photo_like
+        WHERE photo_id = (
+            SELECT id
+            FROM photo
+            WHERE
+                album_id = (
+                    SELECT id
+                    FROM album
+                    WHERE
+                        province_id = (
+                            SELECT id
+                            FROM province
+                            WHERE
+                                province_name = #{provinceName}
+                        )
+                        AND city_id IS NULL
+                    LIMIT #{albumId}, 1
+                )
+            LIMIT #{photoId}, 1
+        ) AND user_id = (
+            SELECT id
+            FROM user
+            WHERE username = #{username})
 
-    <insert id="likeClick" parameterType="java.util.Map">
+    </select>
+
+
+    <insert id="spotsLikeClick" parameterType="java.util.Map">
         INSERT INTO photo_like (photo_id, user_id) VALUES (
             (
                 SELECT id
@@ -65,7 +93,35 @@
         )
     </insert>
 
-    <delete id="likeCancel" parameterType="java.util.Map">
+    <insert id="collegeLikeClick" parameterType="java.util.Map">
+        INSERT INTO photo_like (photo_id, user_id) VALUES (
+            (
+                SELECT id
+                FROM photo
+                WHERE
+                    album_id = (
+                        SELECT id
+                        FROM album
+                        WHERE
+                            province_id = (
+                                SELECT id
+                                FROM province
+                                WHERE
+                                    province_name = #{provinceName}
+                            )
+                            AND city_id IS NULL
+                        LIMIT #{albumId}, 1
+                    )
+                LIMIT #{photoId}, 1
+            ),
+            (
+                SELECT id
+                FROM user
+                WHERE username = #{username})
+        )
+    </insert>
+
+    <delete id="spotsLikeCancel" parameterType="java.util.Map">
         DELETE FROM photo_like
         WHERE photo_id = (
             SELECT id
@@ -86,11 +142,40 @@
                 )
             LIMIT #{photoId}, 1
         ) AND
-        user_id =
-        (
-        SELECT id
-        FROM user
-        WHERE username = #{username})
+              user_id =
+              (
+                  SELECT id
+                  FROM user
+                  WHERE username = #{username})
+
+    </delete>
+
+    <delete id="collegeLikeCancel" parameterType="java.util.Map">
+        DELETE FROM photo_like
+        WHERE photo_id = (
+            SELECT id
+            FROM photo
+            WHERE
+                album_id = (
+                    SELECT id
+                    FROM album
+                    WHERE
+                        province_id = (
+                            SELECT id
+                            FROM province
+                            WHERE
+                                province_name = #{provinceName}
+                        )
+                        AND city_id IS NULL
+                    LIMIT #{albumId}, 1
+                )
+            LIMIT #{photoId}, 1
+        ) AND
+              user_id =
+              (
+                  SELECT id
+                  FROM user
+                  WHERE username = #{username})
 
     </delete>
 

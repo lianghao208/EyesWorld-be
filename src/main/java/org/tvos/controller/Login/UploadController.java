@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * TODO 用户上传高校图片
+ */
 @Controller
 @RequestMapping("/upload")
 public class UploadController {
@@ -22,7 +25,7 @@ public class UploadController {
     PhotoService photoService;
 
     /**
-     * 用户景点上传图片
+     * 用户景点上传景点图片
      * TODO 确定图片的url地址
      *
      * @param file

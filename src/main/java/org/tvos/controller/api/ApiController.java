@@ -1,8 +1,10 @@
 package org.tvos.controller.api;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -16,6 +18,7 @@ import org.tvos.service.*;
 import javax.annotation.Resource;
 import javax.annotation.Resources;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +77,7 @@ public class ApiController {
      * TODO 分页功能
      */
     @RequestMapping(value = "/provinces/cities/{provinceName}/{cityName}/spots", method = RequestMethod.GET)
-    public List<AlbumDto> albumList(@PathVariable("provinceName") String provinceName,
+    public List<AlbumDto> albumFromSpotsList(@PathVariable("provinceName") String provinceName,
                                     @PathVariable("cityName") String cityName) {
         //TODO 需要对相册分页
         // businessDto.getPage().setPageNumber(businessSearchNumber);
@@ -108,7 +111,7 @@ public class ApiController {
      * TODO 分页功能
      */
     @RequestMapping(value = "/provinces/college/{provinceName}", method = RequestMethod.GET)
-    public List<AlbumDto> orderlist(@PathVariable("provinceName") String provinceName) {
+    public List<AlbumDto> albumFromCollegeList(@PathVariable("provinceName") String provinceName) {
         return albumService.getAlbumsFromCollege(provinceName);
     }
 
@@ -117,7 +120,7 @@ public class ApiController {
      * TODO 分页功能
      */
     @RequestMapping(value = "/provinces/college/{provinceName}/{albumId}/{photoId}", method = RequestMethod.GET)
-    public PhotoDto submitComment(@PathVariable("provinceName") String provinceName,
+    public PhotoDto photoFromCollegeList(@PathVariable("provinceName") String provinceName,
                                   @PathVariable("albumId") Long albumId,
                                   @PathVariable("photoId") Long photoId) {
 
@@ -135,18 +138,18 @@ public class ApiController {
     /**
      * 登录状态判断，返回UserDto对象，其中status属性为登陆状态
      */
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public UserDto login(@CookieValue("JSESSIONID") String cookieId) {
 
         return userService.getUserDto(cookieId);
-    }
+    }*/
 
     /**
      * 我的作品
      * TODO 分页功能
      */
     @RequestMapping(value = "/user/works/{userName}", method = RequestMethod.GET)
-    public List<PhotoDto> order(@PathVariable("userName") String userName) {
+    public List<PhotoDto> photoFromUserWork(@PathVariable("userName") String userName) {
 
         return photoService.getPhotoFromUserWork("", userName);
     }
@@ -162,33 +165,47 @@ public class ApiController {
     }
 
     /**
-     * 用户点赞
+     * 用户景点图片点赞
      *
      * @param provinceName
      * @param cityName
      * @param albumId
      * @param photoId
-     * @return
+     * @return false--取消赞 true--点赞
      */
     @RequestMapping(value = "/provinces/cities/{provinceName}/{cityName}/spots/{albumId}/{photoId}/like", method = RequestMethod.GET)
-    public Map<String, Boolean> like(@PathVariable(value = "provinceName") String provinceName,
+    public Map<String, Boolean> spotsLike(@PathVariable(value = "provinceName") String provinceName,
                                      @PathVariable(value = "cityName") String cityName,
                                      @PathVariable(value = "albumId") Long albumId,
                                      @PathVariable(value = "photoId") Long photoId
     ) {
-        //TODO 测试、改API
         String username = getCurrentUserName();
         Map<String, Boolean> likedMap = new HashMap<String, Boolean>();
-        //TODO 判断是否已经点了赞
-        Boolean liked = likeService.likeClick(provinceName, cityName, albumId, photoId, username);
-        likedMap.put("isSuccessful", liked);
+        //用户点赞
+        Boolean liked = likeService.spotsLikeClick(provinceName, cityName, albumId, photoId, username);
+        likedMap.put("state", liked);
+        return likedMap;
+
+
+    }
+
+    @RequestMapping(value = "/provinces/college/{provinceName}/{albumId}/{photoId}/like", method = RequestMethod.GET)
+    public Map<String, Boolean> collegeLike(@PathVariable(value = "provinceName") String provinceName,
+                                          @PathVariable(value = "albumId") Long albumId,
+                                          @PathVariable(value = "photoId") Long photoId
+    ) {
+        String username = getCurrentUserName();
+        Map<String, Boolean> likedMap = new HashMap<String, Boolean>();
+        //用户点赞
+        Boolean liked = likeService.collegeLikeClick(provinceName, albumId, photoId, username);
+        likedMap.put("state", liked);
         return likedMap;
 
 
     }
 
     /**
-     * 用户评论
+     * 读取景点用户评论
      *
      * @param provinceName
      * @param cityName
@@ -197,18 +214,179 @@ public class ApiController {
      * @return
      */
     @RequestMapping(value = "/provinces/cities/{provinceName}/{cityName}/spots/{albumId}/{photoId}/comment", method = RequestMethod.GET)
-    public CommentListDto comment(@PathVariable(value = "provinceName") String provinceName,
+    public List<CommentListDto> commentListFromSpots(@PathVariable(value = "provinceName") String provinceName,
                                   @PathVariable(value = "cityName") String cityName,
                                   @PathVariable(value = "albumId") Long albumId,
                                   @PathVariable(value = "photoId") Long photoId) {
         //TODO 读取用户评论
         String username = getCurrentUserName();
+        List<CommentListDto> commentListDtoList = commentService.getCommentListFromSpots(provinceName,cityName,albumId,photoId);
 
-        //TODO 判断是否已经点了赞
-        return null;
+        return commentListDtoList;
 
     }
 
+
+    /**
+     * 读取大学用户评论
+     *
+     * @param provinceName
+     * @param albumId
+     * @param photoId
+     * @return
+     */
+    @RequestMapping(value = "/provinces/college/{provinceName}/{albumId}/{photoId}/comment", method = RequestMethod.GET)
+    public List<CommentListDto> commentListFromCollege(@PathVariable(value = "provinceName") String provinceName,
+                                                     @PathVariable(value = "albumId") Long albumId,
+                                                     @PathVariable(value = "photoId") Long photoId) {
+        //TODO 读取用户评论
+        String username = getCurrentUserName();
+        List<CommentListDto> commentListDtoList = commentService.getCommentListFromCollege(provinceName,albumId,photoId);
+
+        return commentListDtoList;
+
+    }
+
+
+    /**
+     * 添加景点图片评论
+     * @param provinceName
+     * @param cityName
+     * @param albumId
+     * @param photoId
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/spotsComment/{provinceName}/{cityName}/{albumId}/{photoId} ", method = RequestMethod.GET)
+    public Map<String,Boolean> addCommentForSpots(@PathVariable(value = "provinceName") String provinceName,
+                                               @PathVariable(value = "cityName") String cityName,
+                                               @PathVariable(value = "albumId") Long albumId,
+                                               @PathVariable(value = "photoId") Long photoId,
+                                               HttpServletRequest request) {
+        String username = getCurrentUserName();
+        String content = request.getParameter("photoComment");
+        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        resultMap.put("respond",
+                commentService.addCommentForSpots(provinceName,cityName,username,content,albumId,photoId));
+        return resultMap;
+
+    }
+
+    /**
+     * 添加高校图片评论
+     * @param provinceName
+     * @param albumId
+     * @param photoId
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/collegeComment/{provinceName}/{albumId}/{photoId}  ", method = RequestMethod.GET)
+    public Map<String,Boolean> addCommentForCollege(@PathVariable(value = "provinceName") String provinceName,
+                                                  @PathVariable(value = "albumId") Long albumId,
+                                                  @PathVariable(value = "photoId") Long photoId,
+                                                  HttpServletRequest request) {
+        String username = getCurrentUserName();
+        String content = request.getParameter("photoComment");
+        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        resultMap.put("respond",
+                commentService.addCommentForCollege(provinceName,username,content,albumId,photoId));
+        return resultMap;
+
+    }
+
+    /**
+     * 判断景点图片评论是否可以删除
+     * @param provinceName
+     * @param cityName
+     * @param albumId
+     * @param photoId
+     * @param commentId
+     * @return
+     */
+    @RequestMapping(value = "/spotsComment/{provinceName}/{cityName}/{albumId}/{photoId}/{commentId}/deletable", method = RequestMethod.GET)
+    public Map<String,Boolean> spotsDeletable(@PathVariable(value = "provinceName") String provinceName,
+                                                  @PathVariable(value = "cityName") String cityName,
+                                                  @PathVariable(value = "albumId") Long albumId,
+                                                  @PathVariable(value = "photoId") Long photoId,
+                                                  @PathVariable(value = "commentId") Long commentId) {
+        String username = getCurrentUserName();
+        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        resultMap.put("respond",
+                commentService.spotsCommentDeletable(provinceName,cityName,username,albumId,photoId,commentId));
+        return resultMap;
+
+    }
+
+    /**
+     * 判断高校评论是否可以删除
+     * @param provinceName
+     * @param albumId
+     * @param photoId
+     * @param commentId
+     * @return
+     */
+    @RequestMapping(value = "/collegeComment/{provinceName}/{albumId}/{photoId}/{commentId}/deletable", method = RequestMethod.GET)
+    public Map<String,Boolean> collegeDeletable(@PathVariable(value = "provinceName") String provinceName,
+                                              @PathVariable(value = "albumId") Long albumId,
+                                              @PathVariable(value = "photoId") Long photoId,
+                                              @PathVariable(value = "commentId") Long commentId) {
+        String username = getCurrentUserName();
+        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        resultMap.put("respond",
+                commentService.collegeCommentDeletable(provinceName,username,albumId,photoId,commentId));
+        return resultMap;
+
+    }
+
+    /**
+     * 删除景点图片是【评论
+     * @param provinceName
+     * @param cityName
+     * @param albumId
+     * @param photoId
+     * @param commentId
+     * @return
+     */
+    @RequestMapping(value = "/spotsComment/{provinceName}/{cityName}/{albumId}/{photoId}/{commentId}/delete", method = RequestMethod.GET)
+    public Map<String,Boolean> deleteCommentForSpots(@PathVariable(value = "provinceName") String provinceName,
+                                              @PathVariable(value = "cityName") String cityName,
+                                              @PathVariable(value = "albumId") Long albumId,
+                                              @PathVariable(value = "photoId") Long photoId,
+                                              @PathVariable(value = "commentId") Long commentId) {
+        String username = getCurrentUserName();
+        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        resultMap.put("respond",
+                commentService.deleteCommentForSpots(provinceName,cityName,username,albumId,photoId,commentId));
+        return resultMap;
+
+    }
+
+    /**
+     * 删除高校图片评论
+     * @param provinceName
+     * @param albumId
+     * @param photoId
+     * @param commentId
+     * @return
+     */
+    @RequestMapping(value = "/collegeComment/{provinceName}/{albumId}/{photoId}/{commentId}/delete", method = RequestMethod.GET)
+    public Map<String,Boolean> deleteCommentForCollege(@PathVariable(value = "provinceName") String provinceName,
+                                                @PathVariable(value = "albumId") Long albumId,
+                                                @PathVariable(value = "photoId") Long photoId,
+                                                @PathVariable(value = "commentId") Long commentId) {
+        String username = getCurrentUserName();
+        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        resultMap.put("respond",
+                commentService.deleteCommentForCollege(provinceName,username,albumId,photoId,commentId));
+        return resultMap;
+
+    }
+
+
+    /**
+     * 获取用户名
+     * @return
+     */
     private String getCurrentUserName() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth instanceof AnonymousAuthenticationToken) {

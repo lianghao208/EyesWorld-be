@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.tvos.dao.CommentListDao">
+
+    <!-- 对查询结果赋值给JavaBean（映射） -->
+    <resultMap type="CommentList" id="CommentListResult">
+        <id column="id" jdbcType="INTEGER" property="commentId"/><!-- 主键属性 -->
+        <result column="photo_id" jdbcType="INTEGER" property="photoId"/><!-- 普通属性：字段名-字段类型-对象属性名 -->
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="creation_time" jdbcType="INTEGER" property="createTime"/>
+        <result column="modification_time" jdbcType="INTEGER" property="modificationTime"/>
+    </resultMap>
+
+    <!-- 获取景点图片评论列表 -->
+    <select id="getPhotoCommentListFromSpots" parameterType="java.util.Map" resultMap="CommentListResult">
+        SELECT
+            id,
+            photo_id,
+            user_id,
+            content,
+            creation_time,
+            modification_time
+        FROM photo_comment
+        WHERE photo_id = (
+            SELECT id
+            FROM photo
+            WHERE
+                album_id = (
+                    SELECT id
+                    FROM album
+                    WHERE
+                        city_id = (
+                            SELECT id
+                            FROM city
+                            WHERE
+                                city_name = #{cityName}
+                        )
+                        AND city_id IS NOT NULL
+                    LIMIT #{albumId}, 1
+                )
+            LIMIT #{photoId}, 1
+        )
+
+    </select>
+
+    <!-- 获取大学图片评论列表 -->
+    <select id="getPhotoCommentListFromCollege" parameterType="java.util.Map" resultMap="CommentListResult">
+        SELECT
+            id,
+            photo_id,
+            user_id,
+            content,
+            creation_time,
+            modification_time
+        FROM photo_comment
+        WHERE photo_id = (
+            SELECT
+                id
+            FROM photo_comment
+            WHERE photo_id = (
+                SELECT id
+                FROM photo
+                WHERE
+                    album_id = (
+                        SELECT id
+                        FROM album
+                        WHERE
+                            province_id = (
+                                SELECT id
+                                FROM province
+                                WHERE
+                                    province_name = #{provinceName}
+                            )
+                            AND city_id IS NULL
+                        LIMIT #{albumId}, 1
+                    )
+                LIMIT #{photoId}, 1
+            )
+        )
+    </select>
+
+    <!-- 判断景点图片评论是否可以删除 -->
+    <select id="spotsCommentDeletable" parameterType="java.util.Map" resultType="Boolean">
+        SELECT (count(*) = 0)
+        FROM photo_comment
+        WHERE
+            user_id =
+            (
+                SELECT id
+                FROM user
+                WHERE username = #{username}
+            )
+            AND
+            id = #{commentId}
+
+    </select>
+
+
+    <!-- 判断大学图片评论是否可以删除 -->
+    <select id="collegeCommentDeletable" parameterType="java.util.Map" resultType="Boolean">
+        SELECT (count(*) = 0)
+        FROM photo_comment
+        WHERE
+              user_id =
+              (
+                  SELECT id
+                  FROM user
+                  WHERE username = #{username}
+              )
+              AND
+              id = #{commentId}
+    </select>
+
+    <!-- 添加景点图片评论 -->
+    <insert id="addCommentForSpots" parameterType="java.util.Map">
+        INSERT INTO photo_comment (photo_id, user_id, content) VALUES (
+            (
+                SELECT id
+                FROM photo
+                WHERE
+                    album_id = (
+                        SELECT id
+                        FROM album
+                        WHERE
+                            city_id = (
+                                SELECT id
+                                FROM city
+                                WHERE
+                                    city_name = #{cityName}
+                            )
+                            AND city_id IS NOT NULL
+                        LIMIT #{albumId}, 1
+                    )
+                LIMIT #{photoId}, 1
+            )
+            ,
+            (
+                SELECT id
+                FROM user
+                WHERE username = #{username}
+            ),
+            #{content}
+        )
+    </insert>
+
+    <!-- 添加大学图片评论 -->
+    <insert id="addCommentForCollege" parameterType="java.util.Map">
+        INSERT INTO photo_comment (photo_id, user_id, content) VALUES (
+            (
+                SELECT id
+                FROM photo
+                WHERE
+                    album_id = (
+                        SELECT id
+                        FROM album
+                        WHERE
+                            province_id = (
+                                SELECT id
+                                FROM province
+                                WHERE
+                                    province_name = #{provinceName}
+                            )
+                            AND city_id IS NULL
+                        LIMIT #{albumId}, 1
+                    )
+                LIMIT #{photoId}, 1
+            )
+            ,
+            (
+                SELECT id
+                FROM user
+                WHERE username = #{username}
+            ),
+            #{content}
+        )
+    </insert>
+
+    <!-- 删除景点图片评论 -->
+    <delete id="deleteCommentForSpots" parameterType="java.util.Map">
+        DELETE FROM photo_comment
+        WHERE
+            id = #{commentId}
+    </delete>
+    <!-- 删除大学图片评论 -->
+    <delete id="deleteCommentForCollege" parameterType="java.util.Map">
+        DELETE FROM photo_comment
+        WHERE
+            id = #{commentId}
+    </delete>
+</mapper>

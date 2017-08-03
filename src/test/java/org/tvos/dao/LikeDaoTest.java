@@ -15,32 +15,54 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class LikeDaoTest {
 
-
     @Autowired
     LikeDao likeDao;
+
     @Test
-    public void liked() throws Exception {
+    public void spotsLiked() throws Exception {
 
         /**
-         * done
+         * done  true--可以点赞   false----不可用点赞
          */
-        Boolean liked = likeDao.liked("广东","佛山",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)),"Mike");
+        Boolean liked = likeDao.spotsLiked("广东","佛山",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)),"Mike");
         System.out.println(liked);
     }
 
-
     @Test
-    public void likeClick() throws Exception {
+    public void spotsLikeClick() throws Exception {
 
-        Boolean likeClick =  likeDao.likeClick("广东","佛山",Long.valueOf(String.valueOf(1)),Long.valueOf(String.valueOf(1)),"Mike");
+        Boolean likeClick =  likeDao.spotsLikeClick("广东","佛山",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)),"Mike");
         System.out.println(likeClick);
     }
 
     @Test
-    public void likeCancel() throws Exception {
+    public void spotsLikeCancel() throws Exception {
 
-        Boolean likeCancel =  likeDao.likeCancel("广东","佛山",Long.valueOf(String.valueOf(1)),Long.valueOf(String.valueOf(1)),"Mike");
+        Boolean likeCancel =  likeDao.spotsLikeCancel("广东","佛山",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)),"Mike");
         System.out.println(likeCancel);
     }
+
+    @Test
+    public void collegeLiked() throws Exception {
+        Boolean liked = likeDao.collegeLiked("广东",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)),"Mike");
+        System.out.println(liked);
+    }
+
+    @Test
+    public void collegeLikeClick() throws Exception {
+
+        Boolean likeCancel =  likeDao.collegeLikeClick("广东",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)),"Mike");
+        System.out.println(likeCancel);
+    }
+
+    @Test
+    public void collegeLikeCancel() throws Exception {
+
+        Boolean likeCancel =  likeDao.collegeLikeCancel("广东",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)),"Mike");
+        System.out.println(likeCancel);
+    }
+
+
+
 
 }

@@ -14,6 +14,8 @@ public interface UserDao {
      */
     String getPassword(String username);
 
+    String getUsername(Long userId);
+
     Boolean uniqueUsername(String username);
 
     Boolean insert(@Param(value = "username") String username,@Param(value = "password") String password);

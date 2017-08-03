@@ -15,6 +15,10 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class UserDaoTest {
+    @Test
+    public void getPassword() throws Exception {
+        System.out.println(userDao.getPassword("Mike"));
+    }
 
 
     @Autowired

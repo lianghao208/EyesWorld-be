@@ -16,22 +16,37 @@ public interface LikeDao {
      * @param username
      * @return 没有点赞true 已经点赞false
      */
-    Boolean liked(@Param(value="provinceName") String provinceName,
+    Boolean spotsLiked(@Param(value="provinceName") String provinceName,
                   @Param(value="cityName")String cityName,
                   @Param(value="albumId")Long albumId,
                   @Param(value="photoId")Long photoId,
                   @Param(value="username")String username);
 
-    Boolean likeClick(@Param(value="provinceName") String provinceName,
+    Boolean spotsLikeClick(@Param(value="provinceName") String provinceName,
                       @Param(value="cityName")String cityName,
                       @Param(value="albumId")Long albumId,
                       @Param(value="photoId")Long photoId,
                       @Param(value="username")String username);
 
-    Boolean likeCancel(@Param(value="provinceName") String provinceName,
+    Boolean spotsLikeCancel(@Param(value="provinceName") String provinceName,
                        @Param(value="cityName")String cityName,
                        @Param(value="albumId")Long albumId,
                        @Param(value="photoId")Long photoId,
                        @Param(value="username")String username);
+
+    Boolean collegeLiked(@Param(value="provinceName") String provinceName,
+                       @Param(value="albumId")Long albumId,
+                       @Param(value="photoId")Long photoId,
+                       @Param(value="username")String username);
+
+    Boolean collegeLikeClick(@Param(value="provinceName") String provinceName,
+                           @Param(value="albumId")Long albumId,
+                           @Param(value="photoId")Long photoId,
+                           @Param(value="username")String username);
+
+    Boolean collegeLikeCancel(@Param(value="provinceName") String provinceName,
+                            @Param(value="albumId")Long albumId,
+                            @Param(value="photoId")Long photoId,
+                            @Param(value="username")String username);
 
 }

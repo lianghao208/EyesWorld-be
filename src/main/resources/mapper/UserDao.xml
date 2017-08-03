@@ -16,6 +16,10 @@
     SELECT password FROM user WHERE username = #{username}
   </select>
 
+
+  <select id="getUsername" parameterType="Long" resultType="String">
+    SELECT username FROM user WHERE username = #{username}
+  </select>
 <!--  <select id="findUser" parameterType="long" resultMap="UserResult">
     SELECT * FROM user WHERE id = #{id:INTEGER}
   </select>
