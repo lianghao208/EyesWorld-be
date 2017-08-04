@@ -33,7 +33,7 @@ public class UploadController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/uploadPhoto/{provinceName}/{cityName}/{userName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadPhoto/spots/{provinceName}/{cityName}/{userName}", method = RequestMethod.POST)
     public ResponseEntity<?> spotPhotoUpload(@RequestParam CommonsMultipartFile file,
                                              @PathVariable("provinceName") String provinceName,
                                              @PathVariable("cityName") String cityName,
@@ -50,7 +50,7 @@ public class UploadController {
             dir.mkdir();
         }
         //图片文件名
-        String photoFileName = photoName + "%%" + System.currentTimeMillis();
+        String photoFileName = photoName + "--" + System.currentTimeMillis();
         //图片的服务器保存路径+文件名
         String path = dir.getPath() + File.separatorChar + photoFileName;
         //图片的url
@@ -63,7 +63,7 @@ public class UploadController {
         photoService.addPhotoFromSpots(
                 userName,
                 albumName,
-                photoName,
+                photoFileName,
                 photoDesc,
                 provinceName,
                 cityName,
@@ -72,7 +72,7 @@ public class UploadController {
 
     }
 
-    @RequestMapping(value = "/uploadPhoto/upload/{provinceName}/{userName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadPhoto/college/{provinceName}/{userName}", method = RequestMethod.POST)
     public ResponseEntity<?> collegePhotoUpload(@RequestParam CommonsMultipartFile file,
                                                 @PathVariable("provinceName") String provinceName,
                                                 @PathVariable("userName") String userName,
@@ -92,7 +92,7 @@ public class UploadController {
         //图片的服务器保存路径+文件名
         String path = dir.getPath() + File.separatorChar + photoFileName;
         //图片的url
-        String url = "/upload/"+ provinceName + userName + path;
+        String url = "/upload/"+ provinceName+ "/" + userName + "/" + photoFileName;
         //创建图片文件
         File uploadFile = new File(path);
         System.out.println(photoName);
@@ -109,10 +109,20 @@ public class UploadController {
 
     }
 
-    @RequestMapping(value = "/{photoName}",method = RequestMethod.GET)
-    public ResponseEntity<?> fileDownload(
+    @RequestMapping(value = "/{cityName}/{photoName}",method = RequestMethod.GET)
+    public ResponseEntity<?> spotsFileDownload(
             @PathVariable(value = "photoName") String photoName) throws IOException {
         File dir = new File("C:\\upload\\spotsPhoto\\"+photoName);
+        HttpHeaders h=new HttpHeaders();
+        h.setContentType(MediaType.MULTIPART_FORM_DATA);
+        //h.setContentDispositionFormData("attachment",dir.getCanonicalPath());
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(dir),h,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{photoName}",method = RequestMethod.GET)
+    public ResponseEntity<?> collegeFileDownload(
+            @PathVariable(value = "photoName") String photoName) throws IOException {
+        File dir = new File("C:\\upload\\collegePhoto\\"+photoName);
         HttpHeaders h=new HttpHeaders();
         h.setContentType(MediaType.MULTIPART_FORM_DATA);
         //h.setContentDispositionFormData("attachment",dir.getCanonicalPath());

@@ -22,7 +22,7 @@ public class CommentListDaoTest {
     CommentListDao commentListDao;
     @Test
     public void getPhotoCommentListFromSpots() throws Exception {
-        List<CommentList> commentListList = commentListDao.getPhotoCommentListFromSpots("广东","佛山",Long.valueOf(String.valueOf(1)),Long.valueOf(String.valueOf(1)));
+        List<CommentList> commentListList = commentListDao.getPhotoCommentListFromSpots("广东","潮州",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)));
         System.out.println(commentListList);
     }
 

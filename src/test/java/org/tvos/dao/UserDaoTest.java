@@ -16,6 +16,12 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class UserDaoTest {
     @Test
+    public void getUsername() throws Exception {
+        System.out.println(userDao.getUsername(Long.valueOf(String.valueOf(3))));
+
+    }
+
+    @Test
     public void getPassword() throws Exception {
         System.out.println(userDao.getPassword("Mike"));
     }

@@ -257,7 +257,7 @@ public class ApiController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/spotsComment/{provinceName}/{cityName}/{albumId}/{photoId} ", method = RequestMethod.GET)
+    @RequestMapping(value = "/spotsComment/{provinceName}/{cityName}/{albumId}/{photoId} ", method = RequestMethod.POST)
     public Map<String,Boolean> addCommentForSpots(@PathVariable(value = "provinceName") String provinceName,
                                                @PathVariable(value = "cityName") String cityName,
                                                @PathVariable(value = "albumId") Long albumId,
@@ -266,6 +266,12 @@ public class ApiController {
         String username = getCurrentUserName();
         String content = request.getParameter("photoComment");
         Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        System.out.println(photoId);
+        System.out.println(provinceName);
+        System.out.println(cityName);
+        System.out.println(username);
+        System.out.println(content);
+        System.out.println(albumId);
         resultMap.put("respond",
                 commentService.addCommentForSpots(provinceName,cityName,username,content,albumId,photoId));
         return resultMap;
@@ -280,7 +286,7 @@ public class ApiController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/collegeComment/{provinceName}/{albumId}/{photoId}  ", method = RequestMethod.GET)
+    @RequestMapping(value = "/collegeComment/{provinceName}/{albumId}/{photoId}  ", method = RequestMethod.POST)
     public Map<String,Boolean> addCommentForCollege(@PathVariable(value = "provinceName") String provinceName,
                                                   @PathVariable(value = "albumId") Long albumId,
                                                   @PathVariable(value = "photoId") Long photoId,

@@ -27,8 +27,10 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentListDto> getCommentListFromSpots(String provinceName, String cityName, Long AlbumId, Long PhotoId) {
         List<CommentList> commentListDaoList =  commentListDao.getPhotoCommentListFromSpots(provinceName,cityName,AlbumId,PhotoId);
         List<CommentListDto> commentListDtoList = new ArrayList<CommentListDto>();
-        CommentListDto commentListDto = new CommentListDto();
         for(CommentList c:commentListDaoList){
+            CommentListDto commentListDto = new CommentListDto();
+            System.out.println(c);
+            System.out.println(c.getUserId());
             commentListDto.setCommentId(c.getCommentId());
             commentListDto.setUsername(getUsername(c.getUserId()));
             commentListDto.setContent(c.getContent());
@@ -43,9 +45,12 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentListDto> getCommentListFromCollege(String provinceName, Long AlbumId, Long PhotoId) {
         List<CommentList> commentListDaoList =  commentListDao.getPhotoCommentListFromCollege(provinceName,AlbumId,PhotoId);
         List<CommentListDto> commentListDtoList = new ArrayList<CommentListDto>();
-        CommentListDto commentListDto = new CommentListDto();
+
+
         for(CommentList c:commentListDaoList){
+            CommentListDto commentListDto = new CommentListDto();
             commentListDto.setCommentId(c.getCommentId());
+
             commentListDto.setUsername(getUsername(c.getUserId()));
             commentListDto.setContent(c.getContent());
             commentListDto.setModificationTime(c.getModificationTime());
@@ -94,9 +99,9 @@ public class CommentServiceImpl implements CommentService {
      * @param userId
      * @return
      */
-    String getUsername(Long userId){
-
+    private String getUsername(Long userId){
         return userDao.getUsername(userId);
+
     }
 
 }

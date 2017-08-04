@@ -164,7 +164,8 @@
                     SELECT id
                     FROM city
                     WHERE city_name = #{cityName}
-                )
+                )AND
+                      city_id IS NOT NULL
             ),
             (
                 SELECT id
@@ -189,6 +190,8 @@
                     FROM province
                     WHERE province_name = #{provinceName}
                 )
+                      AND
+                      city_id IS NULL
             ),
             (
                 SELECT id

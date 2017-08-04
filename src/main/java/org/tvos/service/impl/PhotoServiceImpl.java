@@ -166,8 +166,13 @@ public class PhotoServiceImpl implements PhotoService {
                                        String provinceName,
                                        String url) {
         Boolean isPhotoAdded = photoDao.addPhotoForCollege("",username,provinceName,albumName,photoName,photoDescription,url);
-        Boolean isAlbumAdded = albumDao.addAlbumFromCollege(provinceName,albumName,url);
         Boolean isProvinceAdded = provinceDao.addCollegeNum(provinceName);
+        for(Album a :albumDao.getAlbumsFromCollege(provinceName)){
+            if(a.getAlbumName().equals(albumName)){
+                return albumDao.updateAlbumFromCollege(provinceName,albumName,url);
+            }
+        }
+        Boolean isAlbumAdded = albumDao.addAlbumFromCollege(provinceName,albumName,url);
         return isPhotoAdded && isAlbumAdded && isProvinceAdded;
     }
 

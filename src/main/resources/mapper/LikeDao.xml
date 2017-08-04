@@ -6,7 +6,7 @@
 <mapper namespace="org.tvos.dao.LikeDao">
 
     <!-- 对查询结果赋值给JavaBean（映射） -->
-    <!-- TODO 区分景点图片点赞和评论图片点赞 -->
+    <!-- TODO 点赞数增加功能、获取点赞数、是否为最后一张照片 -->
     <!-- 判断是否点赞:是false 否true -->
     <select id="spotsLiked" parameterType="java.util.Map" resultType="Boolean">
         SELECT (count(*) = 0)
@@ -178,5 +178,7 @@
                   WHERE username = #{username})
 
     </delete>
+
+
 
 </mapper>

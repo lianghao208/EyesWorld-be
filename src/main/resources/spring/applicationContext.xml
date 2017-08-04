@@ -45,7 +45,7 @@
     <!-- 3.配置SqlSessionFactory对象 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 注入数据库连接池 -->
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
         <!-- 配置MyBatis全局配置文件：mybatis-config.xml -->
         <property name="configLocation" value="classpath:spring/mybatis-config.xml"/>
         <!-- 扫描entity包 使用别名 -->
@@ -63,14 +63,14 @@
         <property name="basePackage" value="org.tvos.dao"/>
     </bean>
 
-<!-- service层配置 -->
+    <!-- service层配置 -->
     <!-- 扫描service包下所有使用注解的类型 -->
-    <context:component-scan base-package="org.tvos.service" />
+    <context:component-scan base-package="org.tvos.service"/>
 
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!-- 注入数据库连接池 -->
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
 
     </bean>
     <!-- 配置基于注解的声明式事务 -->
@@ -81,12 +81,11 @@
     <security:http pattern="/index.jsp" security="none" />-->
     <!-- intercept-url添加拦截器 -->
     <security:http>
-        <security:intercept-url pattern= "/tvhome.html" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/tvhome.html" access="isAuthenticated()"/>
         <security:intercept-url pattern="/uploadtest.html" access="isAuthenticated()"/>
         <security:intercept-url pattern="/api/provinces/cities/**/like" access="isAuthenticated()"/>
         <security:intercept-url pattern="/api/spotsComment/**" access="isAuthenticated()"/>
         <security:intercept-url pattern="/api/spotsComment/**" access="isAuthenticated()"/>
-
 
         <security:intercept-url pattern="/api/provinces/college/**/like" access="isAuthenticated()"/>
         <security:intercept-url pattern="/api/collegeComment/**" access="isAuthenticated()"/>
@@ -94,7 +93,7 @@
                              authentication-success-forward-url="/success.html"
                              authentication-failure-url="/fail.html"/>
         <security:remember-me key="qwer" remember-me-parameter="remember-me" remember-me-cookie="sfnfncfs"/>
-        <security:logout logout-url="/p_logout" />
+        <security:logout logout-url="/p_logout"/>
 
         <security:csrf disabled="true"/>
 

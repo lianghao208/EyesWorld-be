@@ -29,7 +29,7 @@ public class SingupController {
         Map<String,Boolean> signupSuccessMap = new HashMap<String, Boolean>();
         String username = request.getParameter("userName");
         String password = request.getParameter("password");
-        if(!userService.usernameUsed(username)){//判断用户名密码是否重复
+        if(!userService.usernameUsed(username)){//判断用户名是否重复
             signupSuccessMap.put("success",false);
             return signupSuccessMap;
         }

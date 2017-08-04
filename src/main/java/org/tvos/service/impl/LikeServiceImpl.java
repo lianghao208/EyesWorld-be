@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tvos.dao.LikeDao;
+import org.tvos.dao.PhotoDao;
 import org.tvos.service.LikeService;
 
 /**
@@ -15,6 +16,9 @@ public class LikeServiceImpl implements LikeService {
     @Autowired
     LikeDao likeDao;
 
+    @Autowired
+    PhotoDao photoDao;
+
 
     /**
      *
@@ -23,16 +27,17 @@ public class LikeServiceImpl implements LikeService {
      * @param albumId
      * @param photoId
      * @param username
-     * @return true--显示已点赞 false--显示未点赞
+     * @return true--点赞 false--取消点赞
      */
     @Transactional
     @Override
     public Boolean spotsLikeClick(String provinceName, String cityName, Long albumId, Long photoId, String username) {
 
-        if(!likeDao.spotsLiked(provinceName,cityName,albumId,photoId,username)){
+        if(!likeDao.spotsLiked(provinceName,cityName,albumId,photoId,username)){//已点赞
+
             likeDao.spotsLikeCancel(provinceName,cityName,albumId,photoId,username);
             return false;
-        }else {
+        }else {//未点赞
             likeDao.spotsLikeClick(provinceName,cityName,albumId,photoId,username);
             return true;
         }

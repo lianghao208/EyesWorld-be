@@ -134,6 +134,7 @@
                 FROM province
                 WHERE province_name = #{provinceName}),
             url         = #{url}
+        WHERE city_id IS NULL
     </update>
 
     <!-- 删除景点相册 -->

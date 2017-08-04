@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import org.tvos.dao.QueryForTokenDao;
 import org.tvos.util.*;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -26,11 +30,13 @@ public class LoginController {
 
 
 	@RequestMapping(value="/tv/getqr",method=RequestMethod.GET)
-	public ResponseEntity<QrEntity> qr(HttpServletRequest request){
+	public ResponseEntity<QrEntity> qr(HttpServletRequest request)throws UnknownHostException{
 		QrCreate.setPath(request.getRealPath("/"));
 		//QrCreate.setPath(System.getProperty("tveb.root"));
 		//System.out.println(System.getProperty("tveb.root"));
-		QrEntity e=QrCreate.getQr("http://192.168.0.109:8080/login.html");
+		String ip=Inet4Address.getLocalHost().getHostAddress();
+		System.out.println(ip);
+		QrEntity e=QrCreate.getQr("http://"+"192.168.0.107"+":8088/login.html");
 		return new ResponseEntity<QrEntity>(e,HttpStatus.OK);
 	}
 	
