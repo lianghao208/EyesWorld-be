@@ -23,7 +23,7 @@ public class LikeServiceImpl implements LikeService {
      * @param albumId
      * @param photoId
      * @param username
-     * @return true--点赞 false--取消点赞
+     * @return true--显示已点赞 false--显示未点赞
      */
     @Transactional
     @Override

@@ -83,15 +83,18 @@
     <security:http>
         <security:intercept-url pattern= "/tvhome.html" access="isAuthenticated()"/>
         <security:intercept-url pattern="/uploadtest.html" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/provinces/cities/**/like" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/api/provinces/cities/**/like" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/api/spotsComment/**" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/api/spotsComment/**" access="isAuthenticated()"/>
+
+
+        <security:intercept-url pattern="/api/provinces/college/**/like" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/api/collegeComment/**" access="isAuthenticated()"/>
         <security:form-login login-page="/login.html" login-processing-url="/p_login"
                              authentication-success-forward-url="/success.html"
                              authentication-failure-url="/fail.html"/>
         <security:remember-me key="qwer" remember-me-parameter="remember-me" remember-me-cookie="sfnfncfs"/>
         <security:logout logout-url="/p_logout" />
-
-
-
 
         <security:csrf disabled="true"/>
 
