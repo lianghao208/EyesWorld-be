@@ -17,7 +17,33 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class PhotoDaoTest {
+    @Test
+    public void getSpotsPhotoNameById() throws Exception {
+        System.out.println(photoDao.getSpotsPhotoNameById("广东",
+                "佛山",Long.parseLong(String.valueOf(0)),Long.parseLong(String.valueOf(0))));
+    }
 
+    @Test
+    public void getCollegePhotoNameById() throws Exception {
+        System.out.println(photoDao.getCollegePhotoNameById("广东",
+                Long.parseLong(String.valueOf(0)),Long.parseLong(String.valueOf(0))));
+    }
+
+    @Test
+    public void getLikeAmount() throws Exception {
+        System.out.println(photoDao.getLikeAmount("abcd-1234567","Mike"));
+    }
+
+    @Test
+    public void likeSub() throws Exception {
+        photoDao.likeSub("abcd-1234567","Mike");
+    }
+
+    @Test
+    public void likeAdd() throws Exception {
+        photoDao.likeAdd("abcd-1234567","Mike");
+
+    }
 
 
     @Autowired

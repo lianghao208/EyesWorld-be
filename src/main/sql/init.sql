@@ -100,8 +100,8 @@ CREATE TABLE album(
   `album_name` VARCHAR(255),
   `city_id` INT,
   `province_id` INT,
-  `visit_amount` INT,
-  `like_amount` INT,
+  `visit_amount` INT DEFAULT 0,
+  `like_amount` INT DEFAULT 0,
   `url` VARCHAR(225),
   `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -121,7 +121,7 @@ CREATE TABLE photo(
   `album_name` VARCHAR(255),
   `user_id` BIGINT,
   `username` VARCHAR(255),
-  `like_amount` INT,
+  `like_amount` INT DEFAULT 0,
   `url` VARCHAR(255),
   `creation_time` DATETIME,
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -132,7 +132,7 @@ alter table photo add foreign key (`user_id`) references user(`id`) ON DELETE CA
 
 -- 图片点赞表
 CREATE TABLE photo_like(
-  `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
+  `id` BIGINT,
   `photo_id` BIGINT,
   `user_id` BIGINT,
   `creation_time` DATETIME,

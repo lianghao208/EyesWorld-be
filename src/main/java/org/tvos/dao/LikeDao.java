@@ -50,38 +50,7 @@ public interface LikeDao {
                               @Param(value = "photoId") Long photoId,
                               @Param(value = "username") String username);
 
-    //TODO 点赞数增加功能、获取点赞数、是否为最后一张照片
-    Boolean spotsLikeAdd(@Param(value = "provinceName") String provinceName,
-                         @Param(value = "cityName") String cityName,
-                         @Param(value = "albumId") Long albumId,
-                         @Param(value = "photoId") Long photoId,
-                         @Param(value = "username") String username);
-
-    Boolean collegeLikeAdd(@Param(value = "provinceName") String provinceName,
-                           @Param(value = "albumId") Long albumId,
-                           @Param(value = "photoId") Long photoId,
-                           @Param(value = "username") String username);
-
-    int getLikeAmountForSpots(@Param(value = "provinceName") String provinceName,
-                              @Param(value = "cityName") String cityName,
-                              @Param(value = "albumId") Long albumId,
-                              @Param(value = "photoId") Long photoId,
-                              @Param(value = "username") String username);
-
-    int getLikeAmountForCollege(@Param(value = "provinceName") String provinceName,
-                                @Param(value = "albumId") Long albumId,
-                                @Param(value = "photoId") Long photoId,
-                                @Param(value = "username") String username);
-
-    Boolean lastSpotsPhoto(@Param(value = "provinceName") String provinceName,
-                           @Param(value = "cityName") String cityName,
-                           @Param(value = "albumId") Long albumId,
-                           @Param(value = "photoId") Long photoId,
-                           @Param(value = "username") String username);
-
-    Boolean lastCollegePhoto(@Param(value = "provinceName") String provinceName,
-                             @Param(value = "albumId") Long albumId,
-                             @Param(value = "photoId") Long photoId,
-                             @Param(value = "username") String username);
+    Boolean liked(@Param(value = "photoName") String photoName,
+                  @Param(value = "username") String username);
 
 }

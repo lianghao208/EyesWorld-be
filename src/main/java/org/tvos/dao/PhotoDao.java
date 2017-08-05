@@ -119,4 +119,34 @@ public interface PhotoDao {
                                   @Param(value = "url") String url);
 
 
+    Boolean likeAdd(@Param(value = "photoName") String photoName,
+                         @Param(value = "username") String username);
+
+    Boolean likeSub(@Param(value = "photoName") String photoName,
+                    @Param(value = "username") String username);
+
+    int getLikeAmount(@Param(value = "photoName") String photoName,
+                      @Param(value = "username") String username);
+
+    String getSpotsPhotoNameById(@Param(value = "provinceName") String provinceName,
+                            @Param(value = "cityName") String cityName,
+                            @Param(value = "albumId") Long albumId,
+                            @Param(value = "photoId") Long photoId);
+
+    String getCollegePhotoNameById(@Param(value = "provinceName") String provinceName,
+                                   @Param(value = "albumId") Long albumId,
+                                   @Param(value = "photoId") Long photoId);
+
+    //暂时不启用
+    Boolean lastSpotsPhoto(@Param(value = "provinceName") String provinceName,
+                           @Param(value = "cityName") String cityName,
+                           @Param(value = "albumId") Long albumId,
+                           @Param(value = "photoId") Long photoId,
+                           @Param(value = "username") String username);
+
+    Boolean lastCollegePhoto(@Param(value = "provinceName") String provinceName,
+                             @Param(value = "albumId") Long albumId,
+                             @Param(value = "photoId") Long photoId,
+                             @Param(value = "username") String username);
+
 }
