@@ -5,20 +5,27 @@
     <title>Title</title>
 </head>
 <body>
-    <form enctype="multipart/form-data" action="/upload/uploadPhoto/college/广东/Mike"  method="post">
-        照片名<input type="text" name="photoName" value="abcd">
+
+    上传高校图片<br>
+    <form enctype="multipart/form-data" action="/upload/uploadPhoto/college/广东"  method="post">
+        照片名<input type="text" name="photoName" value="abcd"/><br>
+        照片描述<input type="text" name="photoDesc" value="666"/><br>
+
+        高校相册名<input type="text" name="albumName" value="华南理工大学"/><br>
         <input type="file" name="file"  accept="image/*"/>
         <input type="submit" value="upload"/>
-        <input type="hidden" name="photoDesc" value="666">
-        <input type="hidden" name="albumName" value="我的相册4">
     </form>
 
-    <form enctype="multipart/form-data" action="/upload/uploadPhoto/spots/广东/佛山/Mike"  method="post">
-        照片名<input type="text" name="photoName" value="abcd">
+    <br>
+
+    上传景点图片<br>
+    <form enctype="multipart/form-data" action="/upload/uploadPhoto/spots/广东/广州"  method="post">
+        照片名<input type="text" name="photoName" value="夜晚的广州塔">
+        照片描述<input type="text" name="photoDesc" value="666"/><br>
+
+        高校相册名<input type="text" name="albumName" value="广州塔"/><br>
         <input type="file" name="file"  accept="image/*"/>
         <input type="submit" value="upload"/>
-        <input type="hidden" name="photoDesc" value="666">
-        <input type="hidden" name="albumName" value="我的相册3">
     </form>
     <!-- <img src="/upload/downloadtest"/> -->
 </body>

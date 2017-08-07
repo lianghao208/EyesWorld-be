@@ -20,7 +20,7 @@ USE tvos;
 
 -- 用户登陆状态标识表
 CREATE TABLE token_holder(
-  `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
+  `id` BIGINT,
   `marker` VARCHAR(255),
   `token` VARCHAR(255),
   `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP

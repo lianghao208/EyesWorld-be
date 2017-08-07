@@ -68,5 +68,12 @@ public interface PhotoService {
      */
     Boolean addPhotoFromCollege(String username,String albumName,String photoName,String photoDescription,String provinceName,String url);
 
+    /**
+     * 删除用户照片
+     * @param photoName
+     * @param username
+     * @return
+     */
+    Boolean deletePhoto(String photoName,String username);
 
 }

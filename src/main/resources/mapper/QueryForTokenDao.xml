@@ -21,6 +21,12 @@
 
     </select>
 
+    <select id="getOldestTime" parameterType="String" resultType="Date">
+        SELECT modification_time
+        FROM token_holder
+        LIMIT 0,1
+    </select>
+
     <!-- 设置token -->
     <insert id="setToken" parameterType="java.util.Map">
         INSERT INTO token_holder (marker, token) VALUES (#{marker}, #{token})
@@ -35,5 +41,10 @@
 
     </delete>
 
+    <delete id="deleteOldestToken" parameterType="String">
+        DELETE FROM token_holder
+        LIMIT 1
+
+    </delete>
 
 </mapper>

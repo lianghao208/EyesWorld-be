@@ -102,6 +102,14 @@ public interface PhotoDao {
                                 @Param(value = "url") String url);
 
     /**
+     * 删除用户上传的图片
+     * @param photoName
+     * @param username
+     * @return
+     */
+    Boolean deletePhoto(@Param(value = "photoName") String photoName, @Param(value = "username") String username);
+
+    /**
      * 用图片url来删除资源
      * @param cookieId
      * @param username

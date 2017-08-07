@@ -6,6 +6,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -33,12 +37,12 @@ public class UploadController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/uploadPhoto/spots/{provinceName}/{cityName}/{userName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadPhoto/spots/{provinceName}/{cityName}", method = RequestMethod.POST)
     public ResponseEntity<?> spotPhotoUpload(@RequestParam CommonsMultipartFile file,
                                              @PathVariable("provinceName") String provinceName,
                                              @PathVariable("cityName") String cityName,
-                                             @PathVariable("userName") String userName,
                                              HttpServletRequest request) throws Exception {
+        String userName = getCurrentUserName();
 
         //post请求中拿到参数
         String albumName = request.getParameter("albumName");
@@ -59,7 +63,8 @@ public class UploadController {
         File uploadFile = new File(path);
         System.out.println(photoName);
         file.transferTo(uploadFile);
-
+        //得到当前登录的用户名
+        userName = getCurrentUserName();
         photoService.addPhotoFromSpots(
                 userName,
                 albumName,
@@ -72,11 +77,11 @@ public class UploadController {
 
     }
 
-    @RequestMapping(value = "/uploadPhoto/college/{provinceName}/{userName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadPhoto/college/{provinceName}", method = RequestMethod.POST)
     public ResponseEntity<?> collegePhotoUpload(@RequestParam CommonsMultipartFile file,
                                                 @PathVariable("provinceName") String provinceName,
-                                                @PathVariable("userName") String userName,
                                                 HttpServletRequest request) throws Exception {
+        String userName = getCurrentUserName();
 
         //post请求中拿到参数
         String albumName = request.getParameter("albumName");
@@ -97,6 +102,8 @@ public class UploadController {
         File uploadFile = new File(path);
         System.out.println(photoName);
         file.transferTo(uploadFile);
+        //得到当前登录的用户名
+        userName = getCurrentUserName();
 
         photoService.addPhotoFromCollege(
                 userName,
@@ -109,9 +116,11 @@ public class UploadController {
 
     }
 
-    @RequestMapping(value = "/{cityName}/{photoName}",method = RequestMethod.GET)
-    public ResponseEntity<?> spotsFileDownload(
-            @PathVariable(value = "photoName") String photoName) throws IOException {
+    @RequestMapping(value = "/{provinceName}/{cityName}/{username}/{photoName}",method = RequestMethod.GET)
+    public ResponseEntity<?> spotsFileDownload(@PathVariable(value = "photoName") String photoName,
+                                               @PathVariable(value = "provinceName") String provinceName,
+                                               @PathVariable(value = "cityName")String cityName,
+                                               @PathVariable(value = "username") String username) throws IOException {
         File dir = new File("C:\\upload\\spotsPhoto\\"+photoName);
         HttpHeaders h=new HttpHeaders();
         h.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -119,9 +128,10 @@ public class UploadController {
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(dir),h,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{photoName}",method = RequestMethod.GET)
-    public ResponseEntity<?> collegeFileDownload(
-            @PathVariable(value = "photoName") String photoName) throws IOException {
+    @RequestMapping(value = "/{provinceName}/{username}/{photoName}",method = RequestMethod.GET)
+    public ResponseEntity<?> collegeFileDownload(@PathVariable(value = "photoName") String photoName,
+                                                 @PathVariable(value = "provinceName") String provinceName,
+                                                 @PathVariable(value = "username") String username) throws IOException {
         File dir = new File("C:\\upload\\collegePhoto\\"+photoName);
         HttpHeaders h=new HttpHeaders();
         h.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -129,4 +139,16 @@ public class UploadController {
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(dir),h,HttpStatus.OK);
     }
 
+    /**
+     * 获取用户名
+     * @return
+     */
+    private String getCurrentUserName() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth instanceof AnonymousAuthenticationToken) {
+            return null;
+        } else {
+            return ((UserDetails) auth.getPrincipal()).getUsername();
+        }
+    }
 }

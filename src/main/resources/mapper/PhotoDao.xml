@@ -21,12 +21,6 @@
         <result column="modification_time" jdbcType="INTEGER" property="modificationTime"/>
     </resultMap>
 
-    <sql id="CITYID" >
-        SELECT id
-        FROM city
-        WHERE city_name = #{cityName}
-    </sql>
-
     <!-- 景点相片 -->
     <select id="getPhotoFromSpots" parameterType="java.util.Map" resultMap="PhotoResult">
         SELECT
@@ -44,17 +38,23 @@
         FROM photo
         WHERE
             id = (
-            SELECT id FROM photo WHERE
-                album_id = (
-                    SELECT id FROM album WHERE
-                    city_id = (
-                        SELECT id FROM city WHERE
-                        city_name = #{cityName}
+                SELECT id
+                FROM photo
+                WHERE
+                    album_id = (
+                        SELECT id
+                        FROM album
+                        WHERE
+                            city_id = (
+                                SELECT id
+                                FROM city
+                                WHERE
+                                    city_name = #{cityName}
+                            )
+                            AND city_id IS NOT NULL
+                        LIMIT #{albumId}, 1
                     )
-                    AND city_id IS NOT NULL
-                    LIMIT #{albumId},1
-                )
-         LIMIT #{photoId} ,1)
+                LIMIT #{photoId}, 1)
     </select>
 
     <!-- 大学相片 -->
@@ -75,81 +75,88 @@
         FROM photo
         WHERE
             id = (
-                SELECT id FROM photo WHERE
+                SELECT id
+                FROM photo
+                WHERE
                     album_id = (
-                        SELECT id FROM album WHERE
+                        SELECT id
+                        FROM album
+                        WHERE
                             province_id = (
-                                SELECT id FROM province WHERE
+                                SELECT id
+                                FROM province
+                                WHERE
                                     province_name = #{provinceName}
                             )
                             AND city_id IS NULL
-                        LIMIT #{albumId},1
+                        LIMIT #{albumId}, 1
 
                     )
-                LIMIT #{photoId} ,1)
+                LIMIT #{photoId}, 1)
 
     </select>
 
     <!-- 用户相片 -->
     <select id="getPhotoFromUserWork" parameterType="java.util.Map" resultMap="PhotoResult">
         SELECT
-        id,
-        username,
-        photo_name,
-        album_id,
-        album_name,
-        photo_description,
-        user_id,
-        like_amount,
-        url,
-        creation_time,
-        modification_time
+            id,
+            username,
+            photo_name,
+            album_id,
+            album_name,
+            photo_description,
+            user_id,
+            like_amount,
+            url,
+            creation_time,
+            modification_time
         FROM photo
         WHERE user_id = (
-        SELECT id
-        FROM user
-        WHERE username = #{username}
+            SELECT id
+            FROM user
+            WHERE username = #{username}
         )
     </select>
 
     <!-- 用户收藏点赞照片 -->
     <select id="getPhotoFromUserFavorite" parameterType="java.util.Map" resultMap="PhotoResult">
         SELECT
-        id,
-        username,
-        user_id,
-        photo_name,
-        album_id,
-        album_name,
-        photo_description,
-        like_amount,
-        creation_time,
-        modification_time,
-        url
+            id,
+            username,
+            user_id,
+            photo_name,
+            album_id,
+            album_name,
+            photo_description,
+            like_amount,
+            creation_time,
+            modification_time,
+            url
         FROM photo
-        WHERE id =
-        (
-        SELECT photo_id
-        FROM
-        photo_like
-        WHERE
-        user_id
-        =
-        (
-        SELECT id
-        FROM
-        user
-        WHERE
-        username
-        =
-        #{username}
-        )
-        )
+        WHERE id IN
+              (
+                  SELECT photo_id
+                  FROM
+                      photo_like
+                  WHERE
+                      user_id
+                      =
+                      (
+                          SELECT id
+                          FROM
+                              user
+                          WHERE
+                              username
+                              =
+                              #{username}
+                      )
+              )
     </select>
 
     <!-- 获取图片点赞数 -->
     <select id="getLikeAmount" parameterType="java.util.Map" resultType="Integer">
-        SELECT like_amount FROM photo
+        SELECT like_amount
+        FROM photo
         WHERE photo_name = #{photoName} AND
               user_id = (
                   SELECT id
@@ -160,37 +167,47 @@
 
     <!-- 通过Id获取图片名 -->
     <select id="getSpotsPhotoNameById" parameterType="java.util.Map" resultType="String">
-        SELECT photo_name FROM photo
+        SELECT photo_name
+        FROM photo
         WHERE album_id = (
-            SELECT id FROM album WHERE
+            SELECT id
+            FROM album
+            WHERE
                 city_id = (
-                    SELECT id FROM city WHERE
+                    SELECT id
+                    FROM city
+                    WHERE
                         city_name = #{cityName}
                 )
                 AND city_id IS NOT NULL
-            LIMIT #{albumId},1
+            LIMIT #{albumId}, 1
         )
-        LIMIT #{photoId} ,1
+        LIMIT #{photoId}, 1
     </select>
 
     <!-- 通过Id获取图片名 -->
     <select id="getCollegePhotoNameById" parameterType="java.util.Map" resultType="String">
-        SELECT photo_name FROM photo
+        SELECT photo_name
+        FROM photo
         WHERE album_id = (
-        SELECT id FROM album WHERE
-        province_id = (
-        SELECT id FROM province WHERE
-        province_name = #{provinceName}
+            SELECT id
+            FROM album
+            WHERE
+                province_id = (
+                    SELECT id
+                    FROM province
+                    WHERE
+                        province_name = #{provinceName}
+                )
+                AND city_id IS NULL
+            LIMIT #{albumId}, 1
         )
-        AND city_id IS NULL
-        LIMIT #{albumId},1
-        )
-        LIMIT #{photoId} ,1
+        LIMIT #{photoId}, 1
     </select>
 
     <!-- 添加景点照片 -->
     <insert id="addPhotoForSpots" parameterType="java.util.Map">
-        INSERT INTO photo (photo_name, photo_description, album_name, album_id, user_id,username, url) VALUES (
+        INSERT INTO photo (photo_name, photo_description, album_name, album_id, user_id, username, url) VALUES (
             #{photoName}, #{photoDescription}, #{albumName},
             (
                 SELECT id
@@ -205,7 +222,7 @@
                     SELECT id
                     FROM city
                     WHERE city_name = #{cityName}
-                )AND
+                ) AND
                       city_id IS NOT NULL
             ),
             (
@@ -240,7 +257,7 @@
                 WHERE username = #{username}
             ),
             #{username},
-             #{url})
+            #{url})
     </insert>
 
     <!-- 图片点赞数加1 -->
@@ -261,13 +278,13 @@
         UPDATE photo
         SET like_amount = like_amount - 1
         WHERE
-        photo_name = #{photoName} AND
-        user_id = (
-        SELECT id
-        FROM USER
-        WHERE username = #{username}
-        )
-        AND like_amount > 0
+            photo_name = #{photoName} AND
+            user_id = (
+                SELECT id
+                FROM USER
+                WHERE username = #{username}
+            )
+            AND like_amount > 0
     </update>
 
 
@@ -329,4 +346,18 @@
         </if>
 
     </delete>
+
+    <!-- 删除大学照片 -->
+    <delete id="deletePhoto" parameterType="java.util.Map">
+        DELETE FROM photo
+        WHERE
+        photo_name = #{photoName} AND
+        user_id = (
+        SELECT id
+        FROM USER
+        WHERE username = #{username}
+        )
+
+    </delete>
+
 </mapper>

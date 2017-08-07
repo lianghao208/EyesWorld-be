@@ -9,6 +9,7 @@ import org.tvos.entity.Album;
 import org.tvos.entity.Photo;
 import org.tvos.service.PhotoService;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,17 +33,14 @@ public class PhotoServiceImpl implements PhotoService {
 
 
     /**
-     * "photoId":Number,
-     * "username":String,
-     * "photoName":String,
-     * "photoDescription":String,
-     * "url":String,
-     * "isLike":Boolean,
-     * "likeNum":Number,
-     * "time":Number
-     * "isLast": Boolean
-     * TODO 从点赞类获取isLike的属性
+     * 得到景点图片
+     * @param provinceName
+     * @param cityName
+     * @param albumId
+     * @param photoId
+     * @return
      */
+    @Transactional
     public PhotoDto getPhotoFromSpots(String provinceName, String cityName, Long albumId, Long photoId) {
         Photo photo = photoDao.getPhotoFromSpots(provinceName, cityName, albumId, photoId);
         System.out.println("+1:"+photoDao.getPhotoFromSpots(provinceName,cityName,albumId,(photoId+1)));
@@ -72,6 +70,14 @@ public class PhotoServiceImpl implements PhotoService {
         }
     }
 
+    /**
+     * 得到高校图片
+     * @param provinceName
+     * @param albumId
+     * @param photoId
+     * @return
+     */
+    @Transactional
     public PhotoDto getPhotoFromCollege(String provinceName, Long albumId, Long photoId) {
         Photo photo = photoDao.getPhotoFromCollege(provinceName, albumId, photoId);
         PhotoDto photoDto = new PhotoDto();
@@ -88,6 +94,12 @@ public class PhotoServiceImpl implements PhotoService {
             photoDto.setLast(photo.getLast());
             //判断用户是否点赞此图片
             photoDto.setLike(like(photo.getPhotoName(), photo.getUsername()));//true已经点赞，like设为true
+            //判断该相片是否为最后一张
+            if(photoDao.getPhotoFromCollege(provinceName,albumId,(photoId+1))==null){
+                photoDto.setLast(true);
+            }else {
+                photoDto.setLast(false);
+            }
             return photoDto;
         } else {
             return photoDto;
@@ -95,6 +107,13 @@ public class PhotoServiceImpl implements PhotoService {
 
     }
 
+    /**
+     * 得到用户图片
+     * @param cookieId
+     * @param userName
+     * @return
+     */
+    @Transactional
     public List<PhotoDto> getPhotoFromUserWork(String cookieId, String userName) {
         List<PhotoDto> photoDtoList = new ArrayList<PhotoDto>();
         List<Photo> photoList = photoDao.getPhotoFromUserWork(cookieId, userName);
@@ -109,12 +128,21 @@ public class PhotoServiceImpl implements PhotoService {
             photoDto.setLikeAmount(p.getLikeAmount());
             photoDto.setCreateTime(p.getCreateTime());
             photoDto.setLast(p.getLast());
+            //判断用户是否点赞此图片
+            photoDto.setLike(like(p.getPhotoName(), p.getUsername()));//true已经点赞，like设为true
             photoDtoList.add(photoDto);
 
         }
         return photoDtoList;
     }
 
+    /**
+     * 得到用户点赞的图片
+     * @param cookieId
+     * @param username
+     * @return
+     */
+    @Transactional
     public List<PhotoDto> getPhotoFromUserFavorite(String cookieId, String username) {
         List<PhotoDto> photoDtoList = new ArrayList<PhotoDto>();
         List<Photo> photoList = photoDao.getPhotoFromUserFavorite(cookieId, username);
@@ -129,6 +157,8 @@ public class PhotoServiceImpl implements PhotoService {
             photoDto.setLikeAmount(p.getLikeAmount());
             photoDto.setCreateTime(p.getCreateTime());
             photoDto.setLast(p.getLast());
+            //判断用户是否点赞此图片
+            photoDto.setLike(like(p.getPhotoName(), p.getUsername()));//true已经点赞，like设为true
             photoDtoList.add(photoDto);
         }
         return photoDtoList;
@@ -136,8 +166,6 @@ public class PhotoServiceImpl implements PhotoService {
 
     /**
      * 添加景点相片
-     * TODO 获取图片url地址
-     *
      * @param username
      * @param albumName
      * @param photoName
@@ -154,8 +182,8 @@ public class PhotoServiceImpl implements PhotoService {
                                      String provinceName,
                                      String cityName,
                                      String url) {
-        Boolean isPhotoAdded = photoDao.addPhotoForSpots("", username, provinceName, cityName, albumName, photoName, photoDescription, url);
         Boolean isAlbumAdded = albumDao.addAlbumFromSpots(provinceName, cityName, albumName, url);
+        Boolean isPhotoAdded = photoDao.addPhotoForSpots("", username, provinceName, cityName, albumName, photoName, photoDescription, url);
         Boolean isCityAdded = cityDao.addSpotsNum(cityName);
         Boolean isProvinceAdded = provinceDao.addSpotsNum(provinceName, cityName);
         return isPhotoAdded && isAlbumAdded && isCityAdded && isProvinceAdded;
@@ -163,8 +191,6 @@ public class PhotoServiceImpl implements PhotoService {
 
     /**
      * 添加高校相片
-     * TODO 获取图片url地址
-     *
      * @param username
      * @param albumName
      * @param photoName
@@ -179,14 +205,14 @@ public class PhotoServiceImpl implements PhotoService {
                                        String photoDescription,
                                        String provinceName,
                                        String url) {
-        Boolean isPhotoAdded = photoDao.addPhotoForCollege("", username, provinceName, albumName, photoName, photoDescription, url);
-        Boolean isProvinceAdded = provinceDao.addCollegeNum(provinceName);
+             Boolean isProvinceAdded = provinceDao.addCollegeNum(provinceName);
         for (Album a : albumDao.getAlbumsFromCollege(provinceName)) {
             if (a.getAlbumName().equals(albumName)) {
                 return albumDao.updateAlbumFromCollege(provinceName, albumName, url);
             }
         }
         Boolean isAlbumAdded = albumDao.addAlbumFromCollege(provinceName, albumName, url);
+        Boolean isPhotoAdded = photoDao.addPhotoForCollege("", username, provinceName, albumName, photoName, photoDescription, url);
         return isPhotoAdded && isAlbumAdded && isProvinceAdded;
     }
 
@@ -199,5 +225,34 @@ public class PhotoServiceImpl implements PhotoService {
      */
     Boolean like(String photoName, String username) {
         return LikeDao.liked(photoName, username);
+    }
+
+    /**
+     * 删除用户图片
+     * @param photoName
+     * @param username
+     * @return
+     */
+    @Transactional
+    public Boolean deletePhoto(String photoName,String username){
+        //1.删除数据库图片数据
+        photoDao.deletePhoto(photoName,username);
+        //2.删除磁盘中图片数据
+        photoDelete(photoName);
+        return null;
+    }
+
+    private Boolean photoDelete(String photoName){
+        File deleteSpotsFile = new File("C:\\upload\\spotsPhoto\\"+photoName);
+        File deleteCollegeFile = new File("C:\\upload\\collegePhoto\\"+photoName);
+        if(deleteSpotsFile.isFile() && deleteSpotsFile.exists()){
+            deleteSpotsFile.delete();
+            return true;
+        }else if(deleteCollegeFile.isFile() && deleteCollegeFile.exists()){
+            deleteCollegeFile.delete();
+            return true;
+        }else
+            return false;
+
     }
 }

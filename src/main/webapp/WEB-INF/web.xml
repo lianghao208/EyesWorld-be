@@ -30,6 +30,11 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
+  <!-- 自定义监听器 -->
+  <listener>
+    <listener-class>org.tvos.listener.CustomListener</listener-class>
+  </listener>
+
   <!-- 配置DispatcherServlet -->
   <servlet>
     <servlet-name>tvos-dispatcher</servlet-name>

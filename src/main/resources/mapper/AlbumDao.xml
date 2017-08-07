@@ -76,6 +76,57 @@
         FROM album
     </select>
 
+    <!-- 获取景点相册点赞数 -->
+    <select id="getSpotsLikeAmount" parameterType="java.util.Map" resultType="Integer">
+        SELECT like_amount
+        FROM album
+        WHERE album_name = #{albumName} AND city_id IS NOT NULL
+    </select>
+
+    <!-- 获取高校相册点赞数 -->
+    <select id="getCollegeLikeAmount" parameterType="java.util.Map" resultType="Integer">
+        SELECT like_amount
+        FROM album
+        WHERE album_name = #{albumName} AND city_id IS NULL
+    </select>
+
+    <!-- 通过Id获取景点相册名 -->
+    <select id="getSpotsAlbumNameById" parameterType="java.util.Map" resultType="String">
+        SELECT album_name
+        FROM album
+        WHERE id = (
+            SELECT id
+            FROM album
+            WHERE
+                city_id = (
+                    SELECT id
+                    FROM city
+                    WHERE
+                        city_name = #{cityName}
+                )
+                AND city_id IS NOT NULL
+            LIMIT #{albumId}, 1
+        )
+    </select>
+
+    <!-- 通过Id获取高校相册名 -->
+    <select id="getCollegeAlbumNameById" parameterType="java.util.Map" resultType="String">
+        SELECT album_name
+        FROM album
+        WHERE id = (
+            SELECT id
+            FROM album
+            WHERE
+                province_id = (
+                    SELECT id
+                    FROM province
+                    WHERE
+                        province_name = #{provinceName}
+                )
+                AND city_id IS NULL
+            LIMIT #{albumId}, 1
+        )
+    </select>
 
     <!-- 添加景点相册 -->
     <insert id="addAlbumFromSpots" parameterType="java.util.Map">
@@ -137,6 +188,45 @@
         WHERE city_id IS NULL
     </update>
 
+    <!-- 景点相册点赞数加1 -->
+    <update id="spotsLikeAdd" parameterType="java.util.Map">
+        UPDATE album
+        SET like_amount = like_amount + 1
+        WHERE
+            album_name = #{albumName}
+            AND city_id IS NOT NULL
+    </update>
+
+    <!-- 高校相册点赞数加1 -->
+    <update id="collegeLikeAdd" parameterType="java.util.Map">
+        UPDATE album
+        SET like_amount = like_amount + 1
+        WHERE
+            album_name = #{albumName}
+            AND city_id IS NULL
+    </update>
+
+    <!-- 景点相册点赞数减1 -->
+    <update id="spotsLikeSub" parameterType="java.util.Map">
+        UPDATE album
+        SET like_amount = like_amount - 1
+        WHERE
+            album_name = #{albumName}
+            AND like_amount > 0
+            AND city_id IS NOT NULL
+    </update>
+
+    <!-- 高校相册点赞数减1 -->
+    <update id="collegeLikeSub" parameterType="java.util.Map">
+        UPDATE album
+        SET like_amount = like_amount - 1
+        WHERE
+            album_name = #{albumName}
+            AND like_amount > 0
+            AND city_id IS NULL
+    </update>
+
+
     <!-- 删除景点相册 -->
     <delete id="deleteAlbumFromSpots" parameterType="java.util.Map">
         DELETE FROM album
@@ -160,7 +250,7 @@
                   FROM province
                   WHERE province_name = #{provinceName})
 
-            AND url  = #{url}
+              AND url = #{url}
 
     </delete>
 </mapper>

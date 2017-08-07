@@ -18,6 +18,45 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class AlbumDaoTest {
+    @Test
+    public void getSpotsAlbumNameById() throws Exception {
+        System.out.println(albumDao.getSpotsAlbumNameById("广东","潮州",Long.valueOf(String.valueOf(0))));
+    }
+
+    @Test
+    public void getCollegeAlbumNameById() throws Exception {
+        System.out.println(albumDao.getCollegeAlbumNameById("广东",Long.valueOf(String.valueOf(0))));
+    }
+
+    @Test
+    public void spotsLikeAdd() throws Exception {
+        albumDao.spotsLikeAdd("我的相册3");
+    }
+
+    @Test
+    public void collegeLikeAdd() throws Exception {
+        albumDao.collegeLikeAdd("我的相册4");
+    }
+
+    @Test
+    public void spotsLikeSub() throws Exception {
+        albumDao.spotsLikeSub("我的相册3");
+    }
+
+    @Test
+    public void collegeLikeSub() throws Exception {
+        albumDao.collegeLikeSub("我的相册4");
+    }
+
+    @Test
+    public void getSpotsLikeAmount() throws Exception {
+        System.out.println(albumDao.getSpotsLikeAmount("我的相册3"));
+    }
+
+    @Test
+    public void getCollegeLikeAmount() throws Exception {
+        System.out.println(albumDao.getCollegeLikeAmount("我的相册4"));
+    }
 
 
     @Autowired

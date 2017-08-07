@@ -148,19 +148,33 @@ public class ApiController {
      * 我的作品
      * TODO 分页功能
      */
-    @RequestMapping(value = "/user/works/{userName}", method = RequestMethod.GET)
-    public List<PhotoDto> photoFromUserWork(@PathVariable("userName") String userName) {
+    @RequestMapping(value = "/user/works", method = RequestMethod.GET)
+    public List<PhotoDto> photoFromUserWork() {
+        String username = getCurrentUserName();
+        return photoService.getPhotoFromUserWork("", username);
+    }
 
-        return photoService.getPhotoFromUserWork("", userName);
+    /**
+     * 删除用户图片
+     * @param photoName
+     * @return
+     */
+    @RequestMapping(value = "/user/works/{photoName}/delete",method = RequestMethod.GET)
+    public Map<String,Boolean> deleteUserPhoto(@PathVariable("photoName") String photoName){
+        String username = getCurrentUserName();
+        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        resultMap.put("delete",photoService.deletePhoto(photoName,username));
+        return resultMap;
     }
 
     /**
      * 我的收藏
      * TODO 分页功能
      */
-    @RequestMapping(value = "/user/favorite/{userName}", method = RequestMethod.GET)
-    public List<PhotoDto> userLike(@PathVariable("userName") String userName) {
+    @RequestMapping(value = "/user/favorite", method = RequestMethod.GET)
+    public List<PhotoDto> userLike() {
         //UserInfoDto myFavorite = new UserInfoDto();
+        String userName = getCurrentUserName();
         return photoService.getPhotoFromUserFavorite("", userName);
     }
 
@@ -219,7 +233,6 @@ public class ApiController {
                                   @PathVariable(value = "albumId") Long albumId,
                                   @PathVariable(value = "photoId") Long photoId) {
         //TODO 读取用户评论
-        String username = getCurrentUserName();
         List<CommentListDto> commentListDtoList = commentService.getCommentListFromSpots(provinceName,cityName,albumId,photoId);
 
         return commentListDtoList;
@@ -240,7 +253,6 @@ public class ApiController {
                                                      @PathVariable(value = "albumId") Long albumId,
                                                      @PathVariable(value = "photoId") Long photoId) {
         //TODO 读取用户评论
-        String username = getCurrentUserName();
         List<CommentListDto> commentListDtoList = commentService.getCommentListFromCollege(provinceName,albumId,photoId);
 
         return commentListDtoList;
@@ -345,7 +357,7 @@ public class ApiController {
     }
 
     /**
-     * 删除景点图片是【评论
+     * 删除景点图片评论
      * @param provinceName
      * @param cityName
      * @param albumId
