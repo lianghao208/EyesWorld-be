@@ -14,7 +14,7 @@
 To Do List
 ----------
 
-- Travis CI integration
+- Convert the database timestamp to POJO type timestamp
 
 
 Update
