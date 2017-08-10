@@ -11,7 +11,7 @@
 API and Summary
 --------------
 * The development process: [check the whole process](https://github.com/lianghao208/eyes-world-server/blob/master/README.md) 
-* The development API(TV): [check the TV (PC) API document](https://github.com/lianghao208/EyesWorld-be/blob/master/api.md) 
+* The development API(TV): [check the TV (PC) API document](https://github.com/lianghao208/eyes-world-api/blob/master/api.md) 
 * The development API(Mobile): [check the Mobile API document](https://github.com/lianghao208/eyes-world-api/blob/master/api-web.md) 
 
 To Do List
@@ -54,4 +54,4 @@ Screenshots
 ![]()
 
 ## CHANGELOG
-[CHANGELOG](https://github.com//lianghao208/EyesWorld-be/changeLog.md)
+[CHANGELOG](https://github.com/lianghao208/EyesWorld-be/blob/master/changeLog.md)
