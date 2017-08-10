@@ -145,6 +145,7 @@ public interface PhotoDao {
                                    @Param(value = "albumId") Long albumId,
                                    @Param(value = "photoId") Long photoId);
 
+
     //暂时不启用
     Boolean lastSpotsPhoto(@Param(value = "provinceName") String provinceName,
                            @Param(value = "cityName") String cityName,
@@ -156,5 +157,6 @@ public interface PhotoDao {
                              @Param(value = "albumId") Long albumId,
                              @Param(value = "photoId") Long photoId,
                              @Param(value = "username") String username);
+
 
 }

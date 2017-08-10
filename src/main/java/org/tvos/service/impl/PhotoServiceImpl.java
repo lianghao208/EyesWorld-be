@@ -10,6 +10,7 @@ import org.tvos.entity.Photo;
 import org.tvos.service.PhotoService;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +59,8 @@ public class PhotoServiceImpl implements PhotoService {
             //photoDto.setLast(photo.getLast());
             //判断用户是否点赞此图片
             photoDto.setLike(like(photo.getPhotoName(), photo.getUsername()));//true已经点赞，like设为true
+            //景点访问量+1
+            albumDao.spotsVisitAdd(albumDao.getSpotsAlbumNameById(provinceName,cityName,albumId));
             //判断该相片是否为最后一张
             if(photoDao.getPhotoFromSpots(provinceName,cityName,albumId,(photoId+1))==null){
                 photoDto.setLast(true);
@@ -94,6 +97,8 @@ public class PhotoServiceImpl implements PhotoService {
             photoDto.setLast(photo.getLast());
             //判断用户是否点赞此图片
             photoDto.setLike(like(photo.getPhotoName(), photo.getUsername()));//true已经点赞，like设为true
+            //高校相册访问量+1
+            albumDao.spotsVisitAdd(albumDao.getCollegeAlbumNameById(provinceName,albumId));
             //判断该相片是否为最后一张
             if(photoDao.getPhotoFromCollege(provinceName,albumId,(photoId+1))==null){
                 photoDto.setLast(true);

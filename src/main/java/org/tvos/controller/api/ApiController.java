@@ -85,7 +85,7 @@ public class ApiController {
     }
 
     /**
-     * 浏览图片
+     * 浏览景点图片
      * TODO 分页功能
      */
     @RequestMapping(value = "/provinces/cities/{provinceName}/{cityName}/spots/{albumId}/{photoId}", method = RequestMethod.GET)

@@ -83,9 +83,23 @@
         WHERE album_name = #{albumName} AND city_id IS NOT NULL
     </select>
 
+    <!-- 获取景点相册浏览数 -->
+    <select id="getSpotsVisitAmount" parameterType="java.util.Map" resultType="Integer">
+        SELECT visit_amount
+        FROM album
+        WHERE album_name = #{albumName} AND city_id IS NOT NULL
+    </select>
+
     <!-- 获取高校相册点赞数 -->
     <select id="getCollegeLikeAmount" parameterType="java.util.Map" resultType="Integer">
         SELECT like_amount
+        FROM album
+        WHERE album_name = #{albumName} AND city_id IS NULL
+    </select>
+
+    <!-- 获取高校相册浏览数 -->
+    <select id="getCollegeVisitAmount" parameterType="java.util.Map" resultType="Integer">
+        SELECT visit_amount
         FROM album
         WHERE album_name = #{albumName} AND city_id IS NULL
     </select>
@@ -226,6 +240,23 @@
             AND city_id IS NULL
     </update>
 
+    <!-- 景点相册浏览数加1 -->
+    <update id="spotsVisitAdd" parameterType="java.util.Map">
+        UPDATE album
+        SET visit_amount = visit_amount + 1
+        WHERE
+        album_name = #{albumName}
+        AND city_id IS NOT NULL
+    </update>
+
+    <!-- 高校相册浏览数加1 -->
+    <update id="collegeVisitAdd" parameterType="java.util.Map">
+        UPDATE album
+        SET visit_amount = visit_amount + 1
+        WHERE
+        album_name = #{albumName}
+        AND city_id IS NULL
+    </update>
 
     <!-- 删除景点相册 -->
     <delete id="deleteAlbumFromSpots" parameterType="java.util.Map">

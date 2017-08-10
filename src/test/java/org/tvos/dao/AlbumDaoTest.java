@@ -19,6 +19,26 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class AlbumDaoTest {
     @Test
+    public void spotsVisitAdd() throws Exception {
+        System.out.println(albumDao.spotsVisitAdd("我的相册3"));
+    }
+
+    @Test
+    public void collegeVisitAdd() throws Exception {
+        System.out.println(albumDao.collegeVisitAdd("我的高校"));
+    }
+
+    @Test
+    public void getSpotsVisitAmount() throws Exception {
+        System.out.println(albumDao.getSpotsVisitAmount("我的相册3"));
+    }
+
+    @Test
+    public void getCollegeVisitAmount() throws Exception {
+        System.out.println(albumDao.getCollegeVisitAmount("我的高校"));
+    }
+
+    @Test
     public void getSpotsAlbumNameById() throws Exception {
         System.out.println(albumDao.getSpotsAlbumNameById("广东","潮州",Long.valueOf(String.valueOf(0))));
     }

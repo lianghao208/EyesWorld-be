@@ -1,5 +1,6 @@
 package org.tvos.dao;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.ibatis.annotations.Param;
 import org.tvos.entity.Album;
 
@@ -45,6 +46,33 @@ public interface AlbumDao {
     String getCollegeAlbumNameById(@Param(value="provinceName") String provinceName,
                                    @Param(value = "albumId") Long albumId);
 
+    /**
+     * 增加景点相册浏览量
+     * @param albumName
+     * @return
+     */
+    Boolean spotsVisitAdd(@Param(value = "albumName") String albumName);
+
+    /**
+     * 增加高校相册浏览量
+     * @param albumName
+     * @return
+     */
+    Boolean collegeVisitAdd(@Param(value = "albumName") String albumName);
+
+    /**
+     * 获取景点相册访问量
+     * @param albumName
+     * @return
+     */
+    Integer getSpotsVisitAmount(@Param(value = "albumName") String albumName);
+
+    /**
+     * 获取高校相册访问量
+     * @param albumName
+     * @return
+     */
+    Integer getCollegeVisitAmount(@Param(value = "albumName") String albumName);
     /**
      * 暂时不需要
      * @param provinceName
