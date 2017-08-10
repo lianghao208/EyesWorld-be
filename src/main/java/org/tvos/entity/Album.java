@@ -1,5 +1,7 @@
 package org.tvos.entity;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/7/26.
  */
@@ -12,7 +14,7 @@ public class Album {
     private Long likeAmount;
     private String url;
     private int createTime;
-    private int modificationTime;
+    private Date modificationTime;
 
     public Long getAlbumId() {
         return albumId;
@@ -78,11 +80,11 @@ public class Album {
         this.createTime = createTime;
     }
 
-    public int getModificationTime() {
+    public Date getModificationTime() {
         return modificationTime;
     }
 
-    public void setModificationTime(int modificationTime) {
+    public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
     }
 }

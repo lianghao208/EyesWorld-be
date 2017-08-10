@@ -36,7 +36,7 @@ public class QrCreate {
 				realPath.mkdirs();
 			}
 			fout=new FileOutputStream(defaultPath+imgPath+marker);
-			fout.write(bout.toByteArray());;
+			fout.write(bout.toByteArray());
 			fout.flush();
 			fout.close();
 		} catch (Exception e) {

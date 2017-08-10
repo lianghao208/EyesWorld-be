@@ -15,7 +15,7 @@
         <result column="like_amount" jdbcType="INTEGER" property="likeAmount"/>
         <result column="creation_time" jdbcType="INTEGER" property="createTime"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
-        <result column="modification_time" jdbcType="INTEGER" property="modificationTime"/>
+        <result column="modification_time" jdbcType="TIMESTAMP" property="modificationTime" javaType="java.util.Date"/>
     </resultMap>
 
     <!-- 景点相册 -->

@@ -45,6 +45,8 @@
           <element id="library" level="project" name="Maven: com.google.zxing:core:3.1.0" />
           <element id="library" level="project" name="Maven: net.glxn.qrgen:core:2.0" />
           <element id="library" level="project" name="Maven: org.jfree:jfreesvg:2.1" />
+          <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper:5.0.4" />
+          <element id="library" level="project" name="Maven: com.github.jsqlparser:jsqlparser:1.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">

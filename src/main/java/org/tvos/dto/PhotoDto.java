@@ -2,6 +2,8 @@ package org.tvos.dto;
 
 import org.tvos.entity.Photo;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/7/26.
  */
@@ -24,7 +26,7 @@ public class PhotoDto{
     private String url;
     private Boolean like;
     private int likeAmount;
-    private int createTime;
+    private Date createTime;
     private Boolean last;
 
     public Long getPhotoId() {
@@ -83,11 +85,11 @@ public class PhotoDto{
         this.likeAmount = likeAmount;
     }
 
-    public int getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(int createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 

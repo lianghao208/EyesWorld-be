@@ -54,7 +54,7 @@ public class PhotoServiceImpl implements PhotoService {
             photoDto.setUrl(photo.getUrl());
             //photoDto.setLike(photo.getLike());
             photoDto.setLikeAmount(photo.getLikeAmount());
-            photoDto.setCreateTime(photo.getCreateTime());
+            photoDto.setCreateTime(photo.getModificationTime());
             //photoDto.setLast(photo.getLast());
             //判断用户是否点赞此图片
             photoDto.setLike(like(photo.getPhotoName(), photo.getUsername()));//true已经点赞，like设为true
@@ -90,7 +90,7 @@ public class PhotoServiceImpl implements PhotoService {
             photoDto.setUrl(photo.getUrl());
             //photoDto.setLike(photo.getLike());
             photoDto.setLikeAmount(photo.getLikeAmount());
-            photoDto.setCreateTime(photo.getCreateTime());
+            photoDto.setCreateTime(photo.getModificationTime());
             photoDto.setLast(photo.getLast());
             //判断用户是否点赞此图片
             photoDto.setLike(like(photo.getPhotoName(), photo.getUsername()));//true已经点赞，like设为true
@@ -126,7 +126,7 @@ public class PhotoServiceImpl implements PhotoService {
             photoDto.setUrl(p.getUrl());
             //photoDto.setLike(photo.getLike());
             photoDto.setLikeAmount(p.getLikeAmount());
-            photoDto.setCreateTime(p.getCreateTime());
+            photoDto.setCreateTime(p.getModificationTime());
             photoDto.setLast(p.getLast());
             //判断用户是否点赞此图片
             photoDto.setLike(like(p.getPhotoName(), p.getUsername()));//true已经点赞，like设为true
@@ -155,7 +155,7 @@ public class PhotoServiceImpl implements PhotoService {
             photoDto.setUrl(p.getUrl());
             //photoDto.setLike(photo.getLike());
             photoDto.setLikeAmount(p.getLikeAmount());
-            photoDto.setCreateTime(p.getCreateTime());
+            photoDto.setCreateTime(p.getModificationTime());
             photoDto.setLast(p.getLast());
             //判断用户是否点赞此图片
             photoDto.setLike(like(p.getPhotoName(), p.getUsername()));//true已经点赞，like设为true

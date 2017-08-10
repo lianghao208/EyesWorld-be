@@ -1,5 +1,7 @@
 package org.tvos.entity;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/7/26.
  */
@@ -8,7 +10,7 @@ public class Photo {
     private Long albumId;
     private String albumName;
     private Long userId;
-    private int modificationTime;
+    private Date modificationTime;
 
     private Long photoId;
     private String username;
@@ -17,7 +19,7 @@ public class Photo {
     private String url;
     private Boolean like;
     private int likeAmount;
-    private int createTime;
+    private Date createTime;
     private Boolean last;
 
     public Long getAlbumId() {
@@ -44,11 +46,11 @@ public class Photo {
         this.userId = userId;
     }
 
-    public int getModificationTime() {
+    public Date getModificationTime() {
         return modificationTime;
     }
 
-    public void setModificationTime(int modificationTime) {
+    public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
     }
 
@@ -108,11 +110,11 @@ public class Photo {
         this.likeAmount = likeAmount;
     }
 
-    public int getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(int createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -124,5 +126,22 @@ public class Photo {
         this.last = last;
     }
 
-
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "albumId=" + albumId +
+                ", albumName='" + albumName + '\'' +
+                ", userId=" + userId +
+                ", modificationTime=" + modificationTime +
+                ", photoId=" + photoId +
+                ", username='" + username + '\'' +
+                ", photoName='" + photoName + '\'' +
+                ", photoDescription='" + photoDescription + '\'' +
+                ", url='" + url + '\'' +
+                ", like=" + like +
+                ", likeAmount=" + likeAmount +
+                ", createTime=" + createTime +
+                ", last=" + last +
+                '}';
+    }
 }

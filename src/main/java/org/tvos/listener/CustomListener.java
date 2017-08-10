@@ -94,17 +94,18 @@ class ListenerThread extends Thread{
 
     private void deleteOverdueFile(){
         String dir="D:\\IntelliJ_Java_project\\tvos\\target\\tvos\\img";
+        //String dir="C:\\Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps\\ROOT\\img";
         File dirFile=new File(dir);
         String fileName;
         long modTime;
-        System.out.println("dir exist:"+dirFile.exists());
+        //System.out.println("dir exist:"+dirFile.exists());
         if(dirFile.exists()){
             File[] files=dirFile.listFiles();
             for(File f:files){
                 modTime=f.lastModified();
-                System.out.println("file name"+f.getName());
-                System.out.println("mod time"+modTime);
-                System.out.println("delta"+(Calendar.getInstance().getTimeInMillis()-modTime));
+                //System.out.println("file name"+f.getName());
+                //System.out.println("mod time"+modTime);
+                //System.out.println("delta"+(Calendar.getInstance().getTimeInMillis()-modTime));
                 if((Calendar.getInstance().getTimeInMillis()-modTime)>60000){
                     f.delete();
                 }

@@ -1,5 +1,7 @@
 package org.tvos.entity;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/7/26.
  */
@@ -9,7 +11,7 @@ public class Province {
     private int spotNum;
     private int collegeNum;
     private int createTime;
-    private int modificationTime;
+    private Date modificationTime;
 
     public String getProvinceName() {
         return provinceName;
@@ -43,11 +45,11 @@ public class Province {
         this.createTime = createTime;
     }
 
-    public int getModificationTime() {
+    public Date getModificationTime() {
         return modificationTime;
     }
 
-    public void setModificationTime(int modificationTime) {
+    public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
     }
 
