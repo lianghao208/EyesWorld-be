@@ -54,4 +54,4 @@ Screenshots
 ![]()
 
 ## CHANGELOG
-[CHANGELOG](https://github.com//lianghao208/EyesWorld-be/changeLog.md)
+[CHANGELOG](https://github.com/lianghao208/EyesWorld-be/blob/master/changeLog.md)
