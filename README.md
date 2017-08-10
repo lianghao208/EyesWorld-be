@@ -2,8 +2,8 @@
 
 ## Backend of the EyesWorld app( Runs on TVOS)
 
-[![Travis](https://img.shields.io/travis/rust-lang/rust.svg?style=plastic)]()
-[![](https://img.shields.io/badge/JDK-1.8.025-red.svg)]()
+[![Travis](https://img.shields.io/travis/rust-lang/rust.svg?style=plastic)](https://github.com/lianghao208/EyesWorld-be)
+[![](https://img.shields.io/badge/JDK-1.8.025-red.svg)](https://github.com/lianghao208/EyesWorld-be)
 [![](https://img.shields.io/badge/maven--central-v3.0.5-blue.svg)](https://maven.apache.org)
 
 * Framework: Spring + SpringMVC + MyBatis + Redis( Coming soon)
