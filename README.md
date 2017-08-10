@@ -17,7 +17,7 @@ API and Summary
 To Do List
 ----------
 
-- Convert the database timestamp to POJO type timestamp
+- Update Mybatis Pager
 - Combine the function with frontend pages
 - Reconstruct the database construction
 - Test with Jmeter
@@ -27,6 +27,7 @@ Update
 ```
 ./org/tvos/listener    # upgrade listener
 ```
+- Convert the database timestamp to POJO type timestamp
 
 
 Architecture
@@ -53,4 +54,4 @@ Screenshots
 ![]()
 
 ## CHANGELOG
-[CHANGELOG](https://github.com//lianghao208/EyesWorld-be)
+[CHANGELOG](https://github.com//lianghao208/EyesWorld-be/changeLog.md)
