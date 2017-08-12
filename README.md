@@ -26,6 +26,7 @@ Update
 -----------------
 ```
 ./org/tvos/listener    # upgrade listener
+./org/tvos/filter      # add CORS request support
 ```
 - Convert the database timestamp to POJO type timestamp
 

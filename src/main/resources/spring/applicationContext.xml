@@ -80,7 +80,8 @@
     <!-- security配置
     <security:http pattern="/index.jsp" security="none" />-->
     <!-- intercept-url添加拦截器 -->
-    <security:http>
+    <security:http use-expressions="true">
+        <security:custom-filter ref="corsHandler" after="PRE_AUTH_FILTER"/>
         <security:intercept-url pattern="/tvhome.html" access="isAuthenticated()"/>
         <security:intercept-url pattern="/uploadtest.html" access="isAuthenticated()"/>
         <security:intercept-url pattern="/api/provinces/cities/**/like" access="isAuthenticated()"/>
@@ -97,6 +98,7 @@
 
         <security:csrf disabled="true"/>
 
+
     </security:http>
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="customUserDetailsServiceImpl"/>
@@ -108,5 +110,7 @@
             </security:user-service>
         </security:authentication-provider>-->
     </security:authentication-manager>
+
+    <bean id="corsHandler" class="org.tvos.filter.CorsFilter" />
 
 </beans>

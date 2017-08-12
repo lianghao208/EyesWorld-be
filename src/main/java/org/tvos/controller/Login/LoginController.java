@@ -62,6 +62,7 @@ public class LoginController {
 
 		Cookie cookie=new Cookie("sfnfncfs",queryForTokenDao.getToken(marker));
 		cookie.setPath("/");
+
 		response.addCookie(cookie);
 		queryForTokenDao.deleteToken(marker);
 		QrCreate.setPath(request.getRealPath("/"));
