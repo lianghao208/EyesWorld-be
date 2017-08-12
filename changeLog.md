@@ -1,4 +1,4 @@
-Update List
+Change Log
 ----------
 
 - Upgrade Listener thread to clean QR-code cache
