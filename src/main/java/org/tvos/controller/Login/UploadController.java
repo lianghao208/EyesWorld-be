@@ -13,7 +13,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.tvos.constant.ConstantHolder;
 import org.tvos.service.PhotoService;
+import org.tvos.util.ThumbnailGenerator;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +52,7 @@ public class UploadController {
         String photoName = request.getParameter("photoName");
         String photoDesc = request.getParameter("photoDesc");
 
-        File dir = new File("C:\\upload\\spotsPhoto");
+        File dir = new File(ConstantHolder.originSpotsImagePath);
         if (!dir.exists()) {
             dir.mkdir();
         }
@@ -63,6 +66,8 @@ public class UploadController {
         File uploadFile = new File(path);
         System.out.println(photoName);
         file.transferTo(uploadFile);
+        //转换成缩略图
+        ThumbnailGenerator.generate(path, path,2);
         //得到当前登录的用户名
         userName = getCurrentUserName();
         photoService.addPhotoFromSpots(
@@ -88,7 +93,7 @@ public class UploadController {
         String photoName = request.getParameter("photoName");
         String photoDesc = request.getParameter("photoDesc");
 
-        File dir = new File("C:\\upload\\collegePhoto");
+        File dir = new File(ConstantHolder.originCollegeImagePath);
         if (!dir.exists()) {
             dir.mkdir();
         }
@@ -102,6 +107,8 @@ public class UploadController {
         File uploadFile = new File(path);
         System.out.println(photoName);
         file.transferTo(uploadFile);
+        //生成缩略图，缩小一半
+        ThumbnailGenerator.generate(path, path,2);
         //得到当前登录的用户名
         userName = getCurrentUserName();
 
