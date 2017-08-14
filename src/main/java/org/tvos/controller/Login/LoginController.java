@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.tvos.constant.ConstantHolder;
 import org.tvos.dao.QueryForTokenDao;
 import org.tvos.util.*;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.logging.ConsoleHandler;
 
 @RestController
 @RequestMapping("/login")
@@ -36,7 +38,7 @@ public class LoginController {
 		//System.out.println(System.getProperty("tveb.root"));
 		String ip=Inet4Address.getLocalHost().getHostAddress();
 		System.out.println(ip);
-		QrEntity e=QrCreate.getQr("http://"+"192.168.0.107"+":8088/login.html");
+		QrEntity e=QrCreate.getQr(ConstantHolder.QR_CODE_PATH);
 		//QrEntity e=QrCreate.getQr("http://"+"39.108.149.106"+":80/login.html");
 		return new ResponseEntity<QrEntity>(e,HttpStatus.OK);
 	}

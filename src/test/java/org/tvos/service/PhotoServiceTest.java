@@ -33,6 +33,13 @@ public class PhotoServiceTest {
 
     @Test
     public void addPhotoFromCollege() throws Exception {
+        Boolean isAdded = photoService.addPhotoFromCollege("Mike",
+                "华南理工大学",
+                "我的大学",
+                "6789000",
+                "广东",
+                "www.123.com");
+        System.out.println(isAdded);
     }
 
     @Autowired

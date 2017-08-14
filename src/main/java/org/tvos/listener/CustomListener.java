@@ -2,6 +2,7 @@ package org.tvos.listener;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.tvos.constant.ConstantHolder;
 import org.tvos.dao.QueryForTokenDao;
 
 import javax.servlet.ServletContextEvent;
@@ -79,7 +80,7 @@ class ListenerThread extends Thread{
                 if(date!=null) {
                     time = date.getTime();
                     delta = System.currentTimeMillis() - time;
-                    if (delta > 60000) {
+                    if (delta > ConstantHolder.QR_CODE_DUE_TIME) {
                         dao.deleteOldestToken();
                         System.out.println("token deleted");
                     }
@@ -96,7 +97,7 @@ class ListenerThread extends Thread{
     }
 
     private void deleteOverdueFile(){
-        String dir="D:\\IntelliJ_Java_project\\tvos\\target\\tvos\\img";
+        String dir= ConstantHolder.OVER_DUE_FILE_PATH;
         //String dir="C:\\Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps\\ROOT\\img";
         File dirFile=new File(dir);
         String fileName;
@@ -109,7 +110,7 @@ class ListenerThread extends Thread{
                 //System.out.println("file name"+f.getName());
                 //System.out.println("mod time"+modTime);
                 //System.out.println("delta"+(Calendar.getInstance().getTimeInMillis()-modTime));
-                if((Calendar.getInstance().getTimeInMillis()-modTime)>60000){
+                if((Calendar.getInstance().getTimeInMillis()-modTime)>ConstantHolder.QR_CODE_DUE_TIME){
                     f.delete();
                 }
             }

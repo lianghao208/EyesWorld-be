@@ -131,8 +131,8 @@ public class ApiController {
      * 最新推荐
      */
     @RequestMapping(value = "/lastest", method = RequestMethod.GET)
-    public List<AlbumDto> Recommend() {
-        return albumService.getAlbumsFromRecommend();
+    public List<PhotoDto> Recommend() {
+        return photoService.getPhotosFromRecommend();
     }
 
     /**

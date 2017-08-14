@@ -76,4 +76,9 @@ public interface PhotoService {
      */
     Boolean deletePhoto(String photoName,String username);
 
+    /**
+     * 推荐图片
+     * @return
+     */
+    List<PhotoDto> getPhotosFromRecommend();
 }

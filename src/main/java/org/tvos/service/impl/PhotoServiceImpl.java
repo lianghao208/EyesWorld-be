@@ -247,6 +247,16 @@ public class PhotoServiceImpl implements PhotoService {
         return null;
     }
 
+    /**
+     * 推荐图片
+     * @return
+     */
+    @Transactional
+    public List<PhotoDto> getPhotosFromRecommend() {
+        return null;
+    }
+
+    @Transactional
     private Boolean photoDelete(String photoName){
         File deleteSpotsFile = new File("C:\\upload\\spotsPhoto\\"+photoName);
         File deleteCollegeFile = new File("C:\\upload\\collegePhoto\\"+photoName);
