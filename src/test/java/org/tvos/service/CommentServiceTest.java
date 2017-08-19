@@ -18,12 +18,29 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class CommentServiceTest {
+    @Test
+    public void deleteCommnetForUser() throws Exception {
+        Boolean isDeleted= commentService.deleteCommnetForUser("Mike",Long.valueOf(String.valueOf(8)));
+        System.out.println(isDeleted);
+    }
+
+    @Test
+    public void userCommentDeletable() throws Exception {
+        Boolean isDeleted= commentService.userCommentDeletable("Mike",Long.valueOf(String.valueOf(8)));
+        System.out.println(isDeleted);
+    }
+
+    @Test
+    public void getCommentListFromUser() throws Exception {
+        List<CommentListDto> commentListDtos = commentService.getCommentListFromUser("abcd-1234567");
+        System.out.println(commentListDtos);
+    }
 
     @Autowired
     CommentService commentService;
     @Test
     public void getCommentListFromSpots() throws Exception {
-        List<CommentListDto> commentListDtos = commentService.getCommentListFromSpots("广东","潮州",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)));
+        List<CommentListDto> commentListDtos = commentService.getCommentListFromSpots("广东","佛山",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)));
         System.out.println(commentListDtos);
     }
 
@@ -35,13 +52,13 @@ public class CommentServiceTest {
 
     @Test
     public void addCommentForSpots() throws Exception {
-        Boolean isAdded= commentService.addCommentForSpots("广东","潮州","tmh","123121414",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)));
+        Boolean isAdded= commentService.addCommentForSpots("广东","潮州","Mike","123121414",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)));
         System.out.println(isAdded);
     }
 
     @Test
     public void addCommentForCollege() throws Exception {
-        Boolean isAdded= commentService.addCommentForCollege("广东","Mike","123121414",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)));
+        Boolean isAdded= commentService.addCommentForCollege("广东","Mike","12312",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)));
         System.out.println(isAdded);
     }
 

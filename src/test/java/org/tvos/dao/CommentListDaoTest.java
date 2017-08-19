@@ -17,12 +17,17 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class CommentListDaoTest {
+    @Test
+    public void getCommentListFromUser() throws Exception {
+        List<CommentList> commentListList = commentListDao.getCommentListFromUser("abcd-1234567");
+        System.out.println(commentListList);
+    }
 
     @Autowired
     CommentListDao commentListDao;
     @Test
     public void getPhotoCommentListFromSpots() throws Exception {
-        List<CommentList> commentListList = commentListDao.getPhotoCommentListFromSpots("广东","潮州",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)));
+        List<CommentList> commentListList = commentListDao.getPhotoCommentListFromSpots("广东","佛山",Long.valueOf(String.valueOf(0)),Long.valueOf(String.valueOf(0)));
         System.out.println(commentListList);
     }
 

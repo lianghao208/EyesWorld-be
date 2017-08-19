@@ -16,4 +16,6 @@ public interface UserService {
     Boolean updatePassword(String username,String password);
 
     Boolean usernameUsed(String username);
+
+    Boolean modifyPassword(String username, String oldPassword, String newPassword);
 }

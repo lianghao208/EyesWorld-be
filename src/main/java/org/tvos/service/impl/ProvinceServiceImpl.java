@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tvos.dao.ProvinceDao;
 import org.tvos.dao.UserDao;
+import org.tvos.dao.cache.RedisDao;
 import org.tvos.dto.CityDto;
 import org.tvos.dto.ProvinceDto;
 import org.tvos.entity.Province;
@@ -21,15 +22,19 @@ public class ProvinceServiceImpl implements ProvinceService {
 
 
     @Autowired
-    ProvinceDao provinceDao;
+    private ProvinceDao provinceDao;
+
+    @Autowired
+    private RedisDao redisDao;
 
     /**
-     * TODO 访问Dao层拿景点对应的省份数据
+     * TODO 高并发优化点：访问Redis缓存
      * @return
      */
     public List<ProvinceDto> getProvincesForSpots() {
+        //Redis缓存优化
+        List<Province> provinceList = getProvinceCacheFromRedis();
         List<ProvinceDto> provinceDtoList = new ArrayList<ProvinceDto>();
-        List<Province> provinceList = provinceDao.getProvinceListForSpots();
         System.out.println(provinceList);
         //将 provinceList 转换成 provinceDtoList
         for(Province p: provinceList){
@@ -45,7 +50,7 @@ public class ProvinceServiceImpl implements ProvinceService {
     }
 
     /**
-     * TODO 访问Dao层拿高校对应的省份数据
+     * TODO 高并发优化点：访问Redis缓存
      * @return
      */
     public List<ProvinceDto> getProvincesForCollege() {
@@ -60,5 +65,23 @@ public class ProvinceServiceImpl implements ProvinceService {
         return provinceDtoList;
     }
 
+    /**
+     * 读取Redis缓存
+     * @return
+     */
+    private List<Province> getProvinceCacheFromRedis(){
+        //1.访问redis
+        List<Province> provinceList = redisDao.getProvinceListForSpots();
+        if(provinceList == null){
+            provinceList = provinceDao.getProvinceListForSpots();
+            if(provinceList == null){
+                //图片不存在，返回空对象
+                return new ArrayList<Province>();
+            }else {
+                redisDao.putProvinceListForSpots(provinceList);
+            }
+        }
+        return provinceList;
+    }
 
 }

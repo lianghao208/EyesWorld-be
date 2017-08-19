@@ -7,6 +7,8 @@ SET character_set_server = utf8;
 
 -- 其它默认utf8
 
+-- 城市默认高校字段
+INSERT INTO city (city_name) VALUES ("高校默认");
 
 
 -- 创建数据库
@@ -98,7 +100,7 @@ CREATE TABLE college(
 CREATE TABLE album(
   `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
   `album_name` VARCHAR(255),
-  `city_id` INT,
+  `city_id` INT DEFAULT 374,
   `province_id` INT,
   `visit_amount` INT DEFAULT 0,
   `like_amount` INT DEFAULT 0,

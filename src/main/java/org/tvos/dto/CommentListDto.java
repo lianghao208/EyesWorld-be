@@ -2,6 +2,8 @@ package org.tvos.dto;
 
 import org.tvos.entity.CommentList;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/7/26.
  */
@@ -10,7 +12,7 @@ public class CommentListDto{
     private Long commentId;
     private String username;
     private String content;
-    private Integer modificationTime;
+    private Date modificationTime;
 
 
     public Long getCommentId() {
@@ -41,12 +43,12 @@ public class CommentListDto{
     }
 
 
-    public Integer getModificationTime() {
+    public Date getModificationTime() {
         return modificationTime;
     }
 
 
-    public void setModificationTime(Integer modificationTime) {
+    public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
     }
 

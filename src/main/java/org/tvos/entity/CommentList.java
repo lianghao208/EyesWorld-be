@@ -1,5 +1,7 @@
 package org.tvos.entity;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/7/26.
  */
@@ -8,8 +10,8 @@ public class CommentList {
     private Long photoId;
     private Long userId;
     private String content;
-    private Integer createTime;
-    private Integer modificationTime;
+    private Date createTime;
+    private Date modificationTime;
 
     public Long getCommentId() {
         return commentId;
@@ -43,19 +45,19 @@ public class CommentList {
         this.content = content;
     }
 
-    public Integer getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Integer getModificationTime() {
+    public Date getModificationTime() {
         return modificationTime;
     }
 
-    public void setModificationTime(Integer modificationTime) {
+    public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
     }
 

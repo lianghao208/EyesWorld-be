@@ -109,12 +109,11 @@ public class PhotoDaoTest {
      */
     @Test
     public void addPhotoForCollege() throws Exception {
-        Boolean isAdded = photoDao.addPhotoForSpots("cookie1",
+        Boolean isAdded = photoDao.addPhotoForCollege("",
                 "Mike",
                 "广东",
-                "佛山",
-                "家",
-                "电脑图",
+                "华南理工大学",
+                "我的大学",
                 "这是我的电脑",
                 "www.baidu.com");
 

@@ -58,7 +58,7 @@
             SELECT id
             FROM province
             WHERE province_name = #{provinceName}
-        ) AND city_id IS NULL
+        ) AND city_id = 374
     </select>
 
     <!-- 推荐相册 TODO 添加推荐算法-->
@@ -80,28 +80,28 @@
     <select id="getSpotsLikeAmount" parameterType="java.util.Map" resultType="Integer">
         SELECT like_amount
         FROM album
-        WHERE album_name = #{albumName} AND city_id IS NOT NULL
+        WHERE album_name = #{albumName} AND city_id != 374
     </select>
 
     <!-- 获取景点相册浏览数 -->
     <select id="getSpotsVisitAmount" parameterType="java.util.Map" resultType="Integer">
         SELECT visit_amount
         FROM album
-        WHERE album_name = #{albumName} AND city_id IS NOT NULL
+        WHERE album_name = #{albumName} AND city_id != 374
     </select>
 
     <!-- 获取高校相册点赞数 -->
     <select id="getCollegeLikeAmount" parameterType="java.util.Map" resultType="Integer">
         SELECT like_amount
         FROM album
-        WHERE album_name = #{albumName} AND city_id IS NULL
+        WHERE album_name = #{albumName} AND city_id = 374
     </select>
 
     <!-- 获取高校相册浏览数 -->
     <select id="getCollegeVisitAmount" parameterType="java.util.Map" resultType="Integer">
         SELECT visit_amount
         FROM album
-        WHERE album_name = #{albumName} AND city_id IS NULL
+        WHERE album_name = #{albumName} AND city_id = 374
     </select>
 
     <!-- 通过Id获取景点相册名 -->
@@ -118,7 +118,7 @@
                     WHERE
                         city_name = #{cityName}
                 )
-                AND city_id IS NOT NULL
+                AND city_id != 374
             LIMIT #{albumId}, 1
         )
     </select>
@@ -137,7 +137,7 @@
                     WHERE
                         province_name = #{provinceName}
                 )
-                AND city_id IS NULL
+                AND city_id = 374
             LIMIT #{albumId}, 1
         )
     </select>
@@ -172,6 +172,8 @@
             ),
             #{url}
         )
+        ON DUPLICATE KEY UPDATE
+            url = #{url}
     </insert>
 
     <!-- 修改景点相册 -->
@@ -199,7 +201,7 @@
                 FROM province
                 WHERE province_name = #{provinceName}),
             url         = #{url}
-        WHERE city_id IS NULL
+        WHERE city_id = 374
     </update>
 
     <!-- 景点相册点赞数加1 -->
@@ -208,7 +210,7 @@
         SET like_amount = like_amount + 1
         WHERE
             album_name = #{albumName}
-            AND city_id IS NOT NULL
+            AND city_id != 374
     </update>
 
     <!-- 高校相册点赞数加1 -->
@@ -217,7 +219,7 @@
         SET like_amount = like_amount + 1
         WHERE
             album_name = #{albumName}
-            AND city_id IS NULL
+            AND city_id = 374
     </update>
 
     <!-- 景点相册点赞数减1 -->
@@ -227,7 +229,7 @@
         WHERE
             album_name = #{albumName}
             AND like_amount > 0
-            AND city_id IS NOT NULL
+            AND city_id != 374
     </update>
 
     <!-- 高校相册点赞数减1 -->
@@ -237,7 +239,7 @@
         WHERE
             album_name = #{albumName}
             AND like_amount > 0
-            AND city_id IS NULL
+            AND city_id = 374
     </update>
 
     <!-- 景点相册浏览数加1 -->
@@ -245,8 +247,8 @@
         UPDATE album
         SET visit_amount = visit_amount + 1
         WHERE
-        album_name = #{albumName}
-        AND city_id IS NOT NULL
+            album_name = #{albumName}
+            AND city_id != 374
     </update>
 
     <!-- 高校相册浏览数加1 -->
@@ -254,8 +256,59 @@
         UPDATE album
         SET visit_amount = visit_amount + 1
         WHERE
-        album_name = #{albumName}
-        AND city_id IS NULL
+            album_name = #{albumName}
+            AND city_id = 374
+    </update>
+
+    <!-- 更新景点相册封面 -->
+    <update id="updateSpotsAlbumCover" parameterType="java.util.Map">
+        UPDATE album
+        SET url = (
+            SELECT url
+            FROM photo
+            WHERE album_name = (
+                SELECT album_name
+                FROM photo
+                WHERE photo_name = #{photoName}
+
+            )
+
+            ORDER BY id DESC
+            LIMIT 1, 1
+        )
+        WHERE city_id != 374
+              AND album_name = (
+            SELECT album_name
+            FROM photo
+            WHERE photo_name = #{photoName}
+
+        )
+
+    </update>
+
+    <!-- 更新高校相册封面 -->
+    <update id="updateCollegeAlbumCover" parameterType="java.util.Map">
+        UPDATE album
+        SET url = (
+            SELECT url
+            FROM photo
+            WHERE album_name = (
+                SELECT album_name
+                FROM photo
+                WHERE photo_name = #{photoName}
+
+            )
+            ORDER BY id DESC
+            LIMIT 1, 1
+        )
+        WHERE city_id = 374
+              AND album_name = (
+            SELECT album_name
+            FROM photo
+            WHERE photo_name = #{photoName}
+
+        )
+
     </update>
 
     <!-- 删除景点相册 -->

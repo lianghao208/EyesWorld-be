@@ -10,6 +10,8 @@ import java.util.List;
  * Created by Administrator on 2017/7/26.
  */
 public interface CommentService {
+
+    List<CommentListDto> getCommentListFromUser(String photoName);
     List<CommentListDto> getCommentListFromSpots(String provinceName, String cityName, Long AlbumId, Long PhotoId);
 
     List<CommentListDto> getCommentListFromCollege(String provinceName, Long AlbumId, Long PhotoId);
@@ -40,6 +42,9 @@ public interface CommentService {
                                     Long photoId,
                                     Long commentId);
 
+    Boolean deleteCommnetForUser(String userName,
+                                 Long commentId);
+
     Boolean spotsCommentDeletable(String provinceName,
                                   String cityName,
                                   String username,
@@ -52,4 +57,5 @@ public interface CommentService {
                                     Long albumId,
                                     Long photoId,
                                     Long commentId);
+    Boolean userCommentDeletable(String username, Long commentId);
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tvos.dao.*;
+import org.tvos.dao.cache.RedisDao;
 import org.tvos.dto.PhotoDto;
 import org.tvos.entity.Album;
 import org.tvos.entity.Photo;
@@ -32,6 +33,8 @@ public class PhotoServiceImpl implements PhotoService {
     @Autowired
     LikeDao LikeDao;
 
+    @Autowired
+    RedisDao redisDao;
 
     /**
      * 得到景点图片
@@ -43,6 +46,19 @@ public class PhotoServiceImpl implements PhotoService {
      */
     @Transactional
     public PhotoDto getPhotoFromSpots(String provinceName, String cityName, Long albumId, Long photoId) {
+        //Redis缓存优化
+        //1.访问redis
+/*        Photo photo = redisDao.getPhotoFromSpots(provinceName,cityName,albumId,photoId);
+        if(photo == null){
+            photo = photoDao.getPhotoFromSpots(provinceName,cityName,albumId,photoId);
+            if(photo == null){
+                //图片不存在，返回空对象
+                return new PhotoDto();
+            }else {
+                redisDao.putPhotoFromSpots(photo);
+            }
+        }*/
+
         Photo photo = photoDao.getPhotoFromSpots(provinceName, cityName, albumId, photoId);
         System.out.println("+1:"+photoDao.getPhotoFromSpots(provinceName,cityName,albumId,(photoId+1)));
         System.out.println("photo:"+photo);
@@ -210,14 +226,16 @@ public class PhotoServiceImpl implements PhotoService {
                                        String photoDescription,
                                        String provinceName,
                                        String url) {
-             Boolean isProvinceAdded = provinceDao.addCollegeNum(provinceName);
-        for (Album a : albumDao.getAlbumsFromCollege(provinceName)) {
+
+/*        for (Album a : albumDao.getAlbumsFromCollege(provinceName)) {
             if (a.getAlbumName().equals(albumName)) {
                 return albumDao.updateAlbumFromCollege(provinceName, albumName, url);
             }
-        }
+        }*/
         Boolean isAlbumAdded = albumDao.addAlbumFromCollege(provinceName, albumName, url);
+        //System.out.println("cutcutcut");
         Boolean isPhotoAdded = photoDao.addPhotoForCollege("", username, provinceName, albumName, photoName, photoDescription, url);
+        Boolean isProvinceAdded = provinceDao.addCollegeNum(provinceName);
         return isPhotoAdded && isAlbumAdded && isProvinceAdded;
     }
 
@@ -240,9 +258,13 @@ public class PhotoServiceImpl implements PhotoService {
      */
     @Transactional
     public Boolean deletePhoto(String photoName,String username){
-        //1.删除数据库图片数据
+
+        //1.更新数据库相册表的数据
+        albumDao.updateSpotsAlbumCover(photoName);
+        albumDao.updateCollegeAlbumCover(photoName);
+        //2.删除数据库图片数据
         photoDao.deletePhoto(photoName,username);
-        //2.删除磁盘中图片数据
+        //3.删除磁盘中图片数据
         photoDelete(photoName);
         return null;
     }

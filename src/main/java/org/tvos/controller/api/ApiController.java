@@ -55,7 +55,7 @@ public class ApiController {
      * 省份信息-风景
      */
     @RequestMapping(value = "/provinces/cities", method = RequestMethod.GET)
-    public List<ProvinceDto> privinceListForSpots() {
+    public List<ProvinceDto> provinceListForSpots() {
         return provinceService.getProvincesForSpots();
     }
 
@@ -152,6 +152,15 @@ public class ApiController {
     public List<PhotoDto> photoFromUserWork() {
         String username = getCurrentUserName();
         return photoService.getPhotoFromUserWork("", username);
+    }
+
+    /**
+     * 我的作品评论
+     * TODO 获取评论
+     */
+    @RequestMapping(value = "/user/works/{photoName}/comment", method = RequestMethod.GET)
+    public List<PhotoDto> commentFromUserWork(@PathVariable("photoName") String photoName) {
+        return null;
     }
 
     /**
@@ -313,6 +322,19 @@ public class ApiController {
     }
 
     /**
+     * 判断用户图片评论是否可以删除
+     * @return
+     */
+    @RequestMapping(value = "/user/works/{commentId}/deletable", method = RequestMethod.GET)
+    public Map<String,Boolean> userCommentDeletable(@PathVariable(value = "commentId") Long commentId) {
+        String username = getCurrentUserName();
+        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        resultMap.put("respond",
+                commentService.userCommentDeletable(username,commentId));
+        return resultMap;
+
+    }
+    /**
      * 判断景点图片评论是否可以删除
      * @param provinceName
      * @param cityName
@@ -352,6 +374,20 @@ public class ApiController {
         Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
         resultMap.put("respond",
                 commentService.collegeCommentDeletable(provinceName,username,albumId,photoId,commentId));
+        return resultMap;
+
+    }
+
+    /**
+     * 删除用户图片评论
+     * @return
+     */
+    @RequestMapping(value = "/user/works/{commentId}/commentDelete", method = RequestMethod.GET)
+    public Map<String,Boolean> deleteCommentForUser(@PathVariable(value = "commentId") Long commentId) {
+        String username = getCurrentUserName();
+        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        resultMap.put("respond",
+                commentService.deleteCommnetForUser(username,commentId));
         return resultMap;
 
     }

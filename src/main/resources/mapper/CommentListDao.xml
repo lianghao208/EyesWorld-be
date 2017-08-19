@@ -14,6 +14,21 @@
         <result column="creation_time" jdbcType="INTEGER" property="createTime"/>
         <result column="modification_time" jdbcType="TIMESTAMP" property="modificationTime" javaType="java.util.Date"/>
     </resultMap>
+    <!-- 获取用户图片评论 -->
+    <select id="getCommentListFromUser" parameterType="String" resultMap="CommentListResult">
+        SELECT
+            id,
+            photo_id,
+            user_id,
+            content,
+            creation_time,
+            modification_time
+        FROM photo_comment
+        WHERE photo_id = (
+            SELECT id
+            FROM photo
+            WHERE photo_name = #{photoName})
+    </select>
 
     <!-- 获取景点图片评论列表 -->
     <select id="getPhotoCommentListFromSpots" parameterType="java.util.Map" resultMap="CommentListResult">
@@ -39,7 +54,7 @@
                             WHERE
                                 city_name = #{cityName}
                         )
-                        AND city_id IS NOT NULL
+                        AND city_id != 374
                     LIMIT #{albumId}, 1
                 )
             LIMIT #{photoId}, 1
@@ -72,7 +87,7 @@
                             WHERE
                                 province_name = #{provinceName}
                         )
-                        AND city_id IS NULL
+                        AND city_id = 374
                     LIMIT #{albumId}, 1
                 )
             LIMIT #{photoId}, 1
@@ -113,6 +128,20 @@
             id = #{commentId}
     </select>
 
+    <!-- 判断用户图片是否可以删除 -->
+    <select id="userCommentDeletable" parameterType="java.util.Map" resultType="Boolean">
+        SELECT (count(*) = 0)
+        FROM photo_comment
+        WHERE
+        user_id =
+        (
+        SELECT id
+        FROM user
+        WHERE username = #{username}
+        )
+        AND
+        id = #{commentId}
+    </select>
     <!-- 添加景点图片评论 -->
     <insert id="addCommentForSpots" parameterType="java.util.Map">
         INSERT INTO photo_comment (photo_id, user_id, content) VALUES (
@@ -130,7 +159,7 @@
                                 WHERE
                                     city_name = #{cityName}
                             )
-                            AND city_id IS NOT NULL
+                            AND city_id != 374
                         LIMIT #{albumId}, 1
                     )
                 LIMIT #{photoId}, 1
@@ -162,7 +191,7 @@
                                 WHERE
                                     province_name = #{provinceName}
                             )
-                            AND city_id IS NULL
+                            AND city_id = 374
                         LIMIT #{albumId}, 1
                     )
                 LIMIT #{photoId}, 1
@@ -188,5 +217,14 @@
         DELETE FROM photo_comment
         WHERE
             id = #{commentId}
+    </delete>
+    <!-- 删除用户图片评论 -->
+    <delete id="deleteCommentForUser" parameterType="java.util.Map">
+        DELETE FROM photo_comment
+        WHERE
+            id = #{commentId}
+        AND user_id = (
+        SELECT user_id FROM user WHERE username = #{username}
+        )
     </delete>
 </mapper>

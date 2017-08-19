@@ -87,6 +87,20 @@ public interface AlbumDao {
                                  @Param(value = "url") String url);
 
     /**
+     * 更新景点相册封面
+     * 将上一张图片的url地址覆盖
+     * @return
+     */
+    Boolean updateSpotsAlbumCover(@Param(value = "photoName") String photoName);
+
+    /**
+     * 更新景点相册封面
+     * 将上一张图片的url地址覆盖
+     * @return
+     */
+    Boolean updateCollegeAlbumCover(@Param(value = "photoName") String photoName);
+
+    /**
      * 暂时不需要
      * @param provinceName
      * @param albumNam

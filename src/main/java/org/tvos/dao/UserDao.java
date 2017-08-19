@@ -9,6 +9,7 @@ public interface UserDao {
 
     /**
      * 通过用户名获取密码
+     *
      * @param username
      * @return
      */
@@ -18,7 +19,8 @@ public interface UserDao {
 
     Boolean uniqueUsername(String username);
 
-    Boolean insert(@Param(value = "username") String username,@Param(value = "password") String password);
+    Boolean insert(@Param(value = "username") String username, @Param(value = "password") String password);
 
-    Boolean updatePassword(@Param(value = "username") String username,@Param(value = "password") String password);
+    Boolean updatePassword(@Param(value = "username") String username, @Param(value = "password") String password);
+
 }

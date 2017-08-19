@@ -11,6 +11,14 @@ import java.util.Map;
  */
 public interface CommentListDao {
 
+
+    /**
+     * 获取用户图片评论
+     * @param photoName
+     * @return
+     */
+    List<CommentList> getCommentListFromUser(String photoName);
+
     /**
      * 得到景点图片评论
      * @param provinceName
@@ -92,6 +100,14 @@ public interface CommentListDao {
                                     @Param(value = "commentId") Long commentId);
 
     /**
+     * 删除用户图片评论
+     * @param username
+     * @param commentId
+     * @return
+     */
+    Boolean deleteCommentForUser(@Param(value = "username")String username,
+                                 @Param(value = "commentId") Long commentId);
+    /**
      * 判断景点评论是否可删除
      * @param provinceName
      * @param cityName
@@ -118,6 +134,13 @@ public interface CommentListDao {
                                     @Param(value = "albumId")Long albumId,
                                     @Param(value = "photoId")Long photoId,
                                     @Param(value = "commentId") Long commentId);
+
+    /**用户图片是否可删除
+     * @return
+     */
+    Boolean userCommentDeletable( @Param(value = "username") String username,
+                                  @Param(value = "commentId") Long commentId);
+
 
 
 }

@@ -39,4 +39,18 @@ public class UserServiceImpl implements UserService {
     public Boolean usernameUsed(String username) {
         return userDao.uniqueUsername(username);
     }
+
+    /**
+     * 用户修改密码
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    @Override
+    public Boolean modifyPassword(String username, String oldPassword, String newPassword) {
+        if(userDao.getPassword(username).equals(oldPassword)){//旧密码是否正确
+            return userDao.updatePassword(username, newPassword);//正确则修改密码
+        }
+        return false;//错误则修改失败
+    }
 }

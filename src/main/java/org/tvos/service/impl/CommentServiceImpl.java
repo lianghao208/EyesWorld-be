@@ -23,6 +23,28 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     UserDao userDao;
+
+    /**
+     * 拿到用户评论
+     * @param photoName
+     * @return
+     */
+    @Override
+    public List<CommentListDto> getCommentListFromUser(String photoName) {
+        List<CommentList> commentListDaoList = commentListDao.getCommentListFromUser(photoName);
+        List<CommentListDto> commentListDtoList = new ArrayList<CommentListDto>();
+        for(CommentList cl:commentListDaoList){
+            CommentListDto commentListDto = new CommentListDto();
+            commentListDto.setCommentId(cl.getCommentId());
+            commentListDto.setUsername(getUsername(cl.getUserId()));
+            commentListDto.setContent(cl.getContent());
+            commentListDto.setModificationTime(cl.getModificationTime());
+            commentListDtoList.add(commentListDto);
+
+        }
+        return commentListDtoList;
+    }
+
     @Override
     public List<CommentListDto> getCommentListFromSpots(String provinceName, String cityName, Long AlbumId, Long PhotoId) {
         List<CommentList> commentListDaoList =  commentListDao.getPhotoCommentListFromSpots(provinceName,cityName,AlbumId,PhotoId);
@@ -84,6 +106,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public Boolean deleteCommnetForUser(String userName, Long commentId) {
+        return commentListDao.deleteCommentForUser(userName,commentId);
+    }
+
+    @Override
     public Boolean spotsCommentDeletable(String provinceName, String cityName, String username, Long albumId, Long photoId, Long commentId) {
         return commentListDao.spotsCommentDeletable(provinceName,cityName,username,albumId,photoId,commentId);
     }
@@ -91,6 +118,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Boolean collegeCommentDeletable(String provinceName, String username, Long albumId, Long photoId, Long commentId) {
         return commentListDao.collegeCommentDeletable(provinceName,username,albumId,photoId,commentId);
+    }
+
+    @Override
+    public Boolean userCommentDeletable(String username,  Long commentId) {
+        return commentListDao.userCommentDeletable(username,commentId);
     }
 
 

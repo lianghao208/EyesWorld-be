@@ -73,6 +73,12 @@
         <property name="dataSource" ref="dataSource"/>
 
     </bean>
+
+    <!-- redis的dao注入 -->
+    <bean id="redisDao" class="org.tvos.dao.cache.RedisDao">
+        <constructor-arg index="0" value="127.0.0.1"/>
+        <constructor-arg index="1" value="6379"/>
+    </bean>
     <!-- 配置基于注解的声明式事务 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
@@ -82,6 +88,7 @@
     <!-- intercept-url添加拦截器 -->
     <security:http use-expressions="true">
         <security:custom-filter ref="corsHandler" after="PRE_AUTH_FILTER"/>
+        <security:intercept-url pattern="/tvlogin.html" access="isAuthenticated()"/>
         <security:intercept-url pattern="/tvhome.html" access="isAuthenticated()"/>
         <security:intercept-url pattern="/uploadtest.html" access="isAuthenticated()"/>
         <security:intercept-url pattern="/api/provinces/cities/**/like" access="isAuthenticated()"/>
@@ -90,6 +97,9 @@
 
         <security:intercept-url pattern="/api/provinces/college/**/like" access="isAuthenticated()"/>
         <security:intercept-url pattern="/api/collegeComment/**" access="isAuthenticated()"/>
+
+        <security:intercept-url pattern="/api/user/works" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/api/user/works/**" access="isAuthenticated()"/>
         <security:form-login login-page="/login.html" login-processing-url="/p_login"
                              authentication-success-forward-url="/success.html"
                              authentication-failure-url="/fail.html"/>
@@ -111,6 +121,6 @@
         </security:authentication-provider>-->
     </security:authentication-manager>
 
-    <bean id="corsHandler" class="org.tvos.filter.CorsFilter" />
+    <bean id="corsHandler" class="org.tvos.filter.CorsFilter"/>
 
 </beans>

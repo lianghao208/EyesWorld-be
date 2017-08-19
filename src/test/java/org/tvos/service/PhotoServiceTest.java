@@ -36,7 +36,7 @@ public class PhotoServiceTest {
         Boolean isAdded = photoService.addPhotoFromCollege("Mike",
                 "华南理工大学",
                 "我的大学",
-                "6789000",
+                "这是我的电脑",
                 "广东",
                 "www.123.com");
         System.out.println(isAdded);

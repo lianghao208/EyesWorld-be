@@ -51,7 +51,7 @@
                                 WHERE
                                     city_name = #{cityName}
                             )
-                            AND city_id IS NOT NULL
+                            AND city_id != 374
                         LIMIT #{albumId}, 1
                     )
                 LIMIT #{photoId}, 1)
@@ -88,7 +88,7 @@
                                 WHERE
                                     province_name = #{provinceName}
                             )
-                            AND city_id IS NULL
+                            AND city_id = 374
                         LIMIT #{albumId}, 1
 
                     )
@@ -179,7 +179,7 @@
                     WHERE
                         city_name = #{cityName}
                 )
-                AND city_id IS NOT NULL
+                AND city_id != 374
             LIMIT #{albumId}, 1
         )
         LIMIT #{photoId}, 1
@@ -199,7 +199,7 @@
                     WHERE
                         province_name = #{provinceName}
                 )
-                AND city_id IS NULL
+                AND city_id = 374
             LIMIT #{albumId}, 1
         )
         LIMIT #{photoId}, 1
@@ -223,7 +223,7 @@
                     FROM city
                     WHERE city_name = #{cityName}
                 ) AND
-                      city_id IS NOT NULL
+                      city_id  != 374
             ),
             (
                 SELECT id
@@ -249,7 +249,7 @@
                     WHERE province_name = #{provinceName}
                 )
                       AND
-                      city_id IS NULL
+                      city_id = 374
             ),
             (
                 SELECT id
