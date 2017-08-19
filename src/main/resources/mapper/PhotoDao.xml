@@ -205,6 +205,30 @@
         LIMIT #{photoId}, 1
     </select>
 
+    <!-- 通过图片名获取省份名 -->
+    <select id="getProvinceNameByPhotoName" parameterType="String" resultType="String">
+      SELECT province_name FROM province
+      WHERE id = (
+          SELECT province_id FROM album
+          WHERE id = (
+              SELECT album_id FROM photo
+              WHERE photo_name = #{photoName}
+          )
+      )
+    </select>
+
+    <!-- 通过图片名获取城市名 -->
+    <select id="getCityNameByPhotoName" parameterType="String" resultType="String">
+        SELECT city_name FROM city
+        WHERE id = (
+            SELECT city_id FROM album
+            WHERE id = (
+                SELECT album_id FROM photo
+                WHERE photo_name = #{photoName}
+            )
+        )
+    </select>
+
     <!-- 添加景点照片 -->
     <insert id="addPhotoForSpots" parameterType="java.util.Map">
         INSERT INTO photo (photo_name, photo_description, album_name, album_id, user_id, username, url) VALUES (

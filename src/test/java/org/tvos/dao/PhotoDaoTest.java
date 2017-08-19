@@ -18,6 +18,16 @@ import static org.junit.Assert.*;
 @ContextConfiguration({"classpath:spring/applicationContext.xml","classpath:spring/mybatis-config.xml"})
 public class PhotoDaoTest {
     @Test
+    public void getProvinceNameByPhotoName() throws Exception {
+        System.out.println(photoDao.getProvinceNameByPhotoName("abcd-1234567"));
+    }
+
+    @Test
+    public void getCityNameByPhotoName() throws Exception {
+        System.out.println(photoDao.getCityNameByPhotoName("abcd-1234567"));
+    }
+
+    @Test
     public void getSpotsPhotoNameById() throws Exception {
         System.out.println(photoDao.getSpotsPhotoNameById("广东",
                 "佛山",Long.parseLong(String.valueOf(0)),Long.parseLong(String.valueOf(0))));

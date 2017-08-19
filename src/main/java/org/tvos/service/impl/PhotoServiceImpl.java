@@ -8,9 +8,12 @@ import org.tvos.dao.cache.RedisDao;
 import org.tvos.dto.PhotoDto;
 import org.tvos.entity.Album;
 import org.tvos.entity.Photo;
+import org.tvos.exception.DeleteException;
+import org.tvos.exception.UploadException;
 import org.tvos.service.PhotoService;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,7 @@ import java.util.List;
  * Created by Administrator on 2017/7/26.
  */
 @Service
-public class PhotoServiceImpl implements PhotoService {
+public class PhotoServiceImpl implements PhotoService{
 
     @Autowired
     PhotoDao photoDao;
@@ -44,8 +47,8 @@ public class PhotoServiceImpl implements PhotoService {
      * @param photoId
      * @return
      */
-    @Transactional
-    public PhotoDto getPhotoFromSpots(String provinceName, String cityName, Long albumId, Long photoId) {
+    public PhotoDto getPhotoFromSpots(String provinceName, String cityName, Long albumId, Long photoId)
+             {
         //Redis缓存优化
         //1.访问redis
 /*        Photo photo = redisDao.getPhotoFromSpots(provinceName,cityName,albumId,photoId);
@@ -96,7 +99,6 @@ public class PhotoServiceImpl implements PhotoService {
      * @param photoId
      * @return
      */
-    @Transactional
     public PhotoDto getPhotoFromCollege(String provinceName, Long albumId, Long photoId) {
         Photo photo = photoDao.getPhotoFromCollege(provinceName, albumId, photoId);
         PhotoDto photoDto = new PhotoDto();
@@ -134,7 +136,6 @@ public class PhotoServiceImpl implements PhotoService {
      * @param userName
      * @return
      */
-    @Transactional
     public List<PhotoDto> getPhotoFromUserWork(String cookieId, String userName) {
         List<PhotoDto> photoDtoList = new ArrayList<PhotoDto>();
         List<Photo> photoList = photoDao.getPhotoFromUserWork(cookieId, userName);
@@ -163,7 +164,6 @@ public class PhotoServiceImpl implements PhotoService {
      * @param username
      * @return
      */
-    @Transactional
     public List<PhotoDto> getPhotoFromUserFavorite(String cookieId, String username) {
         List<PhotoDto> photoDtoList = new ArrayList<PhotoDto>();
         List<Photo> photoList = photoDao.getPhotoFromUserFavorite(cookieId, username);
@@ -202,12 +202,18 @@ public class PhotoServiceImpl implements PhotoService {
                                      String photoDescription,
                                      String provinceName,
                                      String cityName,
-                                     String url) {
+                                     String url) throws UploadException{
         Boolean isAlbumAdded = albumDao.addAlbumFromSpots(provinceName, cityName, albumName, url);
         Boolean isPhotoAdded = photoDao.addPhotoForSpots("", username, provinceName, cityName, albumName, photoName, photoDescription, url);
         Boolean isCityAdded = cityDao.addSpotsNum(cityName);
         Boolean isProvinceAdded = provinceDao.addSpotsNum(provinceName, cityName);
-        return isPhotoAdded && isAlbumAdded && isCityAdded && isProvinceAdded;
+        if(isPhotoAdded && isAlbumAdded && isCityAdded && isProvinceAdded){
+            return isPhotoAdded && isAlbumAdded && isCityAdded && isProvinceAdded;
+        }else {
+            throw  new UploadException("文件上传失败");
+        }
+
+
     }
 
     /**
@@ -225,19 +231,27 @@ public class PhotoServiceImpl implements PhotoService {
                                        String photoName,
                                        String photoDescription,
                                        String provinceName,
-                                       String url) {
+                                       String url) throws UploadException{
 
 /*        for (Album a : albumDao.getAlbumsFromCollege(provinceName)) {
             if (a.getAlbumName().equals(albumName)) {
                 return albumDao.updateAlbumFromCollege(provinceName, albumName, url);
             }
         }*/
+
+
         Boolean isAlbumAdded = albumDao.addAlbumFromCollege(provinceName, albumName, url);
         //System.out.println("cutcutcut");
         Boolean isPhotoAdded = photoDao.addPhotoForCollege("", username, provinceName, albumName, photoName, photoDescription, url);
         Boolean isProvinceAdded = provinceDao.addCollegeNum(provinceName);
-        return isPhotoAdded && isAlbumAdded && isProvinceAdded;
+        if(isPhotoAdded && isAlbumAdded && isProvinceAdded){
+            return isPhotoAdded && isAlbumAdded && isProvinceAdded;
+        }else {
+            throw  new UploadException("文件上传失败");
+        }
+       // return isPhotoAdded && isAlbumAdded && isProvinceAdded;
     }
+
 
     /**
      * 通过相片名和用户名得到用户和图片之间点赞的关系
@@ -257,28 +271,42 @@ public class PhotoServiceImpl implements PhotoService {
      * @return
      */
     @Transactional
-    public Boolean deletePhoto(String photoName,String username){
+    public Boolean deletePhoto(String photoName,String username)
+            throws DeleteException{
 
         //1.更新数据库相册表的数据
-        albumDao.updateSpotsAlbumCover(photoName);
-        albumDao.updateCollegeAlbumCover(photoName);
-        //2.删除数据库图片数据
-        photoDao.deletePhoto(photoName,username);
-        //3.删除磁盘中图片数据
-        photoDelete(photoName);
-        return null;
+        Boolean isUpdateSpotsAlbumCover = albumDao.updateSpotsAlbumCover(photoName);
+        Boolean isUpdateCollegeAlbumCover = albumDao.updateCollegeAlbumCover(photoName);
+
+        //2.景点、高校图片数减一
+        if(isUpdateSpotsAlbumCover){
+            Boolean isSubSpotsProvince = provinceDao.subSpotsNum(getProvinceNameByPhotoName(photoName),getCityNameByPhotoName(photoName));
+            Boolean isSubSpotsCity = cityDao.subSpotsNum(getCityNameByPhotoName(photoName));
+            System.out.println("isSubSpotsProvince:"+isSubSpotsProvince);
+            System.out.println("isSubSpotsCity:"+isSubSpotsCity);
+        }else if (isUpdateCollegeAlbumCover){
+            provinceDao.subCollegeNum(getProvinceNameByPhotoName(photoName));
+        }
+
+        //3.删除数据库图片数据
+        Boolean isPhotoDeleted = photoDao.deletePhoto(photoName,username);
+        //4.删除磁盘中图片数据
+        Boolean isPhotoDeletedFromDisk = photoDelete(photoName);
+        if((isUpdateSpotsAlbumCover || isUpdateCollegeAlbumCover) && isPhotoDeleted){
+            return (isUpdateSpotsAlbumCover || isUpdateCollegeAlbumCover) && isPhotoDeleted;
+        }else {
+            throw  new DeleteException("图片数据库删除失败");
+        }
     }
 
     /**
      * 推荐图片
      * @return
      */
-    @Transactional
     public List<PhotoDto> getPhotosFromRecommend() {
         return null;
     }
 
-    @Transactional
     private Boolean photoDelete(String photoName){
         File deleteSpotsFile = new File("C:\\upload\\spotsPhoto\\"+photoName);
         File deleteCollegeFile = new File("C:\\upload\\collegePhoto\\"+photoName);
@@ -291,5 +319,25 @@ public class PhotoServiceImpl implements PhotoService {
         }else
             return false;
 
+    }
+
+    /**
+     * 通过图片名得到省份名
+     * @param photoName
+     * @return
+     */
+    private String getProvinceNameByPhotoName(String photoName){
+        //TODO
+        return photoDao.getProvinceNameByPhotoName(photoName);
+    }
+
+    /**
+     * 通过图片名得到城市名
+     * @param photoName
+     * @return
+     */
+    private String getCityNameByPhotoName(String photoName){
+        //TODO
+        return photoDao.getCityNameByPhotoName(photoName);
     }
 }
