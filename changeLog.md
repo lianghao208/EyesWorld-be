@@ -6,3 +6,4 @@ Change Log
 - Update Mybatis Pager
 - Add CORS request support
 - Update thumbnail Image support
+- Update Redis cache support
