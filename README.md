@@ -8,6 +8,10 @@
 
 * Framework: Spring + SpringMVC + MyBatis + Redis( Coming soon)
 
+Frontend Repository
+--------------
+[check the frontend repository](https://github.com/eyes-world/eyes-world-fe) 
+
 API and Summary
 --------------
 * The development process: [check the whole process](https://github.com/lianghao208/eyes-world-server/blob/master/README.md) 
