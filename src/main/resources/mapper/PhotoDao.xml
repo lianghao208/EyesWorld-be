@@ -118,6 +118,25 @@
         )
     </select>
 
+    <!-- 用户推荐图片 -->
+    <select id="getPhotosFromRecommend" resultMap="PhotoResult">
+        SELECT
+            id,
+            username,
+            user_id,
+            photo_name,
+            album_id,
+            album_name,
+            photo_description,
+            like_amount,
+            creation_time,
+            modification_time,
+            url
+        FROM photo
+        WHERE id >= (SELECT FLOOR(MAX(id) * RAND())
+                     FROM photo)
+        LIMIT 5
+    </select>
     <!-- 用户收藏点赞照片 -->
     <select id="getPhotoFromUserFavorite" parameterType="java.util.Map" resultMap="PhotoResult">
         SELECT
@@ -207,23 +226,29 @@
 
     <!-- 通过图片名获取省份名 -->
     <select id="getProvinceNameByPhotoName" parameterType="String" resultType="String">
-      SELECT province_name FROM province
-      WHERE id = (
-          SELECT province_id FROM album
-          WHERE id = (
-              SELECT album_id FROM photo
-              WHERE photo_name = #{photoName}
-          )
-      )
+        SELECT province_name
+        FROM province
+        WHERE id = (
+            SELECT province_id
+            FROM album
+            WHERE id = (
+                SELECT album_id
+                FROM photo
+                WHERE photo_name = #{photoName}
+            )
+        )
     </select>
 
     <!-- 通过图片名获取城市名 -->
     <select id="getCityNameByPhotoName" parameterType="String" resultType="String">
-        SELECT city_name FROM city
+        SELECT city_name
+        FROM city
         WHERE id = (
-            SELECT city_id FROM album
+            SELECT city_id
+            FROM album
             WHERE id = (
-                SELECT album_id FROM photo
+                SELECT album_id
+                FROM photo
                 WHERE photo_name = #{photoName}
             )
         )
@@ -247,7 +272,7 @@
                     FROM city
                     WHERE city_name = #{cityName}
                 ) AND
-                      city_id  != 374
+                      city_id != 374
             ),
             (
                 SELECT id
@@ -375,12 +400,12 @@
     <delete id="deletePhoto" parameterType="java.util.Map">
         DELETE FROM photo
         WHERE
-        photo_name = #{photoName} AND
-        user_id = (
-        SELECT id
-        FROM USER
-        WHERE username = #{username}
-        )
+            photo_name = #{photoName} AND
+            user_id = (
+                SELECT id
+                FROM USER
+                WHERE username = #{username}
+            )
 
     </delete>
 

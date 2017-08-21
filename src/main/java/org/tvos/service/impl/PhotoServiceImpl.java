@@ -304,7 +304,23 @@ public class PhotoServiceImpl implements PhotoService{
      * @return
      */
     public List<PhotoDto> getPhotosFromRecommend() {
-        return null;
+        List<PhotoDto> photoDtoList = new ArrayList<PhotoDto>();
+        List<Photo> photoList = photoDao.getPhotosFromRecommend();
+        for (Photo p : photoList) {
+            PhotoDto photoDto = new PhotoDto();
+            photoDto.setPhotoId(p.getPhotoId());
+            photoDto.setUsername(p.getUsername());
+            photoDto.setPhotoName(p.getPhotoName());
+            photoDto.setPhotoDescription(p.getPhotoDescription());
+            photoDto.setUrl(p.getUrl());
+            photoDto.setLikeAmount(p.getLikeAmount());
+            photoDto.setCreateTime(p.getModificationTime());
+            photoDto.setLast(p.getLast());
+            //判断用户是否点赞此图片
+            photoDto.setLike(like(p.getPhotoName(), p.getUsername()));//true已经点赞，like设为true
+            photoDtoList.add(photoDto);
+        }
+        return photoDtoList;
     }
 
     private Boolean photoDelete(String photoName){

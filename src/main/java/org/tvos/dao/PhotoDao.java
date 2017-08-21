@@ -55,6 +55,8 @@ public interface PhotoDao {
      */
     List<Photo> getPhotoFromUserFavorite(@Param(value = "cookieId") String cookieId, @Param(value = "username") String username);
 
+    List<Photo> getPhotosFromRecommend();
+
     /**
      * 添加上传图片
      *

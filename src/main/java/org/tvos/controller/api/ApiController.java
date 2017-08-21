@@ -78,7 +78,7 @@ public class ApiController {
      */
     @RequestMapping(value = "/provinces/cities/{provinceName}/{cityName}/spots", method = RequestMethod.GET)
     public List<AlbumDto> albumFromSpotsList(@PathVariable("provinceName") String provinceName,
-                                    @PathVariable("cityName") String cityName) {
+                                             @PathVariable("cityName") String cityName) {
         //TODO 需要对相册分页
         // businessDto.getPage().setPageNumber(businessSearchNumber);
         return albumService.getAlbumsFromSpots(provinceName, cityName);
@@ -121,8 +121,8 @@ public class ApiController {
      */
     @RequestMapping(value = "/provinces/college/{provinceName}/{albumId}/{photoId}", method = RequestMethod.GET)
     public PhotoDto photoFromCollegeList(@PathVariable("provinceName") String provinceName,
-                                  @PathVariable("albumId") Long albumId,
-                                  @PathVariable("photoId") Long photoId) {
+                                         @PathVariable("albumId") Long albumId,
+                                         @PathVariable("photoId") Long photoId) {
 
         return photoService.getPhotoFromCollege(provinceName, albumId, photoId);
     }
@@ -138,11 +138,17 @@ public class ApiController {
     /**
      * 登录状态判断，返回UserDto对象，其中status属性为登陆状态
      */
-/*    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public UserDto login(@CookieValue("JSESSIONID") String cookieId) {
-
-        return userService.getUserDto(cookieId);
-    }*/
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public Map<String, String> login() {
+        String username = getCurrentUserName();
+        Map<String, String> userMap = new HashMap<String, String>();
+        if (username == null) {
+            userMap.put("username", null);
+            return userMap;
+        }
+        userMap.put("username",username);
+        return userMap;
+    }
 
     /**
      * 我的作品
@@ -165,14 +171,15 @@ public class ApiController {
 
     /**
      * 删除用户图片
+     *
      * @param photoName
      * @return
      */
-    @RequestMapping(value = "/user/works/{photoName}/delete",method = RequestMethod.GET)
-    public Map<String,Boolean> deleteUserPhoto(@PathVariable("photoName") String photoName){
+    @RequestMapping(value = "/user/works/{photoName}/delete", method = RequestMethod.GET)
+    public Map<String, Boolean> deleteUserPhoto(@PathVariable("photoName") String photoName) {
         String username = getCurrentUserName();
-        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
-        resultMap.put("delete",photoService.deletePhoto(photoName,username));
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
+        resultMap.put("delete", photoService.deletePhoto(photoName, username));
         return resultMap;
     }
 
@@ -198,9 +205,9 @@ public class ApiController {
      */
     @RequestMapping(value = "/provinces/cities/{provinceName}/{cityName}/spots/{albumId}/{photoId}/like", method = RequestMethod.GET)
     public Map<String, Boolean> spotsLike(@PathVariable(value = "provinceName") String provinceName,
-                                     @PathVariable(value = "cityName") String cityName,
-                                     @PathVariable(value = "albumId") Long albumId,
-                                     @PathVariable(value = "photoId") Long photoId
+                                          @PathVariable(value = "cityName") String cityName,
+                                          @PathVariable(value = "albumId") Long albumId,
+                                          @PathVariable(value = "photoId") Long photoId
     ) {
         String username = getCurrentUserName();
         Map<String, Boolean> likedMap = new HashMap<String, Boolean>();
@@ -214,8 +221,8 @@ public class ApiController {
 
     @RequestMapping(value = "/provinces/college/{provinceName}/{albumId}/{photoId}/like", method = RequestMethod.GET)
     public Map<String, Boolean> collegeLike(@PathVariable(value = "provinceName") String provinceName,
-                                          @PathVariable(value = "albumId") Long albumId,
-                                          @PathVariable(value = "photoId") Long photoId
+                                            @PathVariable(value = "albumId") Long albumId,
+                                            @PathVariable(value = "photoId") Long photoId
     ) {
         String username = getCurrentUserName();
         Map<String, Boolean> likedMap = new HashMap<String, Boolean>();
@@ -238,11 +245,11 @@ public class ApiController {
      */
     @RequestMapping(value = "/provinces/cities/{provinceName}/{cityName}/spots/{albumId}/{photoId}/comment", method = RequestMethod.GET)
     public List<CommentListDto> commentListFromSpots(@PathVariable(value = "provinceName") String provinceName,
-                                  @PathVariable(value = "cityName") String cityName,
-                                  @PathVariable(value = "albumId") Long albumId,
-                                  @PathVariable(value = "photoId") Long photoId) {
+                                                     @PathVariable(value = "cityName") String cityName,
+                                                     @PathVariable(value = "albumId") Long albumId,
+                                                     @PathVariable(value = "photoId") Long photoId) {
         //TODO 读取用户评论
-        List<CommentListDto> commentListDtoList = commentService.getCommentListFromSpots(provinceName,cityName,albumId,photoId);
+        List<CommentListDto> commentListDtoList = commentService.getCommentListFromSpots(provinceName, cityName, albumId, photoId);
 
         return commentListDtoList;
 
@@ -259,10 +266,10 @@ public class ApiController {
      */
     @RequestMapping(value = "/provinces/college/{provinceName}/{albumId}/{photoId}/comment", method = RequestMethod.GET)
     public List<CommentListDto> commentListFromCollege(@PathVariable(value = "provinceName") String provinceName,
-                                                     @PathVariable(value = "albumId") Long albumId,
-                                                     @PathVariable(value = "photoId") Long photoId) {
+                                                       @PathVariable(value = "albumId") Long albumId,
+                                                       @PathVariable(value = "photoId") Long photoId) {
         //TODO 读取用户评论
-        List<CommentListDto> commentListDtoList = commentService.getCommentListFromCollege(provinceName,albumId,photoId);
+        List<CommentListDto> commentListDtoList = commentService.getCommentListFromCollege(provinceName, albumId, photoId);
 
         return commentListDtoList;
 
@@ -271,6 +278,7 @@ public class ApiController {
 
     /**
      * 添加景点图片评论
+     *
      * @param provinceName
      * @param cityName
      * @param albumId
@@ -279,14 +287,14 @@ public class ApiController {
      * @return
      */
     @RequestMapping(value = "/spotsComment/{provinceName}/{cityName}/{albumId}/{photoId} ", method = RequestMethod.POST)
-    public Map<String,Boolean> addCommentForSpots(@PathVariable(value = "provinceName") String provinceName,
-                                               @PathVariable(value = "cityName") String cityName,
-                                               @PathVariable(value = "albumId") Long albumId,
-                                               @PathVariable(value = "photoId") Long photoId,
-                                               HttpServletRequest request) {
+    public Map<String, Boolean> addCommentForSpots(@PathVariable(value = "provinceName") String provinceName,
+                                                   @PathVariable(value = "cityName") String cityName,
+                                                   @PathVariable(value = "albumId") Long albumId,
+                                                   @PathVariable(value = "photoId") Long photoId,
+                                                   HttpServletRequest request) {
         String username = getCurrentUserName();
         String content = request.getParameter("photoComment");
-        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
         System.out.println(photoId);
         System.out.println(provinceName);
         System.out.println(cityName);
@@ -294,13 +302,14 @@ public class ApiController {
         System.out.println(content);
         System.out.println(albumId);
         resultMap.put("respond",
-                commentService.addCommentForSpots(provinceName,cityName,username,content,albumId,photoId));
+                commentService.addCommentForSpots(provinceName, cityName, username, content, albumId, photoId));
         return resultMap;
 
     }
 
     /**
      * 添加高校图片评论
+     *
      * @param provinceName
      * @param albumId
      * @param photoId
@@ -308,34 +317,37 @@ public class ApiController {
      * @return
      */
     @RequestMapping(value = "/collegeComment/{provinceName}/{albumId}/{photoId}  ", method = RequestMethod.POST)
-    public Map<String,Boolean> addCommentForCollege(@PathVariable(value = "provinceName") String provinceName,
-                                                  @PathVariable(value = "albumId") Long albumId,
-                                                  @PathVariable(value = "photoId") Long photoId,
-                                                  HttpServletRequest request) {
+    public Map<String, Boolean> addCommentForCollege(@PathVariable(value = "provinceName") String provinceName,
+                                                     @PathVariable(value = "albumId") Long albumId,
+                                                     @PathVariable(value = "photoId") Long photoId,
+                                                     HttpServletRequest request) {
         String username = getCurrentUserName();
         String content = request.getParameter("photoComment");
-        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
         resultMap.put("respond",
-                commentService.addCommentForCollege(provinceName,username,content,albumId,photoId));
+                commentService.addCommentForCollege(provinceName, username, content, albumId, photoId));
         return resultMap;
 
     }
 
     /**
      * 判断用户图片评论是否可以删除
+     *
      * @return
      */
     @RequestMapping(value = "/user/works/{commentId}/deletable", method = RequestMethod.GET)
-    public Map<String,Boolean> userCommentDeletable(@PathVariable(value = "commentId") Long commentId) {
+    public Map<String, Boolean> userCommentDeletable(@PathVariable(value = "commentId") Long commentId) {
         String username = getCurrentUserName();
-        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
         resultMap.put("respond",
-                commentService.userCommentDeletable(username,commentId));
+                commentService.userCommentDeletable(username, commentId));
         return resultMap;
 
     }
+
     /**
      * 判断景点图片评论是否可以删除
+     *
      * @param provinceName
      * @param cityName
      * @param albumId
@@ -344,21 +356,22 @@ public class ApiController {
      * @return
      */
     @RequestMapping(value = "/spotsComment/{provinceName}/{cityName}/{albumId}/{photoId}/{commentId}/deletable", method = RequestMethod.GET)
-    public Map<String,Boolean> spotsDeletable(@PathVariable(value = "provinceName") String provinceName,
-                                                  @PathVariable(value = "cityName") String cityName,
-                                                  @PathVariable(value = "albumId") Long albumId,
-                                                  @PathVariable(value = "photoId") Long photoId,
-                                                  @PathVariable(value = "commentId") Long commentId) {
+    public Map<String, Boolean> spotsDeletable(@PathVariable(value = "provinceName") String provinceName,
+                                               @PathVariable(value = "cityName") String cityName,
+                                               @PathVariable(value = "albumId") Long albumId,
+                                               @PathVariable(value = "photoId") Long photoId,
+                                               @PathVariable(value = "commentId") Long commentId) {
         String username = getCurrentUserName();
-        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
         resultMap.put("respond",
-                commentService.spotsCommentDeletable(provinceName,cityName,username,albumId,photoId,commentId));
+                commentService.spotsCommentDeletable(provinceName, cityName, username, albumId, photoId, commentId));
         return resultMap;
 
     }
 
     /**
      * 判断高校评论是否可以删除
+     *
      * @param provinceName
      * @param albumId
      * @param photoId
@@ -366,34 +379,36 @@ public class ApiController {
      * @return
      */
     @RequestMapping(value = "/collegeComment/{provinceName}/{albumId}/{photoId}/{commentId}/deletable", method = RequestMethod.GET)
-    public Map<String,Boolean> collegeDeletable(@PathVariable(value = "provinceName") String provinceName,
-                                              @PathVariable(value = "albumId") Long albumId,
-                                              @PathVariable(value = "photoId") Long photoId,
-                                              @PathVariable(value = "commentId") Long commentId) {
+    public Map<String, Boolean> collegeDeletable(@PathVariable(value = "provinceName") String provinceName,
+                                                 @PathVariable(value = "albumId") Long albumId,
+                                                 @PathVariable(value = "photoId") Long photoId,
+                                                 @PathVariable(value = "commentId") Long commentId) {
         String username = getCurrentUserName();
-        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
         resultMap.put("respond",
-                commentService.collegeCommentDeletable(provinceName,username,albumId,photoId,commentId));
+                commentService.collegeCommentDeletable(provinceName, username, albumId, photoId, commentId));
         return resultMap;
 
     }
 
     /**
      * 删除用户图片评论
+     *
      * @return
      */
     @RequestMapping(value = "/user/works/{commentId}/commentDelete", method = RequestMethod.GET)
-    public Map<String,Boolean> deleteCommentForUser(@PathVariable(value = "commentId") Long commentId) {
+    public Map<String, Boolean> deleteCommentForUser(@PathVariable(value = "commentId") Long commentId) {
         String username = getCurrentUserName();
-        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
         resultMap.put("respond",
-                commentService.deleteCommnetForUser(username,commentId));
+                commentService.deleteCommnetForUser(username, commentId));
         return resultMap;
 
     }
 
     /**
      * 删除景点图片评论
+     *
      * @param provinceName
      * @param cityName
      * @param albumId
@@ -402,21 +417,22 @@ public class ApiController {
      * @return
      */
     @RequestMapping(value = "/spotsComment/{provinceName}/{cityName}/{albumId}/{photoId}/{commentId}/delete", method = RequestMethod.GET)
-    public Map<String,Boolean> deleteCommentForSpots(@PathVariable(value = "provinceName") String provinceName,
-                                              @PathVariable(value = "cityName") String cityName,
-                                              @PathVariable(value = "albumId") Long albumId,
-                                              @PathVariable(value = "photoId") Long photoId,
-                                              @PathVariable(value = "commentId") Long commentId) {
+    public Map<String, Boolean> deleteCommentForSpots(@PathVariable(value = "provinceName") String provinceName,
+                                                      @PathVariable(value = "cityName") String cityName,
+                                                      @PathVariable(value = "albumId") Long albumId,
+                                                      @PathVariable(value = "photoId") Long photoId,
+                                                      @PathVariable(value = "commentId") Long commentId) {
         String username = getCurrentUserName();
-        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
         resultMap.put("respond",
-                commentService.deleteCommentForSpots(provinceName,cityName,username,albumId,photoId,commentId));
+                commentService.deleteCommentForSpots(provinceName, cityName, username, albumId, photoId, commentId));
         return resultMap;
 
     }
 
     /**
      * 删除高校图片评论
+     *
      * @param provinceName
      * @param albumId
      * @param photoId
@@ -424,14 +440,14 @@ public class ApiController {
      * @return
      */
     @RequestMapping(value = "/collegeComment/{provinceName}/{albumId}/{photoId}/{commentId}/delete", method = RequestMethod.GET)
-    public Map<String,Boolean> deleteCommentForCollege(@PathVariable(value = "provinceName") String provinceName,
-                                                @PathVariable(value = "albumId") Long albumId,
-                                                @PathVariable(value = "photoId") Long photoId,
-                                                @PathVariable(value = "commentId") Long commentId) {
+    public Map<String, Boolean> deleteCommentForCollege(@PathVariable(value = "provinceName") String provinceName,
+                                                        @PathVariable(value = "albumId") Long albumId,
+                                                        @PathVariable(value = "photoId") Long photoId,
+                                                        @PathVariable(value = "commentId") Long commentId) {
         String username = getCurrentUserName();
-        Map<String,Boolean> resultMap = new HashMap<String, Boolean>();
+        Map<String, Boolean> resultMap = new HashMap<String, Boolean>();
         resultMap.put("respond",
-                commentService.deleteCommentForCollege(provinceName,username,albumId,photoId,commentId));
+                commentService.deleteCommentForCollege(provinceName, username, albumId, photoId, commentId));
         return resultMap;
 
     }
@@ -439,6 +455,7 @@ public class ApiController {
 
     /**
      * 获取用户名
+     *
      * @return
      */
     private String getCurrentUserName() {
