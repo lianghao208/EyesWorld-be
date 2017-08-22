@@ -40,7 +40,7 @@ Update
 Architecture
 ------------
 #### user, host, servers
-![](/src/main/webapp/screenshot/)
+![]()
 
 #### deployment flow
 ![]()
@@ -52,16 +52,16 @@ Screenshots
 ![]()
 
 #### web - login page
-![]()
+![](https://github.com/lianghao208/EyesWorld-be/blob/master/src/main/webapp/screenshot/loginPage.png)
 
 #### web - menu page
-![]()
+![](https://github.com/lianghao208/EyesWorld-be/blob/master/src/main/webapp/screenshot/menu2.png)
 
 #### web - view photo page
-![]()
+![](https://github.com/lianghao208/EyesWorld-be/blob/master/src/main/webapp/screenshot/viewPhoto.png)
 
 #### web - personal information page
-![]()
+![](https://github.com/lianghao208/EyesWorld-be/blob/master/src/main/webapp/screenshot/personalInfo.png)
 
 ## CHANGELOG
 [CHANGELOG](https://github.com/lianghao208/EyesWorld-be/blob/master/changeLog.md)
