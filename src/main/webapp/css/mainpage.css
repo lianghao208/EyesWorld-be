@@ -1,0 +1,144 @@
+@font-face{
+         font-family： "小米兰亭 Light";
+         src: url('../fonts/xiaomi_lanting.ttf');
+ }
+body{
+	font-family: "小米兰亭 Light","微软雅黑 Light" !important;
+	background-color: rgb(233,233,233);
+}
+nav{height:88px !important;background-color:transparent!important;background-image: url(../image/background-nav.png);
+}
+.brand-logo{
+	position: relative;
+	left: 8.33%;
+	top: 22px;
+}
+.button-collapse{
+	position: relative;
+	top:10%;
+}
+#headimg{
+	width: 2.875rem;
+	height: 2.5625rem;
+	vertical-align: middle;
+	margin: 0;
+}
+.brand-logo>p{
+	display: inline-block;
+	font-size: 0.8rem;
+	letter-spacing: 0.1rem;
+	height: 1.125rem;
+	width: 9.375rem;
+	line-height: 1.125rem;
+	margin: 0;
+	margin-left: 0.1rem;
+}
+.right{
+	height: 4.375rem !important;
+}
+#menu{
+	position: relative;
+	right: 8.33%;
+}
+#menu a{
+	font-size: 1.25rem;
+	letter-spacing: 1px;
+	padding:0 20px!important;
+	line-height: 88px;
+}
+#menu>li{
+	height: 88px;
+}
+#menu>li:hover{
+	background-color: rgba(0,0,0,0.5);/*背景透明度但字体无透明度*/
+}
+
+#userphoto{
+	margin-top: 3rem;
+	margin-bottom: 0;
+}
+#image{
+	margin-bottom: 0 !important;
+}
+#username{
+	text-align: center;
+	font-size: 2rem;
+	height: 2rem;
+	line-height: 2rem;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#part{
+	margin-top: 2rem;
+}
+.part-p{
+	font: 1.39rem  bold !important;
+	letter-spacing: 0.1rem;
+	text-align: center;
+	color: #333333;
+	padding: 0 !important;
+	margin-top: 0.625rem !important;
+	margin-bottom: 0 !important;
+}
+.delete-1,.delete-2,.delete-3,.delete-4{
+	margin-bottom: 0 !important;
+}
+#up{
+	margin-bottom: 0 !important;
+}
+#up-left,#up-right{
+	margin-bottom: 0 !important;
+}
+
+
+footer{
+	text-align: center;
+	color: #999999;
+	font-size: 0.56rem;
+	margin: 0;
+	margin-bottom: 1.25rem;
+	position: absolute; /*相对于父元素contanier定位*/
+    width: 100%;
+    bottom: 0;/*始终距离它的父元素的底部为0px.则是处于父元素的最底*/
+}
+footer>p{
+	margin: 0;
+}
+
+@media only screen and (min-width: 993px){   /*L*/
+	html{font-size:16px !important;}
+	#up{
+	padding-top: 2rem;
+	border-top: solid 1px #cccccc;
+	}
+	#down{
+	border-top: solid 1px #cccccc;
+	padding-top: 2rem;
+	}
+}
+
+@media only screen and (min-width: 600px) and (max-width: 993px){    /*M*/
+	html{font-size:16px !important;}
+	#up-left,#down-left{
+		border-right: solid 1px #cccccc;
+	}
+	.delete-1{
+		border-bottom: solid 1px #cccccc;
+	}
+	#down-left,#down-right{
+		padding-top: 2rem;
+	}
+}
+
+@media only screen and (max-width: 600px){    /*S*/
+	html{font-size:14px !important;}
+	#up-left,#down-left{border-right: solid 1px #cccccc;}
+	.delete-1{
+		border-bottom: solid 1px #cccccc;
+	}
+	#down-left,#down-right{
+		padding-top: 2rem;
+	}
+}
+

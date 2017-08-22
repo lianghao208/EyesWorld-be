@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="https://use.fontawesome.com/9dd436f83a.js"></script>
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+		<link rel="stylesheet" type="text/css" href="css/nav.css">
+		<link rel="stylesheet" type="text/css" href="css/information.css">
+		<link rel="stylesheet" type="text/css" href="css/phone.css">
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>视界-我的信息</title>
+	</head>
+
+	<body>
+		<nav>
+			<div class="nav-wrapper">
+				<div class="brand-logo">
+					<a href="#"><img src="image/slogan.png"></a>
+				</div>
+				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+				<ul class="right hide-on-med-and-down " id="menu">
+					<li><a href="mainpage.html">首页</a></li>
+					<li><a href="mywork.html">我的作品</a></li>
+					<li><a href="upload.html">我要上传</a></li>
+					<li><a href="#" onclick="alert_1()">我的评论</a></li>
+					<li><a href="information.html">我的信息</a></li>
+				</ul>
+				<ul class="side-nav" id="mobile-demo">
+					<li><a href="mainpage.html">首页</a></li>
+					<li><a href="mywork.html">我的作品</a></li>
+					<li><a href="upload.html">我要上传</a></li>
+					<li><a href="#" onclick="alert_1()">我的评论</a></li>
+					<li><a href="information.html">我的信息</a></li>
+				</ul>
+			</div>
+		</nav>
+<!--二级栏-->
+		<div class="nav-content center">
+			<ul class="tabs tabs-transparent">
+				<li class="tab">
+					<a href="#test1" id="t1">个人信息</a>
+				</li><li class="tab">
+					<a href="#test2">更换头像</a>
+				</li><li class="tab">
+					<a href="#test3">设置昵称</a>
+				</li><li class="tab">
+					<a href="#test4" id="t4">重设密码</a>
+				</li>
+			</ul>
+		</div>
+<!--test1-->
+		<div id="test1" class="col s12">
+			
+			<div class="profile-picture">
+				<img src="image/profile-picture.jpg" />
+			</div>
+			
+			<div class="row">
+				<div class="m_frame col s10 l4 offset-s1 offset-l4">
+					<div class="left">用户名</div>
+					<div class="right" id="username">AA</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="m_frame col s10 l4 offset-s1 offset-l4" style="margin-bottom: 40px;">
+					<div class="left">帐号</div>
+					<div class="right">13312345678</div>
+				</div>
+			</div>
+		</div>
+		<!--test2-->
+		<div id="test2" class="col s12">
+			<div class="row">
+				<div class="profile-picture" style="width: 480px;height: 480px;">
+					<img id="preview" src="image/profile-picture.jpg" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="m_box col s10 l4 offset-s1 offset-l4">
+					<form action="" method="post">
+						<div class="button left" onchange="previewFile()"><input type="file" name="" />上传头像</div>
+						<div class="button right"><input type="" value="abc" onclick="display_alert()"/>确认更改</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+		<!--test3-->
+		<div id="test3" class="col s12">
+			<div class="row">
+				<div role="oldname" class="m_frame col s10 l4 offset-s1 offset-l4" style="margin-top: 72px;">
+					<div class="left">原昵称</div>
+					<div class="right">AA</div>
+				</div>
+				<form action="" method="get">
+					<div role="newname" class="m_frame col s10 l4 offset-s1 offset-l4">
+						<div class="left">新昵称</div>
+						<input type="text" placeholder="请输入新昵称" name="" maxlength="12" />
+					</div>
+					<div class=" col s10 l4 offset-s1 offset-l4" style="padding: 0;">
+						<div class=" button right"><input type="" value="abc" onclick="display_alert()"/>确认更改</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!--test4-->
+		<div id="test4" class="col s12">
+			<div class="row">
+				<form id="modifyPassword">
+					<div role="change-password" class="m_frame col s10 l4 offset-s1 offset-l4" style="margin-top: 72px;">
+						<div class="left">原密码</div>
+						<input type="password" placeholder="请输入原密码" name="oldPassword" id="oldPassword"/>
+					</div>
+					<div role="change-password" class="m_frame col s10 l4 offset-s1 offset-l4">
+						<div class="left">新密码</div>
+						<input type="password" placeholder="新密码（大于6位）" name="newPassword" id="newPassword"/>
+					</div>
+					<div class=" col s10 l4 offset-s1 offset-l4" style="padding: 0;">
+						<div class=" button right"><input type="submit" value="submit" id="upload"/>确认更改</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+		<script type="text/javascript" src="js/information.js"></script>
+		<script type="text/javascript" src="js/alert.js"></script>
+		<script type="text/javascript">
+            $.ajax({
+                url:"/api/user",
+                type:"GET",
+                success:function (data,status) {
+                    $("#username").text(data.username);
+                }
+            })
+		</script>
+	</body>
+
+</html>

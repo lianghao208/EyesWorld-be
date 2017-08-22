@@ -42,7 +42,7 @@ CREATE TABLE user_info(
   `user_id` BIGINT,
   `gender` VARCHAR(16),
   `creation_time` DATETIME,
-  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 添加外键
 ALTER TABLE user_info ADD FOREIGN KEY (`user_id`) REFERENCES user(`id`) ON DELETE CASCADE;
@@ -56,7 +56,7 @@ CREATE TABLE user_photo(
   `album_id` BIGINT,
   `album_name` VARCHAR(255),
   `creation_time` DATETIME,
-  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 添加外键
 ALTER TABLE user_photo ADD FOREIGN KEY (`id`) REFERENCES user(`id`) ON DELETE CASCADE;
@@ -71,7 +71,7 @@ CREATE TABLE province(
   `spot_num` TINYINT DEFAULT 0,
   `college_num` TINYINT DEFAULT 0,
   `creation_time` DATETIME,
-  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 城市表--添加字段
@@ -81,7 +81,7 @@ CREATE TABLE city(
   `province_id` INT,
   `spot_num` INT DEFAULT 0,
   `creation_time` DATETIME,
-  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 添加外键
 ALTER TABLE city ADD FOREIGN KEY (`province_id`) REFERENCES province(`id`) ON DELETE CASCADE;
@@ -92,7 +92,7 @@ CREATE TABLE college(
   `college_name` VARCHAR(255) UNIQUE KEY ,
   `province_id` INT,
   `creation_time` DATETIME,
-  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
   UNIQUE KEY (college_name,province_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -106,7 +106,7 @@ CREATE TABLE album(
   `like_amount` INT DEFAULT 0,
   `url` VARCHAR(225),
   `creation_time` DATETIME,
-  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
    UNIQUE KEY (album_name,city_id,province_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 加外键
@@ -126,7 +126,7 @@ CREATE TABLE photo(
   `like_amount` INT DEFAULT 0,
   `url` VARCHAR(255),
   `creation_time` DATETIME,
-  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 加外键
 alter table photo add foreign key (`album_id`) references album(`id`) ON DELETE CASCADE;
@@ -138,7 +138,7 @@ CREATE TABLE photo_like(
   `photo_id` BIGINT,
   `user_id` BIGINT,
   `creation_time` DATETIME,
-  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 加外键
 alter table photo_like add foreign key (`photo_id`) references photo(`id`) ON DELETE CASCADE;
@@ -151,7 +151,7 @@ CREATE TABLE photo_comment(
   `user_id` BIGINT,
   `content` VARCHAR(255),
   `creation_time` DATETIME,
-  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  `modification_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 加外键
 alter table photo_comment add foreign key (`photo_id`) references photo(`id`) ON DELETE CASCADE;

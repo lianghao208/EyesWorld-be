@@ -1,55 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
-    <script type="text/javascript">
-        function signupclicl() {
-            $.ajax({
-                url:"/signup/request",
-                type:"POST",
-                data:"userName="+$("#username").val()+"&password="+$("#password").val()/*{
-                    "userName":$("#username").val(),
-                    "password":$("#password").val()
-                }*/,
-                error:function (xhr, status, error) {
-                    alert("注册失败");
-                },
-                success:function(data,status){
-                    if(data.success==true){
-                        alert("注册成功");
-                    }
-                    else{
-                        alert("注册失败");
-                    }
-                },
-                timeout:50000
-            })
-        }
-        function checkname() {
-            $.ajax({
-                url:"/signup/check/"+$("#username").val(),
-                type:"GET",
-                success:function (data,status) {
-                    if(data.nameUsed==true){
-                        $("#checkname").text("");
-                    }
-                    else{
-                        $("#checkname").text("用户名已被使用");
-                    }
-                }
-            })
-        }
-    </script>
-    <title>Title</title>
-</head>
-<body>
-    <h1>注册</h1>
-    <form>
-        用户名<input type="text" id="username" onblur="checkname()"/><span id="checkname"></span>
-        密码<input type="password" id="password"/>
-        <button onclick="signupclicl()">注册</button>
-    </form>
 
-</body>
-</html>
+    <head>
+      
+      <meta charset="UTF-8">
+  	  <link rel="stylesheet" type="text/css" href="css/login.css">
+  	  <script type="text/javascript" src="https://use.fontawesome.com/9dd436f83a.js"></script>
+  	  <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+	  <title>视界-注册</title>
+    </head>
+
+    <body>
+	    <nav>
+				<div class="nav-wrapper">
+			    	<div class="brand-logo">
+					<a href="#"><img src="img/slogan.png"></a>
+				</div>
+			      	<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			      	<ul class="right hide-on-med-and-down" id="menu"  >
+			        	<li><a href="#" onclick="alert_2()">首页</a></li>
+			        	<li><a href="#" onclick="alert_2()">我的作品</a></li>
+			        	<li><a href="#" onclick="alert_2()">我要上传</a></li>
+			        	<li><a href="#" onclick="alert_2()">我的评论</a></li>
+			        	<li><a href="#" onclick="alert_2()">我的信息</a></li>
+			      	</ul>
+			      	<ul class="side-nav" id="mobile-demo">
+			        	<li><a href="#" onclick="alert_2()">首页</a></li>
+			        	<li><a href="#" onclick="alert_2()">我的作品</a></li>
+			        	<li><a href="#" onclick="alert_2()">我要上传</a></li>
+			        	<li><a href="#" onclick="alert_2()">我的评论</a></li>
+			        	<li><a href="#" onclick="alert_2()">我的信息</a></li>
+			      	</ul>
+			    </div>
+			</nav>		    
+
+
+	    <div class="row">
+        
+        <div  class="col l4 s11 offset-l2 offset-s1">
+          <div class="hide-on-med-and-down">
+            <p id="topic">SIGN UP</p>
+            <p id="log">注册</p>
+          </div>
+          <form>
+            <div class="row">
+              <div class="input-field col l11 s11">
+                 <input type="text" id="username" onblur="checkname()"/><span id="checkname"></span>
+                <label for="username">设置用户名</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col l11 s11">
+                <input id="password" type="password">
+                <label for="password">设置密码</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col l11 s11">
+                <input id="psw" type="password">
+                <label for="psw">再次输入密码</label>
+              </div>
+            </div>
+              <button class="col l3 s10 offset-l1 offset-s1 btn waves-effect waves-light" id="btn" type="submit" name="action" onclick="signupclicl()">注册
+              </button>
+          </form>
+		<div id="signup">
+            <a href="login.html">返回登录</a>
+          </div>
+        </div>
+     
+
+        
+  </div>
+
+  <footer>
+    <p><i id="copyright" class="fa fa-copyright" aria-hidden="true"></i>视界团队制作</p>
+  </footer>
+        
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script type="text/javascript" src="js/login.js"></script> 
+	  <script type="text/javascript" src="js/alert.js"></script>
+    </body>
+
+ </html>

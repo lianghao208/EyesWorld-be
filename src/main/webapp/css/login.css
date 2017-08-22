@@ -1,0 +1,139 @@
+@font-face{
+         font-family： "小米兰亭 Light";
+         src: url('../fonts/xiaomi_lanting.ttf');
+ }
+body{
+	font-family: "小米兰亭 Light","微软雅黑 Light" !important;
+	background-color: rgb(233,233,233);
+}
+
+nav{height:88px !important;background-color:transparent!important;background-image: url(../image/background-nav.png);
+}
+.nav-wrapper{
+	height: 4.375rem !important;
+}
+.brand-logo{
+	position: relative;
+	left: 8.33%;
+	top: 22px;
+}
+.button-collapse{
+	position: relative;
+	top:10%;
+}
+.brand-logo>p{
+	display: inline-block;
+	font-size: 0.8rem;
+	letter-spacing: 0.1rem;
+	height: 1.125rem;
+	width: 9.375rem;
+	line-height: 1.125rem;
+	margin: 0;
+	margin-left: 0.1rem;
+}
+.right{
+	height: 4.375rem !important;
+}
+#menu{
+	position: relative;
+	right: 8.33%;
+}
+#menu a{
+	font-size: 1.25rem;
+	letter-spacing: 1px;
+	padding:0 20px!important;
+	line-height: 88px;
+}
+#menu>li{
+	height: 88px;
+}
+#menu>li:hover{
+	background-color: rgba(0,0,0,0.5);/*背景透明度但字体无透明度*/
+}
+
+#topic{
+	font-size: 64px;
+	font-style: bold;
+	color: #4e72cc;
+	margin: 0;
+	margin-top: 50px;
+	height: 64px;
+	line-height: 64px;
+}
+#log{
+	font-size: 36px;
+	color: #333333;
+	height: 36px;
+	line-height: 36px;
+	margin: 0;
+	margin-top: 26px;
+}
+form{margin-top: 40px;}
+label{
+	height:46.25px !important;
+	font-size: 1rem !important;
+}
+.row{height: 61.25px !important;}
+.input-field{
+	padding: 0 !important;
+}
+.input-field input[type=text]:focus {
+     border-bottom: 1px solid #333 !important;
+     box-shadow: 0 1px 0 0 #333 !important;
+ }
+.input-field input[type=text]:focus + label {
+ color: #333 !important;
+}
+.input-field input[type=password]:focus {
+     border-bottom: 1px solid #333 !important;
+     box-shadow: 0 1px 0 0 #333 !important;
+ }
+.input-field input[type=password]:focus + label {
+ color: #333 !important;
+}
+input{font-size: 1.25rem !important;}
+#psw{
+	margin-bottom: 0;
+}
+#signup>a{color: #4e72cc !important;}
+#fgtpsw>a{color: #4e72cc !important;}
+#signup{
+	float: left;
+	font: 15px bold;
+	height: 15px;
+	line-height: 15px;
+	padding: 0;
+}
+#fgtpsw{
+	float: right;
+	font: 15px bold;
+	height: 15px;
+	line-height: 15px;
+	padding: 0;
+	margin-right:8%;
+}
+
+
+#btn{
+	background-color: #4e72cc;
+	height: 50px;
+	border-radius: 10px;
+	font-size: 2.14rem;
+	color: #ffffff;
+	text-align: center;
+	margin-top: 14%;
+}
+
+footer{
+	text-align: center;
+	color: #999999;
+	font-size: 10px;
+	margin: 0;
+	margin-bottom: 20px;
+	position: absolute; /*相对于父元素contanier定位*/
+    width: 100%;
+    bottom: 0;/*始终距离它的父元素的底部为0px.则是处于父元素的最底*/
+}
+footer>p{
+	margin: 0;
+}

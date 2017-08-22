@@ -1,0 +1,118 @@
+/*初始化*/
+.row {
+	margin-bottom: 0!important;
+	}
+/*nav-content*/
+.nav-content {
+	height: 40px;
+	position: relative;
+	line-height: normal;
+	background-color:rgb(49,71,127);
+}
+.tabs{
+	height: 40px;}
+.tabs.tabs-transparent .indicator {
+	background-color: transparent!important;}
+.tab a{
+	height:40px!important;
+	line-height:40px!important;
+	color:rgb(255,255,255)!important;
+	font-size: 1.6rem!important;
+}
+.tab a:hover,.tab a.active {
+	border-top-left-radius:10px;
+	border-top-right-radius:10px;
+	color: rgb(49,71,127)!important;
+	background-color: rgb(233,233,233)!important;
+	-webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)
+}
+
+/*test1*/
+
+.profile-picture{
+	margin:72px auto 0;
+	height: 320px;
+	width: 320px;
+	overflow: hidden;
+}
+.profile-picture img{
+	width: 100%;
+	height: 100%;
+	border-radius:50% ;
+}
+.m_frame{
+	padding: 0!important;
+	margin-top:40px;
+	height: 48px;
+	background-color: rgb(255,255,255);
+	border-radius: 10px;
+	overflow: hidden;
+}
+.m_frame .left{
+	font-size: 2rem;
+	color: rgb(78,114,204);
+	line-height: 48px;
+	margin-left: 14px;
+}
+.m_frame .right{
+	font-size: 2rem;
+	color: rgb(102,102,102);
+	line-height: 48px;
+	margin-right: 14px;
+}
+.forget-password{
+	margin-top:40px;
+	margin-bottom: 40px;
+}
+.forget-password a{
+	font-size: 2rem;
+	color: rgb(78,114,204);
+}
+/*test2*/
+.button{
+    position: relative;
+    display: inline-block;
+    margin-top:40px;
+    width: 160px;
+    height: 40px;
+    background-color: rgb(49,71,127);
+    font-size: 2rem;
+    color: rgb(255,255,255);
+    text-decoration: none;
+    text-indent: 0;
+    text-align: center;
+    overflow: hidden;
+    line-height: 40px;
+    border-radius: 20px;
+}
+.button input {
+    position: absolute;
+    right: 0;
+    top:0;
+    font-size: 100px;
+    opacity: 0;
+}
+.button:hover {
+    background-color: rgb(78,114,204);
+}
+.m_box{
+	margin:40px auto 0; 
+	text-align: center;
+	
+}
+/*test3*/
+.m_frame input{
+	height: 48px!important;
+	float: right !important;
+	width: 40%!important;
+	margin-right: 14px!important;
+	font-size: 2rem!important;
+	color: rgb(102,102,102)!important;
+	text-align: right!important;
+	border-bottom: 0!important;
+
+}
+.m_frame input:focus{
+   box-shadow: none!important;
+}

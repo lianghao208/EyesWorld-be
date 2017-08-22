@@ -1,0 +1,154 @@
+@font-face{
+         font-family： "小米兰亭 Light";
+         src: url('fonts/xiaomi_lanting.ttf');
+ }
+body{
+	font-family: "小米兰亭 Light","微软雅黑 Light" !important;
+	background-color: rgb(233,233,233);
+}
+
+nav{height:88px !important;background-color:transparent!important;background-image: url(../image/background-nav.png);
+}
+.nav-wrapper{
+	height: 4.375rem !important;
+}
+.brand-logo{
+	position: relative;
+	left: 8.33%;
+	top: 22px;
+}
+.button-collapse{
+	position: relative;
+	top:10%;
+}
+.brand-logo>p{
+	display: inline-block;
+	font-size: 0.8rem;
+	letter-spacing: 0.1rem;
+	height: 1.125rem;
+	width: 9.375rem;
+	line-height: 1.125rem;
+	margin: 0;
+	margin-left: 0.1rem;
+}
+.right{
+	height: 4.375rem !important;
+}
+#menu{
+	position: relative;
+	right: 8.33%;
+}
+#menu a{
+	font-size: 1.25rem;
+	letter-spacing: 1px;
+	padding:0 20px!important;
+	line-height: 88px;
+}
+#menu>li{
+	height: 88px;
+}
+#menu>li:hover{
+	background-color: rgba(0,0,0,0.5);/*背景透明度但字体无透明度*/
+}
+
+.container{
+	margin-top: 5.56vh;
+}
+
+.card-1{
+	text-align: center;
+	vertical-align: middle;
+}
+.card-1>img{
+	height: 200px;
+	width: 100%;
+}
+.card-2{
+	background-color: #ffffff !important;
+}
+.img-name{
+	font-size: 24px;
+	margin:0;
+	margin-left: 0.5rem; 
+}
+.infor{
+	height: 40px;/*设置父元素高度后，就算子元素有float属性后一级元素也不会上来占了float没有的地方*/
+	margin-top: 0.5rem;
+}
+.author{
+	float: left;
+	color: #31A4F0;
+	margin:0;
+	margin-top: 4px;
+	margin-left: 0.5rem;
+}
+.date{
+	float: right;
+	margin:0;
+	margin-top: 4px;
+	margin-right: 0.5rem;
+}
+.icon-1{
+	margin-bottom: 0;
+}
+.icon-1>i{
+	font-size: 22px;
+}
+i>span{
+	margin: 0;
+	margin-left: 5px;
+	font-size: 15px;
+}
+.detail>ul>li{
+	text-align: center;
+}
+.collapsible-header{
+	clear: both; 
+	display: block; 
+	margin:auto; 
+}
+.collapsible-body{
+	padding: 0 1rem !important;
+}
+.comment{
+	text-align: left;
+	cursor: pointer;
+}
+.comment>span{color:#31A4F0; }
+.icon-1>i>span{
+	color: #000000;
+}
+
+
+
+#img-name{
+	display: inline-block;
+	font-size: 24px;
+	margin:0;
+	margin-left: 0.5rem; 
+}
+#author{
+	display: inline-block;
+	margin-left: 0.7rem;
+}
+.author-name{
+	color: #31A4F0;
+}
+#comment-img{
+	width: 300px;
+	height: 200px;
+	clear: both; 
+	display: block; 
+	margin:auto; 
+}
+.hf{
+	width: 300px;
+	height: 100px;
+	clear: both; 
+	display: block; 
+	margin:auto;
+	margin-top: 0.5rem; 
+}
+.comment-text{
+	margin: 0.5rem 0.5rem;
+}

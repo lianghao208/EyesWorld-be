@@ -40,7 +40,7 @@ Update
 Architecture
 ------------
 #### user, host, servers
-![]()
+![](/src/main/webapp/screenshot/)
 
 #### deployment flow
 ![]()
@@ -51,13 +51,16 @@ Screenshots
 #### project config
 ![]()
 
-#### sumbit a task
+#### web - login page
 ![]()
 
-#### list of task
+#### web - menu page
 ![]()
 
-#### demo show
+#### web - view photo page
+![]()
+
+#### web - personal information page
 ![]()
 
 ## CHANGELOG

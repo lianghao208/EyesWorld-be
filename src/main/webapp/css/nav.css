@@ -1,0 +1,38 @@
+@font-face{
+         font-family: '小米兰亭 Light';
+         src: url('../fonts/xiaomi_lanting.ttf');
+ }
+html{
+	font-size: 10px!important;
+}
+body{
+	font-family: "小米兰亭 Light","微软雅黑 Light" !important;
+	background-color: rgb(233,233,233);
+}
+nav{height:88px !important;background-color:transparent!important;background-image: url(../image/background-nav.png);
+}
+.brand-logo{
+	position: relative;
+	left: 8.33%;
+	top: 22px;
+}
+.button-collapse{
+	position: relative;
+	top:10%;
+}
+#menu{
+	position: relative;
+	right: 8.33%;
+}
+#menu a{
+	font-size: 2rem;
+	letter-spacing: 1px;
+	padding:0 20px!important;
+	line-height: 88px;
+}
+#menu>li{
+	height: 88px;
+}
+#menu>li:hover{
+	background-color: rgba(0,0,0,0.5);/*背景透明度但字体无透明度*/
+}

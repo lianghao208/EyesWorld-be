@@ -88,9 +88,9 @@
     <!-- intercept-url添加拦截器 -->
     <security:http use-expressions="true">
         <security:custom-filter ref="corsHandler" after="PRE_AUTH_FILTER"/>
-        <security:intercept-url pattern="/tvlogin.html" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/tvhome.html" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/uploadtest.html" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/tmp/tvlogin.html" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/tmp/tvhome.html" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/tmp/uploadtest.html" access="isAuthenticated()"/>
         <security:intercept-url pattern="/api/provinces/cities/**/like" access="isAuthenticated()"/>
         <security:intercept-url pattern="/api/spotsComment/**" access="isAuthenticated()"/>
         <security:intercept-url pattern="/api/spotsComment/**" access="isAuthenticated()"/>
@@ -100,6 +100,12 @@
 
         <security:intercept-url pattern="/api/user/works" access="isAuthenticated()"/>
         <security:intercept-url pattern="/api/user/works/**" access="isAuthenticated()"/>
+
+        <security:intercept-url pattern="/api/user" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/mainpage.html" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/mywork.html" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/upload.html" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/information.html" access="isAuthenticated()"/>
         <security:form-login login-page="/login.html" login-processing-url="/p_login"
                              authentication-success-forward-url="/success.html"
                              authentication-failure-url="/fail.html"/>

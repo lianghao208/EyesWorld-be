@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="https://use.fontawesome.com/9dd436f83a.js"></script>
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+		<link rel="stylesheet" type="text/css" href="css/nav.css">
+		<link rel="stylesheet" type="text/css" href="css/upload.css">
+		<link rel="stylesheet" type="text/css" href="css/phone.css">
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>视界-我要上传</title>
+	</head>
+
+	<body>
+		<nav>
+			<div class="nav-wrapper">
+				<div class="brand-logo">
+					<a href="#"><img src="img/slogan.png"></a>
+				</div>
+				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+				<ul class="right hide-on-med-and-down " id="menu">
+					<li>
+						<a href="mainpage.html">首页</a>
+					</li>
+					<li>
+						<a href="mywork.html">我的作品</a>
+					</li>
+					<li>
+						<a href="upload.html">我要上传</a>
+					</li>
+					<li>
+						<a href="#" onclick="alert_1()">我的评论</a>
+					</li>
+					<li>
+						<a href="information.html">我的信息</a>
+					</li>
+				</ul>
+				<ul class="side-nav" id="mobile-demo">
+					<li>
+						<a href="mainpage.html">首页</a>
+					</li>
+					<li>
+						<a href="mywork.html">我的作品</a>
+					</li>
+					<li>
+						<a href="upload.html">我要上传</a>
+					</li>
+					<li>
+						<a href="#" onclick="alert_1()">我的评论</a>
+					</li>
+					<li>
+						<a href="information.html">我的信息</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<!--二级栏-->
+		<div class="nav-content center">
+			<ul class="tabs tabs-transparent">
+				<li class="tab">
+					<a href="#test1">城市景点</a>
+				</li>
+				<li class="tab">
+					<a href="#test2">高校景观</a>
+				</li>
+			</ul>
+		</div>
+		<!--test1-->
+		<div id="test1" class="col s12">
+			<div class="row">
+				<form id="form_city" enctype="multipart/form-data">
+					<div class="col s10 l3 offset-s1 offset-l3" style="padding:0;">
+						<div class="m_frame" style="margin-top: 72px;">
+							<div class="left">照片名</div>
+							<input type="text" placeholder="请输入照片名" id="photoName_city" name="photoName"/>
+						</div>
+						<div class="m_frame">
+							<div class="left">省份</div>
+							<select name="province" id="province_1" onChange="changeSelect();changeAction();">
+								<option value="广东">广东</option>  
+               		 			<option value="山东">山东</option>  
+                				<option value="江苏">江苏</option>  
+							</select>
+						</div>
+						<div class="m_frame">
+							<div class="left">城市</div>
+							<select name="city" id="city_1" onChange="changeAction();">
+								<option value="广州">广州 </option>  
+                				<option value="深圳">深圳</option>  
+							</select>
+						</div>
+						<div class="m_frame">
+							<div class="left">景点</div>
+							<input type="text" id="albumName_city"  placeholder="请输入景点名称" name="albumName"/>
+						</div>
+						<div class="m_picture"><img id="preview_1" src="/image/preview-picture.png" /></div>
+						<div class="button right"><input id="uploadFile_1" type="file" name="file" accept="image/*" onchange="previewFile_1()" />上传照片</div>
+					</div>
+					<div class="col s10 l3 offset-s1 offset-l1" style="padding:0;">
+						<div class="m_frame" style="margin-top: 72px;height: 312px;">
+						<textarea id="photoDesc_city" placeholder="添加描述" name="photoDesc"></textarea>
+						</div>
+						<div class=" button right"><input id="upload_city" type="submit" value="upload" />确认提交</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+			
+		<!--test2-->
+		<div id="test2" class="col s12">
+			<div class="row">
+				<form id="form_school" enctype="multipart/form-data" action="/upload/uploadPhoto/college/广东"  method="post">
+					<div class="col s10 l3 offset-s1 offset-l3" style="padding:0;">
+						<div class="m_frame" style="margin-top: 72px;">
+							<div class="left">照片名</div>
+							<input type="text" placeholder="请输入照片名" name="photoName" />
+						</div>
+						<div class="m_frame">
+							<div class="left">省份</div>
+							<select name="province" id="province_school" onChange="changeAction_School();">
+								<option value="广东">广东</option>  
+               		 			<option value="山东">山东</option>  
+                				<option value="江苏">江苏</option>  
+							</select>
+						</div>
+						<div class="m_frame">
+							<div class="left">学校</div>
+							<input type="text" name="albumName" placeholder="请输入学校名称" />
+						</div>
+						<div class="m_picture"><img id="preview_2" src="img/preview-picture.png" /></div>
+						<div class="button right"><input id="uploadFile_2" type="file" name="file" accept="image/*" onchange="previewFile_2()" />上传照片</div>
+					</div>
+					<div class="col s10 l3 offset-s1 offset-l1" style="padding:0;">
+						<div class="m_frame" style="margin-top: 72px;height: 312px;">
+						<textarea name="photoDesc" placeholder="添加描述" ></textarea>
+						</div>
+						<div class=" button right"><input type="submit" value="upload" />确认提交</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+		<script type="text/javascript" src="js/upload.js"></script>
+		<script type="text/javascript" src="js/alert.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,11 @@
+@media only screen and (max-width: 992px) {
+	html{font-size: 8px!important;}
+	.tab a{
+	font-size: 14px!important;}
+	.profile-picture{
+	height:250px!important;
+	width: 250px!important;}
+	.button{
+    width: 120px!important;
+    font-size: 18px!important;}
+}
