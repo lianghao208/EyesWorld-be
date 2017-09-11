@@ -12,6 +12,7 @@ $(document).ready(function(){
 		marker=data.marker;
 		$("#marker").text(marker);
 		$("#h").attr("href","http://192.168.0.109:8080/login.html?marker="+marker);
+		//$("#h").attr("href","http://39.108.149.106/login.html?marker="+marker);
 	}
 	$.get("/login/tv/getqr",acallBack);
 

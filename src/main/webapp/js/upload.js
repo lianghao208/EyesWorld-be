@@ -42,7 +42,7 @@ function previewFile_1() {
  if (file) {
   reader.readAsDataURL(file);
  } else {
-  preview.src="img/preview-picture.png";
+  preview.src="image/preview-picture.png";
  }
 }
 function previewFile_2() {
@@ -55,7 +55,7 @@ function previewFile_2() {
  if (file) {
   reader.readAsDataURL(file);
  } else {
-  preview.src="img/preview-picture.png";
+  preview.src="image/preview-picture.png";
  }
 }
 //提交检测
@@ -84,6 +84,42 @@ $(document).ready(function(){
                 contentType:false,
                 success:function(){//提交成功
                         alert("提交成功");
+                },
+                error:function(){
+                    alert("提交失败，请稍后重试");
+                }
+            });
+        }
+
+    });
+});
+
+//提交高校照片
+$(document).ready(function(){
+    $("#upload_school").click(function(){
+        if($("#photoName_school").val().length==0){//提交检测
+            alert("照片名不能为空");
+        }else if($("#albumName_school").val().length==0){
+            alert("学校名不能为空");
+        }else if($("#uploadFile_2").val().length==0){
+            alert("未上传照片");
+        }else if($("#photoDesc_school").val().length==0){
+            alert("未添加描述");
+        } else{
+            var formData = new FormData($("#form_school")[0]);
+            $.ajax({//调用jquery的ajax方法
+                type:"POST",//设置ajax方法提交数据的形式
+                url:"/upload/uploadPhoto/college/"+$("#province_school").val(),//把数据提交到后台
+                beforeSend: function() {
+                    console.log('before send')
+                },
+                data:formData,//提交数据
+                async:false,
+                processData:false,
+                cache:false,
+                contentType:false,
+                success:function(){//提交成功
+                    alert("提交成功");
                 },
                 error:function(){
                     alert("提交失败，请稍后重试");

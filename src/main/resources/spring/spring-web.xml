@@ -27,6 +27,21 @@
     -->
     <mvc:default-servlet-handler/>
 
+    <!-- 上传的图片缓存1个月，其他js，css，img资源缓存一年 -->
+    <!-- <mvc:resources mapping="/" location="/css/" cache-period="31536000"/> -->
+    <mvc:interceptors>
+    <bean class="org.springframework.web.servlet.mvc.WebContentInterceptor" >
+        <property name="cacheMappings">
+            <map>
+                <entry key="/upload/**" value="172800"></entry>
+                <entry key="/api/**" value="31536000"></entry>
+                <entry key="/image/**" value="31536000"></entry>
+                <entry key="/mywork.html" value="31536000"></entry>
+            </map>
+        </property>
+    </bean>
+    </mvc:interceptors>
+
     <!-- 3.配置jsp 显示ViewResolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>

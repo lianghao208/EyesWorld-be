@@ -3,6 +3,7 @@ package org.tvos.controller.Login;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -69,5 +70,15 @@ public class LoginController {
 		queryForTokenDao.deleteToken(marker);
 		QrCreate.setPath(request.getRealPath("/"));
 		QrCreate.deleteFile(marker);
+
+	}
+
+	@RequestMapping(value="/tv/logout",method=RequestMethod.GET)
+	public void tvLogout(HttpServletRequest request,HttpServletResponse response){
+		//HttpSession session = request.getSession();
+
+		Cookie cookie=new Cookie("JSESSIONID","");
+		response.addCookie(cookie);
+
 	}
 }

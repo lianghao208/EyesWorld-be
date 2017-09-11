@@ -22,7 +22,7 @@
 		<nav>
 			<div class="nav-wrapper">
 				<div class="brand-logo">
-					<a href="#"><img src="img/slogan.png"></a>
+					<a href="#"><img src="image/slogan.png"></a>
 				</div>
 				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down " id="menu">
@@ -83,7 +83,7 @@
 						</div>
 						<div class="m_frame">
 							<div class="left">省份</div>
-							<select name="province" id="province_1" onChange="changeSelect();changeAction();">
+							<select name="province" id="province_1" onChange="changeSelect();">
 								<option value="广东">广东</option>  
                		 			<option value="山东">山东</option>  
                 				<option value="江苏">江苏</option>  
@@ -91,7 +91,7 @@
 						</div>
 						<div class="m_frame">
 							<div class="left">城市</div>
-							<select name="city" id="city_1" onChange="changeAction();">
+							<select name="city" id="city_1">
 								<option value="广州">广州 </option>  
                 				<option value="深圳">深圳</option>  
 							</select>
@@ -100,7 +100,7 @@
 							<div class="left">景点</div>
 							<input type="text" id="albumName_city"  placeholder="请输入景点名称" name="albumName"/>
 						</div>
-						<div class="m_picture"><img id="preview_1" src="/image/preview-picture.png" /></div>
+						<div class="m_picture"><img id="preview_1" src="image/preview-picture.png" /></div>
 						<div class="button right"><input id="uploadFile_1" type="file" name="file" accept="image/*" onchange="previewFile_1()" />上传照片</div>
 					</div>
 					<div class="col s10 l3 offset-s1 offset-l1" style="padding:0;">
@@ -117,15 +117,15 @@
 		<!--test2-->
 		<div id="test2" class="col s12">
 			<div class="row">
-				<form id="form_school" enctype="multipart/form-data" action="/upload/uploadPhoto/college/广东"  method="post">
+				<form id="form_school" enctype="multipart/form-data">
 					<div class="col s10 l3 offset-s1 offset-l3" style="padding:0;">
 						<div class="m_frame" style="margin-top: 72px;">
 							<div class="left">照片名</div>
-							<input type="text" placeholder="请输入照片名" name="photoName" />
+							<input type="text" placeholder="请输入照片名" id="photoName_school" name="photoName" />
 						</div>
 						<div class="m_frame">
 							<div class="left">省份</div>
-							<select name="province" id="province_school" onChange="changeAction_School();">
+							<select name="province" id="province_school">
 								<option value="广东">广东</option>  
                		 			<option value="山东">山东</option>  
                 				<option value="江苏">江苏</option>  
@@ -133,16 +133,16 @@
 						</div>
 						<div class="m_frame">
 							<div class="left">学校</div>
-							<input type="text" name="albumName" placeholder="请输入学校名称" />
+							<input type="text" name="albumName" id="albumName_school" placeholder="请输入学校名称" />
 						</div>
-						<div class="m_picture"><img id="preview_2" src="img/preview-picture.png" /></div>
+						<div class="m_picture"><img id="preview_2" src="image/preview-picture.png" /></div>
 						<div class="button right"><input id="uploadFile_2" type="file" name="file" accept="image/*" onchange="previewFile_2()" />上传照片</div>
 					</div>
 					<div class="col s10 l3 offset-s1 offset-l1" style="padding:0;">
 						<div class="m_frame" style="margin-top: 72px;height: 312px;">
-						<textarea name="photoDesc" placeholder="添加描述" ></textarea>
+						<textarea name="photoDesc" placeholder="添加描述" id="photoDesc_school"></textarea>
 						</div>
-						<div class=" button right"><input type="submit" value="upload" />确认提交</div>
+						<div class=" button right"><input id="upload_school" type="submit" value="upload" />确认提交</div>
 					</div>
 				</form>
 			</div>

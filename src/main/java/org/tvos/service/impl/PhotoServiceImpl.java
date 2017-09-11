@@ -325,12 +325,16 @@ public class PhotoServiceImpl implements PhotoService{
 
     private Boolean photoDelete(String photoName){
         File deleteSpotsFile = new File("C:\\upload\\spotsPhoto\\"+photoName);
+        File deleteSpotsFileThumbnail = new File("C:\\upload\\spotsPhoto\\"+photoName);
         File deleteCollegeFile = new File("C:\\upload\\collegePhoto\\"+photoName);
+        File deleteCollegeFileThumbnail = new File("C:\\upload\\collegePhoto\\"+photoName);
         if(deleteSpotsFile.isFile() && deleteSpotsFile.exists()){
             deleteSpotsFile.delete();
+            deleteSpotsFileThumbnail.delete();
             return true;
         }else if(deleteCollegeFile.isFile() && deleteCollegeFile.exists()){
             deleteCollegeFile.delete();
+            deleteCollegeFileThumbnail.delete();
             return true;
         }else
             return false;

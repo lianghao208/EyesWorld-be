@@ -69,6 +69,32 @@
 	font-size: 2rem;
 	color: rgb(78,114,204);
 }
+.log-out{
+	position: relative;
+	display: inline-block;
+	margin-top:40px;
+	margin-bottom: 40px;
+	height: 40px;
+	background-color: rgb(49,71,127);
+	font-size: 2rem;
+	color: rgb(255,255,255);
+	text-decoration: none;
+	text-indent: 0;
+	text-align: center;
+	overflow: hidden;
+	line-height: 40px;
+	border-radius: 20px;
+}
+.log-out input {
+	position: absolute;
+	right: 0;
+	top:0;
+	font-size: 300px;
+	opacity: 0;
+}
+.log-out:hover {
+	background-color: rgb(78,114,204);
+}
 /*test2*/
 .button{
     position: relative;

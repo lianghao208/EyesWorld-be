@@ -135,7 +135,7 @@
         FROM photo
         WHERE id >= (SELECT FLOOR(MAX(id) * RAND())
                      FROM photo)
-        LIMIT 5
+        LIMIT 18
     </select>
     <!-- 用户收藏点赞照片 -->
     <select id="getPhotoFromUserFavorite" parameterType="java.util.Map" resultMap="PhotoResult">

@@ -25,7 +25,7 @@
     <filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  <!-- Spring 容器启动监听器 -->
+  <!-- Spring 容器启动监听器，初始化bean -->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>

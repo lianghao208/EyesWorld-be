@@ -1,5 +1,8 @@
 package org.tvos.exception;
 
+import javax.servlet.Servlet;
+import javax.servlet.http.HttpServlet;
+
 /**
  * 上传图片异常（运行期异常）
  */

@@ -61,13 +61,13 @@ public class UploadController {
         //图片的服务器保存路径+文件名
         String path = dir.getPath() + File.separatorChar + photoFileName;
         //图片的url
-        String url = "/upload/"+ provinceName + "/" + cityName + "/" + userName + "/" + photoFileName;
+        String url = "/upload/" + provinceName + "/" + cityName + "/" + userName + "/" + photoFileName;
         //创建图片文件
         File uploadFile = new File(path);
         System.out.println(photoName);
         file.transferTo(uploadFile);
         //转换成缩略图
-        ThumbnailGenerator.generate(path, path,2);
+        ThumbnailGenerator.generate(path, path, 3);
         //得到当前登录的用户名
         userName = getCurrentUserName();
         photoService.addPhotoFromSpots(
@@ -102,13 +102,13 @@ public class UploadController {
         //图片的服务器保存路径+文件名
         String path = dir.getPath() + File.separatorChar + photoFileName;
         //图片的url
-        String url = "/upload/"+ provinceName+ "/" + userName + "/" + photoFileName;
+        String url = "/upload/" + provinceName + "/" + userName + "/" + photoFileName;
         //创建图片文件
         File uploadFile = new File(path);
         System.out.println(photoName);
         file.transferTo(uploadFile);
         //生成缩略图，缩小一半
-        ThumbnailGenerator.generate(path, path,2);
+        ThumbnailGenerator.generate(path, path, 3);
         //得到当前登录的用户名
         userName = getCurrentUserName();
 
@@ -123,31 +123,32 @@ public class UploadController {
 
     }
 
-    @RequestMapping(value = "/{provinceName}/{cityName}/{username}/{photoName}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{provinceName}/{cityName}/{username}/{photoName}", method = RequestMethod.GET)
     public ResponseEntity<?> spotsFileDownload(@PathVariable(value = "photoName") String photoName,
                                                @PathVariable(value = "provinceName") String provinceName,
-                                               @PathVariable(value = "cityName")String cityName,
+                                               @PathVariable(value = "cityName") String cityName,
                                                @PathVariable(value = "username") String username) throws IOException {
-        File dir = new File("C:\\upload\\spotsPhoto\\"+photoName);
-        HttpHeaders h=new HttpHeaders();
+        File dir = new File("C:\\upload\\spotsPhoto\\" + photoName);
+        HttpHeaders h = new HttpHeaders();
         h.setContentType(MediaType.MULTIPART_FORM_DATA);
         //h.setContentDispositionFormData("attachment",dir.getCanonicalPath());
-        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(dir),h,HttpStatus.OK);
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(dir), h, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{provinceName}/{username}/{photoName}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{provinceName}/{username}/{photoName}", method = RequestMethod.GET)
     public ResponseEntity<?> collegeFileDownload(@PathVariable(value = "photoName") String photoName,
                                                  @PathVariable(value = "provinceName") String provinceName,
                                                  @PathVariable(value = "username") String username) throws IOException {
-        File dir = new File("C:\\upload\\collegePhoto\\"+photoName);
-        HttpHeaders h=new HttpHeaders();
+        File dir = new File("C:\\upload\\collegePhoto\\" + photoName);
+        HttpHeaders h = new HttpHeaders();
         h.setContentType(MediaType.MULTIPART_FORM_DATA);
         //h.setContentDispositionFormData("attachment",dir.getCanonicalPath());
-        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(dir),h,HttpStatus.OK);
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(dir), h, HttpStatus.OK);
     }
 
     /**
      * 获取用户名
+     *
      * @return
      */
     private String getCurrentUserName() {

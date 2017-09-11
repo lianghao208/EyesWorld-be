@@ -50,3 +50,24 @@ $(document).ready(function(){
 		
 	});
 });
+
+//退出登录
+$(document).ready(function(){
+    $("#log-out").click(function(){
+            $.ajax({//调用jquery的ajax方法
+                type:"GET",//设置ajax方法提交数据的形式
+                url:"/p_logout",//把数据提交到后台
+                beforeSend: function() {
+                    console.log('before send')
+                },
+                success:function(){//退出成功，提示并跳转到登录页面
+                    alert("退出成功");
+                    location.href="login.html";
+                },
+                error:function(){//退出失败
+                    alert("退出失败，请稍后重试");
+                }
+            });
+        }
+    );
+});

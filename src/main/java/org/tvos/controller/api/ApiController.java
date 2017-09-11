@@ -12,12 +12,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 import org.tvos.dto.*;
 import org.tvos.service.*;
 
 import javax.annotation.Resource;
 import javax.annotation.Resources;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +31,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api")
-public class ApiController {
+public class ApiController{
 
     @Resource
     private ProvinceService provinceService;
@@ -59,10 +62,6 @@ public class ApiController {
         return provinceService.getProvincesForSpots();
     }
 
-    @RequestMapping(value = "/1", method = RequestMethod.GET)
-    public String test() {
-        return "ok";
-    }
 
     /**
      * 城市信息
@@ -466,5 +465,6 @@ public class ApiController {
             return ((UserDetails) auth.getPrincipal()).getUsername();
         }
     }
+
 
 }

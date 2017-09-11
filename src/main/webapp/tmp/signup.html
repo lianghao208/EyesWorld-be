@@ -27,7 +27,27 @@
             })
         }
         function checkname() {
-            $.ajax({
+            var request = new XMLHttpRequest();
+            request.open("GET","/signup/check/"+$("#username").val());
+            request.send();
+            request.onreadystatechange = function() {
+                if (request.readyState === 4) {
+                    if (request.status === 200) {
+                        var responseObj = request.response;
+                        var jsObj = JSON.parse(responseObj);
+                        if(jsObj.nameUsed==true){
+                            $("#checkname").text("");
+                        }else{
+                            $("#checkname").text("用户名已被使用");
+                        }
+                    } else {
+                        alert("error");
+                    }
+
+                }
+            }
+
+            /*$.ajax({
                 url:"/signup/check/"+$("#username").val(),
                 type:"GET",
                 success:function (data,status) {
@@ -38,7 +58,7 @@
                         $("#checkname").text("用户名已被使用");
                     }
                 }
-            })
+            })*/
         }
     </script>
     <title>Title</title>
